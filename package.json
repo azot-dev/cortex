@@ -1,0 +1,17 @@
+{
+  "name": "inversify-project",
+  "version": "1.0.0",
+  "description": "Project using Inversify for Dependency Injection",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "inversify": "^5.1.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
