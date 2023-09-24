@@ -1,10 +1,21 @@
 import { createCoreFactory } from './coreFactory';
-// Assurez-vous que les chemins d'importation sont corrects en fonction de l'organisation de votre projet.
 import { serviceConstructors } from './services';
-// Assurez-vous que les chemins d'importation sont corrects en fonction de l'organisation de votre projet.
 
-// Exemple d'un store et de dépendances pour illustrer comment ils sont utilisés.
-const myStore = {
+type StoreType = {
+  user: {
+    id: string;
+    name: string;
+  };
+  settings: {
+    theme: string;
+  };
+};
+
+type DependenciesType = {
+  apiClient: any;
+};
+
+const myStore: StoreType = {
   user: {
     id: '1',
     name: 'John',
@@ -14,13 +25,12 @@ const myStore = {
   },
 };
 
-const myDependencies = {
-  apiClient: {}, // Supposons un client API simplifié ici.
-};
+const CoreClass = createCoreFactory<
+  typeof serviceConstructors,
+  StoreType,
+  DependenciesType
+>(myStore, serviceConstructors);
+const core = new CoreClass({ apiClient: {} });
 
-// Créez le core avec le store, les dépendances et les services.
-const core = createCoreFactory(myStore, myDependencies, serviceConstructors);
-
-// Utilisation d'un service
 const myAuthService = core.getService('AuthService');
 myAuthService.authenticate();

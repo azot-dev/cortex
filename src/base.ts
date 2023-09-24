@@ -1,7 +1,4 @@
-// base.ts
-import { StoreType, DependenciesType } from './types';
-
-export class ServiceRegistry<ServiceClasses> {
+export class ServiceRegistry<ServiceClasses, StoreType, DependenciesType> {
   private instances: Partial<ServiceClasses> = {};
 
   constructor(
@@ -22,17 +19,17 @@ export class ServiceRegistry<ServiceClasses> {
     }
     return this.instances[name] as ServiceClasses[K];
   }
-
-  getService<K extends keyof ServiceList>(name: K): ServiceList[K] {
-    return this.services[name]!;
-  }
 }
 
-export class BaseService<ServiceClasses> {
+export class BaseService<ServiceClasses, StoreType, DependenciesType> {
   constructor(
     public store: StoreType,
-    public dependencies: Partial<DependenciesType>,
-    private serviceRegistry: ServiceRegistry<ServiceClasses>
+    public dependencies: DependenciesType,
+    private serviceRegistry: ServiceRegistry<
+      ServiceClasses,
+      StoreType,
+      DependenciesType
+    >
   ) {}
 
   getService<K extends keyof ServiceClasses>(name: K): ServiceClasses[K] {

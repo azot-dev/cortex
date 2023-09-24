@@ -1,5 +1,8 @@
+// services/index.ts
+
 import { AuthService } from './AuthService';
 import { UserService } from './UserService';
+
 // Map de constructeurs
 export const serviceConstructors = {
   AuthService,

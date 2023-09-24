@@ -1,7 +1,14 @@
-import { BaseService } from '../base';
-import { AllServices } from './index';
+// services/UserService.ts
 
-export class UserService extends BaseService<AllServices> {
+import { AllServices } from '.';
+import { BaseService } from '../base';
+import { StoreType, DependenciesType } from '../types';
+
+export class UserService extends BaseService<
+  AllServices,
+  StoreType,
+  DependenciesType
+> {
   getUser() {
     console.log('Fetching user...');
   }
