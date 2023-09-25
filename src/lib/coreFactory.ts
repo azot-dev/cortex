@@ -1,4 +1,4 @@
-// coreFactory.ts
+// lib/coreFactory.ts
 
 import { ServiceRegistry } from './base';
 

@@ -1,5 +1,5 @@
 // services/AuthService.ts
-import { Service } from '../Service';
+import { Service } from '../utils/service';
 
 export class AuthService extends Service {
   authenticate() {
