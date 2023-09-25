@@ -17,9 +17,3 @@ export type AllServices = {
     (typeof serviceConstructors)[K]
   >;
 };
-
-export class Service extends BaseService<
-  AllServices,
-  StoreType,
-  DependenciesType
-> {}
