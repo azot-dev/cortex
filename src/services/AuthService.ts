@@ -1,3 +1,4 @@
+// services/AuthService.ts
 import { Service } from '../Service';
 
 export class AuthService extends Service {
