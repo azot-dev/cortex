@@ -1,10 +1,9 @@
 
-- supprimer la redondance de BaseService avec les 3 paramètres sans dépendances circulaires
-- tenter de faire un serviceFactory prenant en paramètre allServices, storeType, et DependencyType
 - ne passer que des paramètres à createCoreFactory et en déduire les types
 - rendre le store observable
 - écrire des tests
 - ramener le contexte
 - créer un exemple de todo list
+- corriger les accès aux vues et les accès des services
 - documentation
 - deploiement en continu et semantic releases
