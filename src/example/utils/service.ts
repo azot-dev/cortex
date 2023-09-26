@@ -1,15 +1,19 @@
 // example/utils/service.ts
 
+import { Observable } from '@legendapp/state';
 import { BaseService } from '../../lib/base';
 import { serviceConstructors } from '../services/_services';
 import { DependenciesType, StoreType } from '../types';
 
 export abstract class Service extends BaseService<
   typeof serviceConstructors,
-  StoreType,
+  Observable<StoreType>,
   DependenciesType
 > {
-  constructor(store: StoreType, dependencies: Partial<DependenciesType>) {
+  constructor(
+    store: Observable<StoreType>,
+    dependencies: Partial<DependenciesType>
+  ) {
     super(store, dependencies);
   }
 }
