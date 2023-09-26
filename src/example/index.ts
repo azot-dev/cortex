@@ -17,11 +17,11 @@ const myStore = {
   },
 };
 
-const CoreClass = createCoreFactory<
-  typeof serviceConstructors,
-  typeof myStore,
-  DependenciesType
->(myStore, serviceConstructors);
+const CoreClass = createCoreFactory<DependenciesType>()(
+  myStore,
+  serviceConstructors
+);
+
 const core = new CoreClass({});
 
 const myAuthService = core.getService('AuthService');
