@@ -3,7 +3,7 @@
 import { Service } from '../utils/service';
 
 export class UserService extends Service {
-  getUser() {
-    console.log('Fetching user...');
+  changeFirstName(firstName: string) {
+    this.store.user.firstName.set(firstName);
   }
 }

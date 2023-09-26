@@ -1,7 +1,7 @@
 export const store = {
   user: {
-    id: '1',
-    name: 'John',
+    firstName: 'John',
+    lastName: 'Doe',
   },
   settings: {
     theme: 'dark',
