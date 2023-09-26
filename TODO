@@ -1,4 +1,4 @@
-- rendre le store observable
+- simplifier le service en retirant l'observable
 - écrire des tests
 - ramener le contexte
 - créer un exemple de todo list
