@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/azot-dev/x-core/compare/v1.4.0...v1.4.1) (2023-09-27)
+
+
+### Bug Fixes
+
+* doc missing yarn add @azot-dev/x-core ([961a730](https://github.com/azot-dev/x-core/commit/961a730dee0de61eabbd35de8dad0243e6a4ee02))
+
 # [1.4.0](https://github.com/azot-dev/x-core/compare/v1.3.0...v1.4.0) (2023-09-27)
 
 
