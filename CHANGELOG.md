@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/azot-dev/x-core/compare/v1.3.0...v1.4.0) (2023-09-27)
+
+
+### Features
+
+* add an entry point ([83f25eb](https://github.com/azot-dev/x-core/commit/83f25ebe5fb7c887b03c7ace8ec2353d8e49f250))
+
 # [1.3.0](https://github.com/azot-dev/x-core/compare/v1.2.1...v1.3.0) (2023-09-27)
 
 
