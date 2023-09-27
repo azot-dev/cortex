@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/azot-dev/x-core/compare/v1.2.1...v1.3.0) (2023-09-27)
+
+
+### Features
+
+* add github url ([b533397](https://github.com/azot-dev/x-core/commit/b5333972a321b917925e091dfdec6116a10c6614))
+
 ## [1.2.1](https://github.com/azot-dev/x-core/compare/v1.2.0...v1.2.1) (2023-09-27)
 
 
