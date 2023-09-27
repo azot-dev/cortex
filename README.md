@@ -126,4 +126,3 @@ console.log(core.store.settings.hasChangedName.get())
 
 ## License
 MIT
-
