@@ -5,4 +5,4 @@
 - corriger les accès aux vues et les accès des services
 - documentation
 - deploiement en continu et semantic releases
-
+- mettre en place un docusaurus pour les exemples avec un code bloc et un url qui redirige vers le site

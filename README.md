@@ -1,4 +1,7 @@
 # XCore
+
+The package is not ready to use yet, some things are still missing, like a correct documentation.
+PR welcome :)
 ## Purpose
 
 React is a library not a framework, it has been created to reflect the changes of some variables (the states) to the UI, nothing else.
