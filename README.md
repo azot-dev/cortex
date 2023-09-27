@@ -27,13 +27,13 @@ It is the perfect lib for creating a strong scalable app
 ### Getting started
 
 ```sh
-yarn add @azot/x-core @legendapp/state
+yarn add @azot-dev/x-core @legendapp/state
 ```
 
 or 
 
 ```sh
-npm i @azot/x-core @legendapp/state
+npm i @azot-dev/x-core @legendapp/state
 ```
 ### Usage
 
