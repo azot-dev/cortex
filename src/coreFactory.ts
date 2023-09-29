@@ -1,45 +1,51 @@
 import { ServiceRegistry } from './base';
 
-export function createCoreFactory<ServiceClasses, StoreType, DependenciesType>(
+type ServiceConstructor<ServiceType, StoreType, DependenciesType> = new (
   store: StoreType,
-  serviceConstructors: {
-    [K in keyof ServiceClasses]: new (
-      store: StoreType,
-      dependencies: DependenciesType,
-      serviceRegistry: ServiceRegistry<
-        ServiceClasses,
-        StoreType,
-        DependenciesType
-      >
-    ) => ServiceClasses[K];
-  }
-) {
+  dependencies: Partial<DependenciesType>,
+  serviceRegistry: ServiceRegistry<any, StoreType, DependenciesType>
+) => ServiceType;
+
+export function createCoreFactory<
+  ServiceConstructorsType extends Record<
+    string,
+    ServiceConstructor<any, any, any>
+  >,
+  StoreType,
+  DependenciesType
+>(store: StoreType, serviceConstructors: ServiceConstructorsType) {
+  type ServiceInstances = {
+    [K in keyof ServiceConstructorsType]: InstanceType<
+      ServiceConstructorsType[K]
+    >;
+  };
+
   return class Core {
     private serviceRegistry: ServiceRegistry<
-      ServiceClasses,
+      ServiceInstances,
       StoreType,
       DependenciesType
     >;
 
-    constructor(dependencies: Partial<DependenciesType>) {
-      this.serviceRegistry = new ServiceRegistry(
-        store,
-        dependencies as DependenciesType
-      );
+    constructor(dependencies: Partial<DependenciesType> = {}) {
+      this.serviceRegistry = new ServiceRegistry(store, dependencies);
 
       for (const [key, ServiceConstructor] of Object.entries(
         serviceConstructors
       )) {
         const instance = new ServiceConstructor(
           store,
-          dependencies as DependenciesType,
+          dependencies,
           this.serviceRegistry
         );
-        this.serviceRegistry.setInstance(key as keyof ServiceClasses, instance);
+        this.serviceRegistry.setInstance(
+          key as keyof ServiceInstances,
+          instance
+        );
       }
     }
 
-    getService<K extends keyof ServiceClasses>(name: K): ServiceClasses[K] {
+    getService<K extends keyof ServiceInstances>(name: K): ServiceInstances[K] {
       return this.serviceRegistry.get(name);
     }
   };

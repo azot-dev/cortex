@@ -3,7 +3,7 @@ export class ServiceRegistry<ServiceClasses, StoreType, DependenciesType> {
 
   constructor(
     private store: StoreType,
-    private dependencies: DependenciesType
+    private dependencies: Partial<DependenciesType>
   ) {}
 
   setInstance<K extends keyof ServiceClasses>(
@@ -24,7 +24,7 @@ export class ServiceRegistry<ServiceClasses, StoreType, DependenciesType> {
 export class BaseService<ServiceClasses, StoreType, DependenciesType> {
   constructor(
     public store: StoreType,
-    public dependencies: DependenciesType,
+    public dependencies: Partial<DependenciesType>,
     private serviceRegistry: ServiceRegistry<
       ServiceClasses,
       StoreType,

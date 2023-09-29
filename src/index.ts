@@ -30,7 +30,7 @@ const CoreClass = createCoreFactory<
   StoreType,
   DependenciesType
 >(myStore, serviceConstructors);
-const core = new CoreClass({ apiClient: {} });
+const core = new CoreClass({});
 
 const myAuthService = core.getService('AuthService');
 myAuthService.authenticate();
