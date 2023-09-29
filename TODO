@@ -1,6 +1,9 @@
 - simplifier le service en retirant l'observable
+- ajouter un clone du store
+- exemple de persistence
 - importer le XCoreProvider
 - faire un hook pour les service asynchrones
+- séparation du paquet x-core et react-x-core
 - écrire des tests
 - ramener le contexte
 - créer un exemple de todo list
