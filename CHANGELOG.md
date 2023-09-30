@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/azot-dev/x-core/compare/v1.4.1...v1.5.0) (2023-09-27)
+
+
+### Features
+
+* update documentation ([e4dc788](https://github.com/azot-dev/x-core/commit/e4dc788db36a6b91e556270a1a20e692bb9a731e))
+
 ## [1.4.1](https://github.com/azot-dev/x-core/compare/v1.4.0...v1.4.1) (2023-09-27)
 
 
