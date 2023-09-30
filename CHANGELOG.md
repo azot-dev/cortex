@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/azot-dev/x-core/compare/v1.1.0...v1.2.0) (2023-09-27)
+
+
+### Features
+
+* test ci ([b054775](https://github.com/azot-dev/x-core/commit/b054775cc9cec91181721c3e0feb1e8b7083f9d6))
+
 # [1.1.0](https://github.com/azot-dev/x-core/compare/v1.0.0...v1.1.0) (2023-09-27)
 
 
