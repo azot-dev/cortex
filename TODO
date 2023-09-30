@@ -1,5 +1,3 @@
-
-- ne passer que des paramètres à createCoreFactory et en déduire les types
 - rendre le store observable
 - écrire des tests
 - ramener le contexte
