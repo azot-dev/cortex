@@ -1,5 +1,6 @@
 // lib/coreFactory.ts
 
+import { observable } from '@legendapp/state';
 import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 
@@ -11,7 +12,7 @@ export function createCoreFactory<DependenciesType>() {
       ServiceConstructor<any, StoreType, DependenciesType>
     >
   >(
-    store: StoreType,
+    rawStore: StoreType,
     serviceConstructors: ServiceConstructorsType
   ) => {
     type ServiceInstances = {
@@ -19,6 +20,7 @@ export function createCoreFactory<DependenciesType>() {
         ServiceConstructorsType[K]
       >;
     };
+    const store = observable(rawStore);
 
     return class Core {
       private serviceRegistry: ServiceRegistry<
@@ -26,15 +28,17 @@ export function createCoreFactory<DependenciesType>() {
         StoreType,
         DependenciesType
       >;
+      public store: typeof store;
 
       constructor(dependencies: Partial<DependenciesType> = {}) {
         this.serviceRegistry = new ServiceRegistry();
+        this.store = store;
 
         for (const [key, ServiceConstructor] of Object.entries(
           serviceConstructors
         )) {
           const instance = new ServiceConstructor(
-            store,
+            rawStore,
             dependencies as DependenciesType,
             this.serviceRegistry
           );
