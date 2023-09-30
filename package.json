@@ -3,6 +3,10 @@
   "version": "1.2.1",
   "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azot-dev/x-core"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js"
