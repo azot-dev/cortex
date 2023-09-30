@@ -1,7 +1,7 @@
 {
-  "name": "inversify-project",
-  "version": "1.0.0",
-  "description": "Project using Inversify for Dependency Injection",
+  "name": "@azot-dev/cortex",
+  "version": "0.1.0",
+  "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -13,6 +13,10 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.1.0",
+    "semantic-release": "^22.0.5",
     "typescript": "^4.5.4"
   }
 }
