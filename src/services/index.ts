@@ -1,5 +1,7 @@
 // services/index.ts
 
+import { BaseService } from '../base';
+import { DependenciesType, StoreType } from '../types';
 import { AuthService } from './AuthService';
 import { UserService } from './UserService';
 
@@ -15,3 +17,9 @@ export type AllServices = {
     (typeof serviceConstructors)[K]
   >;
 };
+
+export class Service extends BaseService<
+  AllServices,
+  StoreType,
+  DependenciesType
+> {}

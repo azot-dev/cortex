@@ -9,10 +9,8 @@ export interface DependenciesType {
   apiClient: any;
 }
 
-export type ServiceConstructor<ServiceClasses, Store, Dependencies> = {
-  [K in keyof ServiceClasses]: new (
-    store: Store,
-    dependencies: Partial<Dependencies>,
-    serviceRegistry: ServiceRegistry<ServiceClasses, Store, Dependencies>
-  ) => ServiceClasses[K];
-};
+export type ServiceConstructor<ServiceType, StoreType, DependenciesType> = new (
+  store: StoreType,
+  dependencies: DependenciesType,
+  serviceRegistry: ServiceRegistry<any, StoreType, DependenciesType>
+) => ServiceType;

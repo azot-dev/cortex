@@ -9,7 +9,7 @@ type ServiceConstructor<ServiceType, StoreType, DependenciesType> = new (
 export function createCoreFactory<
   ServiceConstructorsType extends Record<
     string,
-    ServiceConstructor<any, any, any>
+    ServiceConstructor<any, StoreType, DependenciesType>
   >,
   StoreType,
   DependenciesType
@@ -35,7 +35,7 @@ export function createCoreFactory<
       )) {
         const instance = new ServiceConstructor(
           store,
-          dependencies,
+          dependencies as DependenciesType,
           this.serviceRegistry
         );
         this.serviceRegistry.setInstance(

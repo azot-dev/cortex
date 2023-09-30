@@ -1,12 +1,6 @@
-import { BaseService } from '../base';
-import { DependenciesType, StoreType } from '../types';
-import { AllServices } from './'; // Type déduit pour AllServices
+import { Service } from '../Service';
 
-export class AuthService extends BaseService<
-  AllServices,
-  StoreType,
-  DependenciesType
-> {
+export class AuthService extends Service {
   authenticate() {
     const userService = this.getService('UserService');
     userService.getUser();
