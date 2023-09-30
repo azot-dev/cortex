@@ -1,8 +1,10 @@
 - simplifier le service en retirant l'observable
+- importer le XCoreProvider
+- faire un hook pour les service asynchrones
 - écrire des tests
 - ramener le contexte
 - créer un exemple de todo list
 - corriger les accès aux vues et les accès des services
 - documentation
-- deploiement en continu et semantic releases
+- ajouter une FAQ pour expliquer si c'est utilisable avec GraphQL
 - mettre en place un docusaurus pour les exemples avec un code bloc et un url qui redirige vers le site

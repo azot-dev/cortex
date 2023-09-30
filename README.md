@@ -1,6 +1,6 @@
 # XCore
 
-Some things are still missing, like a correct documentation, don't hesitate to create issues if you have any problem
+This package is not ready to use yet, some things are still missing, like a correct documentation, some hooks and the React Provider, don't hesitate to create issues if you have any problem
 PR welcome :)
 ## Purpose
 
@@ -18,9 +18,7 @@ With this you could:
 All of that using oriented object programming!
 It is the perfect lib for creating a strong scalable app
 
-## Road map
 
-- create the documentations with examples
 
 ## Usage
 
@@ -64,13 +62,13 @@ export const store = {
 
 ```
 
-##### Create your dependencies interface
+##### Create the dependencies interface
 ```typescript
 export interface DependenciesType {}
 ```
 dependencies is a more advanced notion in clean architecture, we don't need it for a basic example
 
-##### Create your Service class
+##### Create the Service class
 ```typescript
 export abstract class Service extends BaseService<
   typeof services,
@@ -86,6 +84,38 @@ export abstract class Service extends BaseService<
 }
 ```
 That is the most important part of the setup for making sure you will have the strongest typing in the services you will create later
+
+##### Declare the services
+```typescript
+export abstract class Service extends BaseService<
+  typeof services,
+  Observable<StoreType>,
+  DependenciesType
+> {
+  constructor(
+    store: Observable<StoreType>,
+    dependencies: Partial<DependenciesType>
+  ) {
+    super(store, dependencies);
+  }
+}
+```
+
+##### Create the core
+```typescript
+export abstract class Service extends BaseService<
+  typeof services,
+  Observable<StoreType>,
+  DependenciesType
+> {
+  constructor(
+    store: Observable<StoreType>,
+    dependencies: Partial<DependenciesType>
+  ) {
+    super(store, dependencies);
+  }
+}
+```
 
 ### Usage
 
@@ -179,6 +209,16 @@ console.log(core.store.settings.hasChangedName.get())
 
 ### Todo list
 ### authentication form
+
+## Road map
+
+- finish the documentations
+- create the useAppSelector hook
+- create the provider
+- create the useAsyncUseCase const {isLoading, isError, isSuccess} = useAsyncUseCase((services) => services.user.login)
+- create a docusaurus website with complete examples
+
+
 
 ## License
 MIT
