@@ -1,3 +1,5 @@
+// index.ts
+
 import { createCoreFactory } from './coreFactory';
 import { serviceConstructors } from './services';
 

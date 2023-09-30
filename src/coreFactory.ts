@@ -1,3 +1,5 @@
+// coreFactory.ts
+
 import { ServiceRegistry } from './base';
 
 type ServiceConstructor<ServiceType, StoreType, DependenciesType> = new (

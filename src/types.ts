@@ -1,3 +1,4 @@
+// types.ts
 import { ServiceRegistry } from './base';
 
 export interface StoreType {

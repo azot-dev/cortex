@@ -1,3 +1,4 @@
+// base.ts
 export class ServiceRegistry<ServiceClasses, StoreType, DependenciesType> {
   private instances: Partial<ServiceClasses> = {};
 
