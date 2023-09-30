@@ -2,7 +2,7 @@
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 
-export const serviceConstructors = {
+export const services = {
   AuthService,
   UserService,
 };

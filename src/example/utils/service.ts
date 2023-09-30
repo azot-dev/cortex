@@ -2,11 +2,11 @@
 
 import { Observable } from '@legendapp/state';
 import { BaseService } from '../../lib/base';
-import { serviceConstructors } from '../services/_services';
+import { services } from '../services/_services';
 import { DependenciesType, StoreType } from '../types';
 
 export abstract class Service extends BaseService<
-  typeof serviceConstructors,
+  typeof services,
   Observable<StoreType>,
   DependenciesType
 > {
