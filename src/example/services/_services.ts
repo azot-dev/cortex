@@ -6,9 +6,3 @@ export const serviceConstructors = {
   AuthService,
   UserService,
 };
-
-export type AllServices = {
-  [K in keyof typeof serviceConstructors]: InstanceType<
-    (typeof serviceConstructors)[K]
-  >;
-};
