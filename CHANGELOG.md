@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/azot-dev/x-core/compare/v1.5.0...v1.6.0) (2023-09-27)
+
+
+### Features
+
+* update documentation with road map ([b73c2e6](https://github.com/azot-dev/x-core/commit/b73c2e624d5b8d0340a4575b47700e5fcc7cb065))
+
 # [1.5.0](https://github.com/azot-dev/x-core/compare/v1.4.1...v1.5.0) (2023-09-27)
 
 
