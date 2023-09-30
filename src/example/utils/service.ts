@@ -1,8 +1,8 @@
-// Service.ts
+// example/utils/service.ts
 
-import { BaseService, ServiceRegistry } from './base';
-import { AllServices } from './services';
-import { StoreType, DependenciesType } from './types';
+import { BaseService, ServiceRegistry } from '../../lib/base';
+import { AllServices } from '../services/_services';
+import { DependenciesType, StoreType } from '../types';
 
 export abstract class Service extends BaseService<
   AllServices,

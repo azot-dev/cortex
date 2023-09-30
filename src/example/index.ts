@@ -1,23 +1,13 @@
-// index.ts
+// example/index.ts
 
-import { createCoreFactory } from './coreFactory';
-import { serviceConstructors } from './services';
-
-type StoreType = {
-  user: {
-    id: string;
-    name: string;
-  };
-  settings: {
-    theme: string;
-  };
-};
+import { createCoreFactory } from '../lib/coreFactory';
+import { serviceConstructors } from './services/_services';
 
 type DependenciesType = {
   apiClient: any;
 };
 
-const myStore: StoreType = {
+const myStore = {
   user: {
     id: '1',
     name: 'John',
@@ -29,7 +19,7 @@ const myStore: StoreType = {
 
 const CoreClass = createCoreFactory<
   typeof serviceConstructors,
-  StoreType,
+  typeof myStore,
   DependenciesType
 >(myStore, serviceConstructors);
 const core = new CoreClass({});
