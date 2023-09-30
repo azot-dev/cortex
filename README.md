@@ -1,6 +1,6 @@
 # XCore
 
-The package is not ready to use yet, some things are still missing, like a correct documentation.
+Some things are still missing, like a correct documentation, don't hesitate to create issues if you have any problem
 PR welcome :)
 ## Purpose
 
@@ -26,6 +26,7 @@ It is the perfect lib for creating a strong scalable app
 
 ### Getting started
 
+#### Installation
 ```sh
 yarn add @azot-dev/x-core @legendapp/state
 ```
@@ -35,6 +36,57 @@ or
 ```sh
 npm i @azot-dev/x-core @legendapp/state
 ```
+
+#### Setup
+
+##### Create your store
+```typescript
+
+export type StoreType = {
+  user: {
+    firstName: string;
+    lastName: string;
+  },
+  settings: {
+    theme: 'dark' | 'light',
+  },
+};
+
+export const store = {
+  user: {
+    firstName: 'John',
+    lastName: 'Doe',
+  },
+  settings: {
+    theme: 'dark',
+  },
+};
+
+```
+
+##### Create your dependencies interface
+```typescript
+export interface DependenciesType {}
+```
+dependencies is a more advanced notion in clean architecture, we don't need it for a basic example
+
+##### Create your Service class
+```typescript
+export abstract class Service extends BaseService<
+  typeof services,
+  Observable<StoreType>,
+  DependenciesType
+> {
+  constructor(
+    store: Observable<StoreType>,
+    dependencies: Partial<DependenciesType>
+  ) {
+    super(store, dependencies);
+  }
+}
+```
+That is the most important part of the setup for making sure you will have the strongest typing in the services you will create later
+
 ### Usage
 
 #### Basic Example
@@ -72,7 +124,7 @@ console.log(user)
 ```
 Every change will be reflected on React
 
-#### Call a service from another one
+#### Call a service from another service
 ```typescript
 const myStore = {
   user: {
@@ -115,6 +167,7 @@ console.log(core.store.settings.hasChangedName.get())
 // true
 ```
 
+### File structure
 ### The store
 ### The services
 ### The dependencies
