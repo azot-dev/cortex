@@ -1,3 +1,4 @@
+import { Observable } from '@legendapp/state';
 import {
   ConstructedServiceTypes,
   ServiceConstructor,
@@ -7,7 +8,7 @@ import {
 export class ServiceRegistry<
   ServiceConstructorsType extends Record<
     string,
-    ServiceConstructor<any, StoreType, DependenciesType>
+    ServiceConstructor<any, Observable<StoreType>, DependenciesType>
   >,
   StoreType,
   DependenciesType
@@ -64,7 +65,7 @@ export class ServiceRegistry<
 export class BaseService<
   ServiceConstructorsType extends Record<
     string,
-    ServiceConstructor<any, StoreType, DependenciesType>
+    ServiceConstructor<any, Observable<StoreType>, DependenciesType>
   >,
   StoreType,
   DependenciesType

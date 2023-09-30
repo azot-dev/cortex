@@ -1,9 +1,8 @@
 // example/types.ts
 
-export interface StoreType {
-  user: { id: string; name: string };
-  settings: { theme: string };
-}
+import { store } from './store/_store';
+
+export type StoreType = typeof store;
 
 export interface DependenciesType {
   apiClient: any;

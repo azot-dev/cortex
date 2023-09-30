@@ -38,7 +38,7 @@ export function createCoreFactory<DependenciesType>() {
           serviceConstructors
         )) {
           const instance = new ServiceConstructor(
-            rawStore,
+            this.store,
             dependencies as DependenciesType,
             this.serviceRegistry
           );
