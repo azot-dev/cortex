@@ -20,11 +20,6 @@ export class ServiceRegistry<
     >
   > = {};
 
-  constructor(
-    private store: StoreType,
-    private dependencies: Partial<DependenciesType>
-  ) {}
-
   setInstance<
     K extends keyof ConstructedServiceTypes<
       ServiceConstructorsType,
@@ -88,7 +83,7 @@ export class BaseService<
       ServiceConstructorsType,
       StoreType,
       DependenciesType
-    >(store, dependencies);
+    >();
   }
 
   getService<K extends keyof ServiceConstructorsType>(
