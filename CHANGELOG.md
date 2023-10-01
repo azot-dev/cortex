@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/azot-dev/x-core/compare/v1.8.4...v1.8.5) (2023-10-01)
+
+
+### Bug Fixes
+
+* attempt to deploy CI ([d99e03e](https://github.com/azot-dev/x-core/commit/d99e03e85e5cd2444cc598e9bffa6f549111421f))
+
 ## [1.8.4](https://github.com/azot-dev/x-core/compare/v1.8.3...v1.8.4) (2023-10-01)
 
 
