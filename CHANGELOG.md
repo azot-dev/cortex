@@ -1,3 +1,10 @@
+## [1.8.11](https://github.com/azot-dev/x-core/compare/v1.8.10...v1.8.11) (2023-10-01)
+
+
+### Bug Fixes
+
+* change name of the hooks starting with use ([25f9f55](https://github.com/azot-dev/x-core/commit/25f9f553fb94de26c535fee4a6869fdc4c23a122))
+
 ## [1.8.10](https://github.com/azot-dev/x-core/compare/v1.8.9...v1.8.10) (2023-10-01)
 
 
