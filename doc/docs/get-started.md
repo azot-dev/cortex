@@ -158,13 +158,14 @@ export const Core = createCoreFactory<DependenciesType>()(store, services);
 // core/utils/hooks.ts
 
 import {
-  useGenericSelector,
-  useGenericService,
+  createSelectorHook,
+  createServiceHook,
 } from '@azot-dev/x-core';
 import { Core } from '../_core';
+import { Store, Services } from './utils/types';
 
-export const useAppSelector = useGenericSelector<InstanceType<typeof Core>>();
-export const useAppService = useGenericService<InstanceType<typeof Core>>();
+export const useAppSelector = createSelectorHook<Store>();
+export const useAppService = createServiceHook<Services>();
 
 ```
 
@@ -180,8 +181,8 @@ import {
 import { Core } from '.';
 
 const App = () => {
-  const userService = useMyAppService('user');
-  const user = useMyAppSelector((state) => state.user);
+  const userService = useAppService('user');
+  const user = useAppSelector((state) => state.user);
   return (
     <div>
       <div>fist name: {user.firstName}</div>
