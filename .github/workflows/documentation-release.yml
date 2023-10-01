@@ -21,9 +21,9 @@ jobs:
           node-version: '20'
           cache: yarn
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: cd doc; yarn install --frozen-lockfile --non-interactive
       - name: Build
-        run: yarn build
+        run: cd doc; yarn build
       # 👆 Build steps
       - name: Setup Pages
         uses: actions/configure-pages@v3
