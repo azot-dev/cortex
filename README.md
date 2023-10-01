@@ -40,7 +40,7 @@ npm i @azot-dev/x-core @legendapp/state
 ##### Create your store
 ```typescript
 
-export type StoreType = {
+export type Store = {
   user: {
     firstName: string;
     lastName: string;
@@ -50,7 +50,7 @@ export type StoreType = {
   },
 };
 
-export const store = {
+export const store: Store = {
   user: {
     firstName: 'John',
     lastName: 'Doe',
@@ -64,7 +64,7 @@ export const store = {
 
 ##### Create the dependencies interface
 ```typescript
-export interface DependenciesType {}
+export interface Dependencies {}
 ```
 dependencies is a more advanced notion in clean architecture, we don't need it for a basic example
 
@@ -72,12 +72,12 @@ dependencies is a more advanced notion in clean architecture, we don't need it f
 ```typescript
 export abstract class Service extends BaseService<
   typeof services,
-  Observable<StoreType>,
-  DependenciesType
+  Observable<Store>,
+  Dependencies
 > {
   constructor(
-    store: Observable<StoreType>,
-    dependencies: Partial<DependenciesType>
+    store: Observable<Store>,
+    dependencies: Partial<Dependencies>
   ) {
     super(store, dependencies);
   }
@@ -89,12 +89,12 @@ That is the most important part of the setup for making sure you will have the s
 ```typescript
 export abstract class Service extends BaseService<
   typeof services,
-  Observable<StoreType>,
-  DependenciesType
+  Observable<Store>,
+  Dependencies
 > {
   constructor(
-    store: Observable<StoreType>,
-    dependencies: Partial<DependenciesType>
+    store: Observable<Store>,
+    dependencies: Partial<Dependencies>
   ) {
     super(store, dependencies);
   }
@@ -105,12 +105,12 @@ export abstract class Service extends BaseService<
 ```typescript
 export abstract class Service extends BaseService<
   typeof services,
-  Observable<StoreType>,
-  DependenciesType
+  Observable<Store>,
+  Dependencies
 > {
   constructor(
-    store: Observable<StoreType>,
-    dependencies: Partial<DependenciesType>
+    store: Observable<Store>,
+    dependencies: Partial<Dependencies>
   ) {
     super(store, dependencies);
   }
