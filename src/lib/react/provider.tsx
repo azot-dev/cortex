@@ -1,6 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { useSelector } from '@legendapp/state/react';
-import { Observable } from '@legendapp/state';
 
 interface CoreInterface {
   store: any;
