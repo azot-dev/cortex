@@ -1,26 +1,21 @@
 # XCore
 
-This package is not ready to use yet, some things are still missing, like a correct documentation, some hooks and the React Provider, don't hesitate to create issues if you have any problem
+This package is not ready to use yet, some things are still missing, like a correct documentation, some hooks, don't hesitate to create issues if you have any problem
 PR welcome :)
 ## Purpose
 
 React is a library not a framework, it has been created to reflect the changes of some variables (the states) to the UI, nothing else.
 x-core comes as the missing brick of React, and will give all the keys to create the perfect architecture of your app, keeping your code readable and your app scalable.
 
-
 With this you could:
+
 - share your code between React and React Native (and any other JS framework)
-- test your logic directly with Jest (no more react-testing-library to test your data over your UI)
+- test your logic directly with Jest (no more react-testing-library to test your data over the UI)
 - code in test driven development (TDD)
 - create a clean architecture with the port/adapter pattern
 - keep each part of your logic well separated thanks to services
 
 All of that using oriented object programming!
-It is the perfect lib for creating a strong scalable app
-
-
-
-## Usage
 
 ### Getting started
 
@@ -33,6 +28,99 @@ or
 
 ```sh
 npm i @azot-dev/x-core @legendapp/state
+```
+
+
+### Usage
+
+#### Basic Example
+
+```typescript
+const myStore = {
+  counter: 0,
+};
+
+class CounterService extends Service {
+  increment() {
+    this.store.counter.set(counter => counter + 1);
+  }
+  
+  decrement() {
+    this.store.counter.set(counter => counter === 0 ? 0 : counter - 1);
+  }
+
+  setValue(value: number) {
+    this.store.counter.set(value)
+  }
+}
+
+const services = {
+  counter: CounterService,
+};
+
+const Core = createCoreFactory<{}>()(myStore, services);
+
+// in App.tsx
+
+const App = () => {
+  const counter = useAppSelector((state) => state.counter);
+  const { increment, decrement } = useAppService('counter');
+  
+  return (
+    <button onClick={() => increment()}> - </button>
+    <div>{counter}</div>
+    <button onClick={() => decrement()}> + </button>
+  );
+};
+
+const AppWrapper = () => {
+  return (
+    <XCoreProvider coreInstance={new Core()}>
+      <App />
+    </XCoreProvider>
+  );
+};
+
+// counter.spec.ts
+
+describe('counter', () => {
+  let core = new Core();
+
+  beforeEach(() => {
+    core = new Core()
+  })
+
+  it('should be incremented', () => {
+    expect(core.store.counter.get()).toBe(0)
+
+    core.services.counter.increment()
+    expect(core.store.counter.get()).toBe(1)
+
+    core.services.counter.increment()
+    expect(core.store.counter.get()).toBe(2)
+  })
+
+  it('should be decremented', () => {
+    core.services.counter.setValue(5)
+
+    core.services.counter.decrement()
+    expect(core.store.counter.get()).toBe(4)
+
+    core.services.counter.decrement()
+    expect(core.store.counter.get()).toBe(3)
+  })
+
+  it('should not be decremented at a lower value than 0', () => {
+    core.services.counter.setValue(1)
+
+    core.services.counter.decrement()
+    expect(core.store.counter.get()).toBe(0)
+
+    core.services.counter.decrement()
+    expect(core.store.counter.get()).toBe(0)
+  })
+}) 
+
 ```
 
 #### Setup
@@ -117,42 +205,6 @@ export abstract class Service extends BaseService<
 }
 ```
 
-### Usage
-
-#### Basic Example
-```typescript
-const myStore = {
-  user: {
-    firstName: 'John',
-    lastName: 'Doe',
-  },
-};
-
-class UserService extends Service {
-  changeFirstName(firstName: string) {
-    this.store.user.firstName.set(firstName);
-  }
-  
-  changeLastName(lastName: string) {
-    this.store.user.lastName.set(lastName);
-  }
-}
-
-const services = {
-  user: UserService,
-};
-
-const CoreClass = createCoreFactory<{}>()(myStore, services);
-
-const core = new CoreClass();
-
-core.getService('user').changeLastname('Snow');
-const user = core.store.user.get()
-
-console.log(user)
-// { fistName: "John", lastName: "Snow"}
-```
-Every change will be reflected on React
 
 #### Call a service from another service
 ```typescript

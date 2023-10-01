@@ -8,7 +8,7 @@ type DependenciesType = {
   apiClient: any;
 };
 
-const CoreClass = createCoreFactory<DependenciesType>()(store, services);
+export const CoreClass = createCoreFactory<DependenciesType>()(store, services);
 
 const core = new CoreClass();
 
