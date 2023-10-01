@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/azot-dev/x-core/compare/v1.6.0...v1.7.0) (2023-10-01)
+
+
+### Features
+
+* add XCoreProvider, createAppSelector and createAppService hooks ([3f5e5b2](https://github.com/azot-dev/x-core/commit/3f5e5b2dd802c5c1afdfc2c7c850993130199128))
+* update todo ([20604f4](https://github.com/azot-dev/x-core/commit/20604f4577080508398db6291b6b46245e5fe5a5))
+
 # [1.6.0](https://github.com/azot-dev/x-core/compare/v1.5.0...v1.6.0) (2023-09-27)
 
 
