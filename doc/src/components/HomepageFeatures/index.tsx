@@ -10,38 +10,40 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'The Real TDD and clean architecture in front-end',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Separate your data from your UI, so you can test directly the data
+        without passing by the UI, it gives you the possibility to write your
+        tests before the code and use TDD
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Port / Adapters pattern',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        If you want to you can inject dependencies you can change then, so you
+        can easily mock data and create an adapter for each device, so your code
+        is device agnostic
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Framework agnostic',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Make your code scalable and cross-plateform, easily use React or React
+        Native, or any Javascript framework
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

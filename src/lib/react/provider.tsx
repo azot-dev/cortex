@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, FC } from 'react';
 import { useSelector } from '@legendapp/state/react';
 
 interface CoreInterface {
