@@ -1,11 +1,12 @@
-- simplifier le service en retirant l'observable
-- ajouter un clone du store
-- exemple de persistence
-- importer le XCoreProvider
+- déploiement en continu du Docusaurus
+- faire la fonction init
+- mettre react et Observable en peer dependency
 - faire un hook pour les service asynchrones
+- tester en cas concret si le paquet fonctionne bien
+- créer un adapteur api
+- exemple de persistence
 - séparation du paquet x-core et react-x-core
 - écrire des tests
-- ramener le contexte
 - créer un exemple de todo list
 - corriger les accès aux vues et les accès des services
 - documentation
