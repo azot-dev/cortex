@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/azot-dev/x-core/compare/v1.7.0...v1.8.0) (2023-10-01)
+
+
+### Features
+
+* add documentation ([4b56cc1](https://github.com/azot-dev/x-core/commit/4b56cc11a4875751ff388495064bb75a07b46534))
+
 # [1.7.0](https://github.com/azot-dev/x-core/compare/v1.6.0...v1.7.0) (2023-10-01)
 
 
