@@ -36,14 +36,14 @@ function useAppContext<T>(): T {
   return context;
 }
 
-export const createAppSelector =
+export const useGenericSelector =
   <T extends CoreInterface>() =>
   (selectorFunc: (state: DeepOmitFunctions<T['store']>) => any) => {
     const instance = useAppContext<T>();
     return useSelector(() => selectorFunc(instance.store));
   };
 
-export function createAppService<T extends CoreInterface>(): T['getService'] {
+export function useGenericService<T extends CoreInterface>(): T['getService'] {
   const core = useAppContext<T>();
   return core.getService;
 }

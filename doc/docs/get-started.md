@@ -144,12 +144,12 @@ export abstract class Service extends BaseService<
 ```typescript
 // core/_core.ts
 
-import { createCoreFactory } from '../lib/coreFactory';
+import { createCoreFactory } from '@azot-dev/x-core';
 import { services } from './services/_services';
 import { store } from './store/_store';
-import { DependenciesType } from './utils/types';
+import { Dependencies } from './utils/types';
 
-export const CoreClass = createCoreFactory<DependenciesType>()(store, services);
+export const Core = createCoreFactory<DependenciesType>()(store, services);
 ```
 
 ### The hooks
@@ -158,13 +158,13 @@ export const CoreClass = createCoreFactory<DependenciesType>()(store, services);
 // core/utils/hooks.ts
 
 import {
-  createAppSelector,
-  createAppService,
+  useGenericSelector,
+  useGenericService,
 } from '@azot-dev/x-core';
 import { Core } from '../_core';
 
-const useAppSelector = createAppSelector<InstanceType<typeof Core>>();
-const useAppService = createAppService<InstanceType<typeof Core>>();
+export const useAppSelector = useGenericSelector<InstanceType<typeof Core>>();
+export const useAppService = useGenericService<InstanceType<typeof Core>>();
 
 ```
 
@@ -177,7 +177,7 @@ import React from 'react';
 import {
   XCoreProvider,
 } from '@azot-dev/x-core';
-import { CoreClass } from '.';
+import { Core } from '.';
 
 const App = () => {
   const userService = useMyAppService('user');
