@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/azot-dev/x-core/compare/v1.8.13...v1.9.0) (2023-10-02)
+
+
+### Features
+
+* improve documentation design ([86e74de](https://github.com/azot-dev/x-core/commit/86e74de4ab69b0e4f9322020e5a11983de545151))
+
 ## [1.8.13](https://github.com/azot-dev/x-core/compare/v1.8.12...v1.8.13) (2023-10-02)
 
 
