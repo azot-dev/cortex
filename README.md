@@ -1,6 +1,9 @@
 # X-Core
 
-![logo](assets/logo.png)
+<p align="center">
+  <img src="./assets/logo.png" width="200px" height="200px">
+</p>
+
 ## Motivation
 
 The full documentation can be found [here](https://azot-dev.github.io/x-core/docs/get-started)
