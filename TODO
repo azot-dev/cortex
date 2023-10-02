@@ -1,14 +1,7 @@
-- déploiement en continu du Docusaurus
 - faire la fonction init
-- mettre react et Observable en peer dependency
-- faire un hook pour les service asynchrones
-- tester en cas concret si le paquet fonctionne bien
-- créer un adapteur api
-- exemple de persistence
+- explication du concept port-adapter
+- créer un exemple de todo list pour montrer l'interaction entre les services
+- créer un exemple d'authentification pour montrer le principe de port/adapters
 - séparation du paquet x-core et react-x-core
-- écrire des tests
-- créer un exemple de todo list
-- corriger les accès aux vues et les accès des services
-- documentation
 - ajouter une FAQ pour expliquer si c'est utilisable avec GraphQL
-- mettre en place un docusaurus pour les exemples avec un code bloc et un url qui redirige vers le site
+
