@@ -1,3 +1,10 @@
+## [1.8.13](https://github.com/azot-dev/x-core/compare/v1.8.12...v1.8.13) (2023-10-02)
+
+
+### Bug Fixes
+
+* add counter example ([2776890](https://github.com/azot-dev/x-core/commit/2776890c2d1a07b9c8ee3b4cf370511c9f2745e2))
+
 ## [1.8.12](https://github.com/azot-dev/x-core/compare/v1.8.11...v1.8.12) (2023-10-01)
 
 
