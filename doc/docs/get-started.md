@@ -2,18 +2,27 @@
 sidebar_position: 2
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+
 # Get Started
 
 ## Installation
 
-```bash
-yarn add @azot-dev/x-core @legendapp/state
-```
-or
+<Tabs>
+  <TabItem value="yarn" label="yarn" default>
 
-```bash
-npm i @azot-dev/x-core @legendapp/state
-```
+    yarn add @azot-dev/x-core @legendapp/state
+
+  </TabItem>
+  <TabItem value="npm" label="npm" >
+
+    npm i @azot-dev/x-core @legendapp/state
+
+  </TabItem>
+</Tabs>
 
 ## File tree structure example
 
