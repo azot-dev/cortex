@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/x-core",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "index.ts",
   "homepage": "https://azot-dev.github.io/x-core/",
