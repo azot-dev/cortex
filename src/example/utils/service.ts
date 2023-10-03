@@ -11,8 +11,9 @@ export abstract class Service extends BaseService<
 > {
   constructor(
     store: Observable<StoreType>,
-    dependencies: Partial<DependenciesType>
+    dependencies: Partial<DependenciesType>,
+    serviceRegistry: any
   ) {
-    super(store, dependencies);
+    super(store, dependencies, serviceRegistry);
   }
 }
