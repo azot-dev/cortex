@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/azot-dev/cortex/compare/v1.0.0...v1.0.1) (2023-10-06)
+
+
+### Bug Fixes
+
+* Readme.md ([6dc3bab](https://github.com/azot-dev/cortex/commit/6dc3bab07f4b37497ae8f7a381e50e1790472e90))
+
 # 1.0.0 (2023-10-06)
 
 
