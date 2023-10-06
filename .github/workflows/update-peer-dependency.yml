@@ -22,16 +22,17 @@ jobs:
 
       - name: Update peer dependency version
         run: |
-          LATEST_VERSION=$(npm view cortex version)
+          # Get the version of cortex from core/package.json
+          CORTEX_VERSION=$(jq -r ".version" core/package.json)
 
-          cd react
-          jq ".peerDependencies.cortex = \"$LATEST_VERSION\"" package.json > package.temp.json
-          mv package.temp.json package.json
+          # Update the react-cortex package.json with this version
+          jq ".peerDependencies.cortex = \"$CORTEX_VERSION\"" react-cortex/package.json > react-cortex/package.temp.json
+          mv react-cortex/package.temp.json react-cortex/package.json
 
       - name: Commit and push if changed
         run: |
           git config user.name 'GitHub Actions Bot'
           git config user.email 'githubactions@example.com'
           git add -A
-          git diff-index --quiet HEAD || git commit -m "Update peerDependency to latest cortex version"
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
           git push
