@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, FC } from 'react';
+import React, { createContext, useContext, ReactNode } from 'react';
 import { useSelector } from '@legendapp/state/react';
 
 interface CoreInterface {
@@ -36,14 +36,20 @@ function useAppContext<T>(): T {
   return context;
 }
 
-export const useGenericSelector =
-  <T extends CoreInterface>() =>
-  (selectorFunc: (state: DeepOmitFunctions<T['store']>) => any) => {
-    const instance = useAppContext<T>();
+export function createSelectorHook<Store>() {
+  return function (selectorFunc: (state: DeepOmitFunctions<Store>) => any) {
+    const instance = useAppContext<CoreInterface>();
     return useSelector(() => selectorFunc(instance.store));
   };
+}
 
-export function useGenericService<T extends CoreInterface>(): T['getService'] {
-  const core = useAppContext<T>();
-  return core.getService;
+export function createServiceHook<
+  Services extends Record<any, abstract new (...args: any) => any>
+>() {
+  return function <T extends keyof Services>(
+    service: T
+  ): InstanceType<Services[T]> {
+    const core = useAppContext<CoreInterface>();
+    return core.getService(service) as InstanceType<Services[T]>;
+  };
 }
