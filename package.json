@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/cortex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "index.ts",
   "homepage": "https://azot-dev.github.io/cortex/",
