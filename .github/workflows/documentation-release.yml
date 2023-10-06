@@ -1,4 +1,4 @@
-name: Docusaurus release
+name: docusaurus release
 
 on:
   push:

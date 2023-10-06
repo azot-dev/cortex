@@ -1,0 +1,30 @@
+import { DSSEBundleBuilder, IdentityProvider, MessageSignatureBundleBuilder } from '@sigstore/sign';
+import * as sigstore from './types/sigstore';
+import type { FetchOptions, Retry } from './types/fetch';
+import type { KeySelector } from './verify';
+export type SignOptions = {
+    fulcioURL?: string;
+    identityProvider?: IdentityProvider;
+    identityToken?: string;
+    rekorURL?: string;
+    tlogUpload?: boolean;
+    tsaServerURL?: string;
+} & FetchOptions;
+export type VerifyOptions = {
+    ctLogThreshold?: number;
+    tlogThreshold?: number;
+    certificateIssuer?: string;
+    certificateIdentityEmail?: string;
+    certificateIdentityURI?: string;
+    certificateOIDs?: Record<string, string>;
+    keySelector?: KeySelector;
+    tufMirrorURL?: string;
+    tufRootPath?: string;
+    tufCachePath?: string;
+} & FetchOptions;
+export declare const DEFAULT_RETRY: Retry;
+export declare const DEFAULT_TIMEOUT = 5000;
+export type BundleType = 'messageSignature' | 'dsseEnvelope';
+export declare function createBundleBuilder(bundleType: 'messageSignature', options: SignOptions): MessageSignatureBundleBuilder;
+export declare function createBundleBuilder(bundleType: 'dsseEnvelope', options: SignOptions): DSSEBundleBuilder;
+export declare function artifactVerificationOptions(options: VerifyOptions): sigstore.RequiredArtifactVerificationOptions;

@@ -14,12 +14,12 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="yarn" label="yarn" default>
 
-    yarn add @azot-dev/cortex @legendapp/state
+    yarn add @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
 
   </TabItem>
   <TabItem value="npm" label="npm" >
 
-    npm i @azot-dev/cortex @legendapp/state
+    npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
 
   </TabItem>
 </Tabs>
@@ -185,7 +185,7 @@ export const useAppService = createServiceHook<Services>();
 import React from 'react';
 import {
   XCoreProvider,
-} from '@azot-dev/cortex';
+} from '@azot-dev/react-cortex';
 import { Core } from '.';
 
 const App = () => {

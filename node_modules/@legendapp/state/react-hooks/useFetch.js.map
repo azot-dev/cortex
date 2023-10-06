@@ -1,0 +1,1 @@
+{"version":3,"file":"useFetch.js","sources":["../../../../src/react-hooks/useFetch.ts"],"sourcesContent":[null],"names":["useMemo","observableFetch"],"mappings":";;;;;SAGgB,QAAQ,CACpB,KAAwB,EACxB,IAAkB,EAClB,SAAiE,EAAA;AAEjE,IAAA,OAAOA,aAAO,CAAC,MAAMC,qBAAe,CAAI,KAAK,EAAE,IAAI,EAAE,SAAS,CAAC,EAAE,EAAE,CAAC,CAAC;AACzE;;;;"}
