@@ -1,4 +1,4 @@
 - créer un exemple de todo list pour montrer l'interaction entre les services
 - créer un exemple d'authentification pour montrer le principe de port/adapters
-- séparation du paquet x-core et react-x-core
+- séparation du paquet cortex et react-cortex
 - ajouter une FAQ pour expliquer si c'est utilisable avec GraphQL

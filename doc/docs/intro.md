@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Motivation
 
-The full documentation can be found [here](https://azot-dev.github.io/x-core/docs/get-started)
+The full documentation can be found [here](https://azot-dev.github.io/cortex/docs/get-started)
 
 
 
@@ -16,13 +16,13 @@ Trying to optimize my code, RTK Query, React Query, but I figured out that the A
 
 So I tried clean architecture with Redux Toolkit, very nice but still hard to read for developers who don't master clean architecture principles.
 
-I ended up with the X-Core architecture, in order to help developers (and myself) to gain more readability over their code, help them test it easily, and not being stopped by any issue the could encounter.
+I ended up with the cortex architecture, in order to help developers (and myself) to gain more readability over their code, help them test it easily, and not being stopped by any issue the could encounter.
 
-X-Core is easy to use, and can be setup at the architecture complexity you want.
+cortex is easy to use, and can be setup at the architecture complexity you want.
 ## Purpose
 
 React is a library not a framework, it has been created to reflect the changes of some variables (the states) to the UI, nothing else.
-x-core comes as the missing brick of React, and will give all the keys to create the perfect architecture of your app, keeping your code readable and your app scalable.
+cortex comes as the missing brick of React, and will give all the keys to create the perfect architecture of your app, keeping your code readable and your app scalable.
 
 With this you could:
 
