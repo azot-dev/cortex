@@ -14,12 +14,12 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="yarn" label="yarn" default>
 
-    yarn add @azot-dev/x-core @legendapp/state
+    yarn add @azot-dev/cortex @legendapp/state
 
   </TabItem>
   <TabItem value="npm" label="npm" >
 
-    npm i @azot-dev/x-core @legendapp/state
+    npm i @azot-dev/cortex @legendapp/state
 
   </TabItem>
 </Tabs>
@@ -129,7 +129,7 @@ It is the only "magic" piece of code to copy paste, Unfortunately I could not cr
 // core/utils/service.ts
 
 import { Observable } from '@legendapp/state';
-import { BaseService } from '@azot-dev/x-core';
+import { BaseService } from '@azot-dev/cortex';
 import { DependenciesType, Services, StoreType } from './types';
 
 export abstract class Service extends BaseService<
@@ -152,7 +152,7 @@ export abstract class Service extends BaseService<
 ```typescript
 // core/_core.ts
 
-import { createCoreFactory } from '@azot-dev/x-core';
+import { createCoreFactory } from '@azot-dev/cortex';
 import { services } from './services/_services';
 import { store } from './store/_store';
 import { Dependencies } from './utils/types';
@@ -168,7 +168,7 @@ export const Core = createCoreFactory<DependenciesType>()(store, services);
 import {
   createSelectorHook,
   createServiceHook,
-} from '@azot-dev/x-core';
+} from '@azot-dev/cortex';
 import { Core } from '../_core';
 import { Store, Services } from './utils/types';
 
@@ -185,7 +185,7 @@ export const useAppService = createServiceHook<Services>();
 import React from 'react';
 import {
   XCoreProvider,
-} from '@azot-dev/x-core';
+} from '@azot-dev/cortex';
 import { Core } from '.';
 
 const App = () => {

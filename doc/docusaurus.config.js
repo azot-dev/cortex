@@ -5,14 +5,14 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const organizationName = 'azot-dev';
-const projectName = 'x-core';
+const projectName = 'cortex';
 
 const url = `https://${organizationName}.github.io`;
 const baseUrl = `/${projectName}/`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'X-Core',
+  title: 'cortex',
   tagline: 'The React missing brick for TDD and clean architecture',
   favicon: 'img/favicon.ico',
 
@@ -68,7 +68,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'X-Core',
+        title: 'cortex',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -90,7 +90,7 @@ const config = {
       footer: {
         style: 'dark',
         links: [],
-        copyright: `Copyright © ${new Date().getFullYear()} X-Core documentation Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} cortex documentation Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
