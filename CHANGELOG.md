@@ -1,3 +1,10 @@
+## [1.8.12](https://github.com/azot-dev/x-core/compare/v1.8.11...v1.8.12) (2023-10-01)
+
+
+### Bug Fixes
+
+* hooks not working ([7b596ba](https://github.com/azot-dev/x-core/commit/7b596babf19d73b293ed4791bbe22ae575e70912))
+
 ## [1.8.11](https://github.com/azot-dev/x-core/compare/v1.8.10...v1.8.11) (2023-10-01)
 
 
