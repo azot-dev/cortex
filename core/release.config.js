@@ -1,4 +1,5 @@
 module.exports = {
+  repositoryUrl: 'https://github.com/azot-dev/cortex',
   branches: ['main'],
   plugins: [
     '@semantic-release/commit-analyzer',
