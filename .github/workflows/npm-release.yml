@@ -1,4 +1,4 @@
-name: NPM release
+name: npm release
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  release:
-    name: NPM release
+  release-core:
+    name: NPM release for core
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,43 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install Dependencies for core
+        run: |
+          cd core
+          yarn install --frozen-lockfile
 
-      - name: Release
+      - name: Release core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: |
+          cd core
+          npx semantic-release
+
+  release-react:
+    name: NPM release for react
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for react
+        run: |
+          cd react
+          yarn install --frozen-lockfile
+
+      - name: Release react
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd react
+          npx semantic-release
