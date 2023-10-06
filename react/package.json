@@ -9,7 +9,8 @@
     "url": "https://github.com/azot-dev/cortex/react"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "cortex": "6.2.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
