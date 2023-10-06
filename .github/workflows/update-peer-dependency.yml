@@ -1,0 +1,39 @@
+name: Update peerDependency
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-dep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Update peer dependency version
+        run: |
+          # Get the latest version of cortex
+          LATEST_VERSION=$(npm view cortex version)
+
+          # Update the react-cortex package.json with this version
+          cd react-cortex
+          jq ".peerDependencies.cortex = \"$LATEST_VERSION\"" package.json > package.temp.json
+          mv package.temp.json package.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to latest cortex version"
+          git push
