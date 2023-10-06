@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/azot-dev/cortex/compare/v1.0.1...v1.1.0) (2023-10-06)
+
+
+### Features
+
+* separate packages react and core ([e71d749](https://github.com/azot-dev/cortex/commit/e71d74903f7f88319d40e42ec092772c8b9cce48))
+* separate packages react and core (ci attempt) ([7734164](https://github.com/azot-dev/cortex/commit/7734164d846f1c3fc44435605d7cb8df6f9212dd))
+
 ## [1.0.1](https://github.com/azot-dev/cortex/compare/v1.0.0...v1.0.1) (2023-10-06)
 
 
