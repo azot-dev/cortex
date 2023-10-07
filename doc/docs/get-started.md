@@ -9,7 +9,15 @@ import TabItem from '@theme/TabItem';
 
 # Get started
 
-## Installation
+## Automatic installation
+
+In the folder you want to instantiate cortex (inside your React project)
+
+```bash
+    npx @azot-dev/cortex init react
+```
+
+## Manual Installation
 
 <Tabs>
   <TabItem value="yarn" label="yarn" default>
