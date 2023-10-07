@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/azot-dev/x-core/compare/v1.10.2...v1.10.3) (2023-10-02)
+
+
+### Bug Fixes
+
+* modify yarn.lock ([92c16d2](https://github.com/azot-dev/x-core/commit/92c16d2ccd022ec3af5435c7a295dd48541bd02f))
+
 ## [1.10.2](https://github.com/azot-dev/x-core/compare/v1.10.1...v1.10.2) (2023-10-02)
 
 
