@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/azot-dev/x-core/compare/v1.10.0...v1.10.1) (2023-10-02)
+
+
+### Bug Fixes
+
+* attempt to deploy on CI ([5534b04](https://github.com/azot-dev/x-core/commit/5534b0428e87ddf05f9c17ccd2e021a09fcd55c4))
+
 # [1.10.0](https://github.com/azot-dev/x-core/compare/v1.9.0...v1.10.0) (2023-10-02)
 
 
