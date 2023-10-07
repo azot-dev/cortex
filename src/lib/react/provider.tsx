@@ -13,10 +13,12 @@ interface ProviderProps {
   coreInstance: CoreInterface;
 }
 
-type DeepOmitFunctions<T> = {
+type DeepOmitFunctionsExceptGet<T> = {
   [K in keyof T as T[K] extends (...args: any[]) => any
-    ? never
-    : K]: T[K] extends object ? DeepOmitFunctions<T[K]> : T[K];
+    ? K extends 'get'
+      ? K
+      : never
+    : K]: T[K] extends object ? DeepOmitFunctionsExceptGet<T[K]> : T[K];
 };
 
 export const XCoreProvider: React.FC<ProviderProps> = ({
@@ -37,7 +39,9 @@ function useAppContext<T>(): T {
 }
 
 export function createSelectorHook<Store>() {
-  return function (selectorFunc: (state: DeepOmitFunctions<Store>) => any) {
+  return function (
+    selectorFunc: (state: DeepOmitFunctionsExceptGet<Store>) => any
+  ) {
     const instance = useAppContext<CoreInterface>();
     return useSelector(() => selectorFunc(instance.store));
   };
