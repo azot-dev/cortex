@@ -7,7 +7,7 @@ import TabItem from '@theme/TabItem';
 
 
 
-# Get Started
+# Get started
 
 ## Installation
 
@@ -135,13 +135,14 @@ import { DependenciesType, Services, StoreType } from './types';
 export abstract class Service extends BaseService<
   Services,
   Observable<StoreType>,
-  Dependencies
+  DependenciesType
 > {
   constructor(
     store: Observable<StoreType>,
-    dependencies: Partial<Dependencies>
+    dependencies: Partial<DependenciesType>,
+    serviceRegistry: any
   ) {
-    super(store, dependencies);
+    super(store, dependencies, serviceRegistry);
   }
 }
 ```  
@@ -178,7 +179,7 @@ export const useAppService = createServiceHook<Services>();
 
 ### React
 
-```typescript
+```tsx
 // react/App.tsx
 
 import React from 'react';

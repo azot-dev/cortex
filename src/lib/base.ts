@@ -70,7 +70,7 @@ export class BaseService<
   StoreType,
   DependenciesType
 > {
-  protected serviceRegistry: ServiceRegistry<
+  private serviceRegistry: ServiceRegistry<
     ServiceConstructorsType,
     StoreType,
     DependenciesType
@@ -78,13 +78,14 @@ export class BaseService<
 
   constructor(
     protected store: StoreType,
-    protected dependencies: Partial<DependenciesType>
-  ) {
-    this.serviceRegistry = new ServiceRegistry<
+    protected dependencies: Partial<DependenciesType>,
+    serviceRegistry: ServiceRegistry<
       ServiceConstructorsType,
       StoreType,
       DependenciesType
-    >();
+    >
+  ) {
+    this.serviceRegistry = serviceRegistry;
   }
 
   protected getService<K extends keyof ServiceConstructorsType>(
