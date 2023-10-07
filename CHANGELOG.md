@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/azot-dev/x-core/compare/v1.10.4...v1.11.0) (2023-10-02)
+
+
+### Features
+
+* omit all functions for the AppSelector except get ([34a479e](https://github.com/azot-dev/x-core/commit/34a479ed10d3ada0c71b742eee6c7efd9dab75f4))
+
 ## [1.10.4](https://github.com/azot-dev/x-core/compare/v1.10.3...v1.10.4) (2023-10-02)
 
 
