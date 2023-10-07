@@ -1,3 +1,10 @@
+## [1.10.4](https://github.com/azot-dev/x-core/compare/v1.10.3...v1.10.4) (2023-10-02)
+
+
+### Bug Fixes
+
+* add useless files to .npmignore ([df62195](https://github.com/azot-dev/x-core/commit/df6219585ad50f84b6512687626084a35dcaf152))
+
 ## [1.10.3](https://github.com/azot-dev/x-core/compare/v1.10.2...v1.10.3) (2023-10-02)
 
 
