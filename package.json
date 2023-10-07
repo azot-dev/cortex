@@ -3,15 +3,14 @@
   "version": "1.9.0",
   "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "index.ts",
+  "homepage": "https://azot-dev.github.io/x-core/",
   "repository": {
     "type": "git",
     "url": "https://github.com/azot-dev/x-core"
   },
-  "dependencies": {
-    "@legendapp/state": "^1.11.1",
-    "inversify": "^5.1.1",
-    "react": "^18.2.0",
-    "reflect-metadata": "^0.1.13"
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "@legendapp/state": ">=1.0.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
