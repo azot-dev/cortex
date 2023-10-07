@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/azot-dev/x-core/compare/v1.10.1...v1.10.2) (2023-10-02)
+
+
+### Bug Fixes
+
+* delete node_modules ([115d328](https://github.com/azot-dev/x-core/commit/115d328400b6c87a520f344c3da33a791365858d))
+
 ## [1.10.1](https://github.com/azot-dev/x-core/compare/v1.10.0...v1.10.1) (2023-10-02)
 
 
