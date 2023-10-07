@@ -1,3 +1,15 @@
+# [1.10.0](https://github.com/azot-dev/x-core/compare/v1.9.0...v1.10.0) (2023-10-02)
+
+
+### Bug Fixes
+
+* correct image in Readme.md ([ae1ed02](https://github.com/azot-dev/x-core/commit/ae1ed0262872761d87b1588f15420813c9ac35df))
+
+
+### Features
+
+* use peer dependencies instead of dependencies ([5befce9](https://github.com/azot-dev/x-core/commit/5befce9c6c0b3396289965f5ffc41d4f44e3d23e))
+
 # [1.9.0](https://github.com/azot-dev/x-core/compare/v1.8.13...v1.9.0) (2023-10-02)
 
 
