@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/azot-dev/cortex/compare/v1.2.0...v1.2.1) (2023-10-07)
+
+
+### Bug Fixes
+
+* react package.json ([69b3a55](https://github.com/azot-dev/cortex/commit/69b3a5511ecb77143f06fa1f9031aeeb3dbc2f78))
+
 # [1.2.0](https://github.com/azot-dev/cortex/compare/v1.1.3...v1.2.0) (2023-10-07)
 
 
