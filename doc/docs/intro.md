@@ -7,6 +7,7 @@ sidebar_position: 1
 The full documentation can be found [here](https://azot-dev.github.io/x-core/docs/get-started)
 
 
+
 ## Why this library ?
 
 As a React Native developer, I struggled for a long time finding the right architecture, contrary to the web developers, I had to deal with a lot of logic in my app (bluetooth, offline mode)
