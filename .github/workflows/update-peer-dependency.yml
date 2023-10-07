@@ -25,9 +25,8 @@ jobs:
           # Get the version of cortex from core/package.json
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
 
-          # Update the react-cortex package.json with this version
-          jq ".peerDependencies.cortex = \"$CORTEX_VERSION\"" react-cortex/package.json > react-cortex/package.temp.json
-          mv react-cortex/package.temp.json react-cortex/package.json
+          jq ".peerDependencies.cortex = \"$CORTEX_VERSION\"" react/package.json > react/package.temp.json
+          mv react/package.temp.json react/package.json
 
       - name: Commit and push if changed
         run: |
