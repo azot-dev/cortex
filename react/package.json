@@ -10,7 +10,7 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "cortex": "6.2.3"
+    "cortex": "1.1.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
