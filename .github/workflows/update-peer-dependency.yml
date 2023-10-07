@@ -25,7 +25,7 @@ jobs:
           # Get the version of cortex from core/package.json
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
 
-          jq ".peerDependencies.@azot.dev/cortex = \"$CORTEX_VERSION\"" react/package.json > react/package.temp.json
+          jq '.peerDependencies["'"@azot.dev/cortex"'"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json
           mv react/package.temp.json react/package.json
 
       - name: Commit and push if changed
