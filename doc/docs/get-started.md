@@ -4,8 +4,6 @@ sidebar_position: 2
 
 # Get Started
 
-Let's discover **Docusaurus in less than 5 minutes**.
-
 ## Installation
 
 ```bash

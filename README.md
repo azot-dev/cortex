@@ -1,4 +1,6 @@
 # X-Core
+
+![logo](assets/logo.png)
 ## Motivation
 
 The full documentation can be found [here](https://azot-dev.github.io/x-core/docs/get-started)
