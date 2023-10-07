@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/azot-dev/cortex/compare/v1.1.2...v1.1.3) (2023-10-07)
+
+
+### Bug Fixes
+
+* separate packages react and core (update peer dependency) ([e6e006e](https://github.com/azot-dev/cortex/commit/e6e006e45582036b4b72de5615a987f023fdfa4c))
+
 ## [1.1.2](https://github.com/azot-dev/cortex/compare/v1.1.1...v1.1.2) (2023-10-06)
 
 
