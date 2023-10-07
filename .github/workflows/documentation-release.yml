@@ -18,27 +18,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Change to doc directory
-        run: cd doc
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: |
+          cd doc
+          yarn install --frozen-lockfile --non-interactive
 
       - name: Build
-        run: yarn build
+        run: |
+          cd doc
+          yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
           path: doc/build
-        uses: actions/upload-pages-artifact@v2
 
       - name: Deploy to GitHub Pages
         id: deployment
