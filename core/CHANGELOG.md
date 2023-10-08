@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/azot-dev/cortex/compare/v1.3.0...v1.3.1) (2023-10-08)
+
+
+### Bug Fixes
+
+* change logo ([a9b9055](https://github.com/azot-dev/cortex/commit/a9b905501d6be588ac905c6685df38de424b6521))
+
 # [1.3.0](https://github.com/azot-dev/cortex/compare/v1.2.17...v1.3.0) (2023-10-08)
 
 
