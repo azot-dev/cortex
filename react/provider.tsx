@@ -21,7 +21,7 @@ type DeepOmitFunctionsExceptGet<T> = {
     : K]: T[K] extends object ? DeepOmitFunctionsExceptGet<T[K]> : T[K];
 };
 
-export const XCoreProvider: React.FC<ProviderProps> = ({
+export const CortexProvider: React.FC<ProviderProps> = ({
   children,
   coreInstance,
 }) => (

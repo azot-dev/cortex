@@ -4,7 +4,7 @@ import { observable } from '@legendapp/state';
 import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 
-export function createCoreFactory<DependenciesType>() {
+export function createCortexFactory<DependenciesType>() {
   return <
     StoreType extends Record<string, any>,
     ServiceConstructorsType extends Record<

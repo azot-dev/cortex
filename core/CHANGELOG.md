@@ -170,7 +170,7 @@
 * add observable store ([c267d15](https://github.com/azot-dev/cortex/commit/c267d157ddec21e8cc8cb63ea0617e564ad9c7a8))
 * add observable store accessible by the core ([a3b007d](https://github.com/azot-dev/cortex/commit/a3b007d7d95b4fccd8d7d536ab6d37d13881139b))
 * add Readme.md ([69abb89](https://github.com/azot-dev/cortex/commit/69abb89e79caa37b6b1b20e87da1fbe3a43c9ec9))
-* add XCoreProvider, createAppSelector and createAppService hooks ([3f5e5b2](https://github.com/azot-dev/cortex/commit/3f5e5b2dd802c5c1afdfc2c7c850993130199128))
+* add CortexProvider, createAppSelector and createAppService hooks ([3f5e5b2](https://github.com/azot-dev/cortex/commit/3f5e5b2dd802c5c1afdfc2c7c850993130199128))
 * attempt to deploy on npm ([1d128bd](https://github.com/azot-dev/cortex/commit/1d128bdbee288d56739a8492c7e72f88eb79d97d))
 * attempt to eploy on npm ([f96933c](https://github.com/azot-dev/cortex/commit/f96933c5c812af7ff97e51f7e843901bb8ea4974))
 * createCoreFactory works ([9e4b240](https://github.com/azot-dev/cortex/commit/9e4b2402956b1fd16a49ca98bdd5f3994dabdb18))
@@ -353,7 +353,7 @@
 
 ### Features
 
-* add XCoreProvider, createAppSelector and createAppService hooks ([3f5e5b2](https://github.com/azot-dev/cortex/commit/3f5e5b2dd802c5c1afdfc2c7c850993130199128))
+* add CortexProvider, createAppSelector and createAppService hooks ([3f5e5b2](https://github.com/azot-dev/cortex/commit/3f5e5b2dd802c5c1afdfc2c7c850993130199128))
 * update todo ([20604f4](https://github.com/azot-dev/cortex/commit/20604f4577080508398db6291b6b46245e5fe5a5))
 
 # [1.6.0](https://github.com/azot-dev/cortex/compare/v1.5.0...v1.6.0) (2023-09-27)

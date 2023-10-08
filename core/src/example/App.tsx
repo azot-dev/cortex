@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  XCoreProvider,
+  CortexProvider,
   createServiceHook,
   createSelectorHook,
 } from '../lib/react/provider';
@@ -19,8 +19,8 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    <XCoreProvider coreInstance={new CoreClass()}>
+    <CortexProvider coreInstance={new CoreClass()}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
   );
 };

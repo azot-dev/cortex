@@ -1,7 +1,7 @@
 import {
-  XCoreProvider,
+  CortexProvider,
   createSelectorHook,
   createServiceHook,
 } from './provider';
 
-export { XCoreProvider, createSelectorHook, createServiceHook };
+export { CortexProvider, createSelectorHook, createServiceHook };

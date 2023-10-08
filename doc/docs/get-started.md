@@ -160,12 +160,12 @@ export abstract class Service extends BaseService<
 ```typescript
 // core/_core.ts
 
-import { createCoreFactory } from '@azot-dev/cortex';
+import { createCortexFactory } from '@azot-dev/cortex';
 import { services } from './services/_services';
 import { store } from './store/_store';
 import { Dependencies } from './utils/types';
 
-export const Core = createCoreFactory<DependenciesType>()(store, services);
+export const Core = createCortexFactory<DependenciesType>()(store, services);
 ```
 
 ### The hooks
@@ -192,7 +192,7 @@ export const useAppService = createServiceHook<Services>();
 
 import React from 'react';
 import {
-  XCoreProvider,
+  CortexProvider,
 } from '@azot-dev/react-cortex';
 import { Core } from '.';
 
@@ -210,9 +210,9 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    <XCoreProvider coreInstance={new Core()}>
+    <CortexProvider coreInstance={new Core()}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
   );
 };
 ```
