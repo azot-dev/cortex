@@ -48,6 +48,9 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
+      - name: Pull latest changes
+        run: git pull origin main
+
       - name: Update peer dependency version
         run: |
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
