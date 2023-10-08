@@ -48,18 +48,20 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
-      - name: Update peer dependency version
+      - name: Update peer dependency and package version
         run: |
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
-          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json
-          mv react/package.temp.json react/package.json
+          # Mise à jour de la version de peerDependency
+          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
+          # Mise à jour de la version de react à la version de cortex
+          jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
 
       - name: Commit and push if changed
         run: |
           git config user.name 'GitHub Actions Bot'
           git config user.email 'githubactions@example.com'
           git add -A
-          git diff-index --quiet HEAD || git commit -m "fix: Update peerDependency to match local cortex version"
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
           git pull --rebase origin main
           git push
 
@@ -91,4 +93,4 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd react
-          npx semantic-release
+          npm publish
