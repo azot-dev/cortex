@@ -1,3 +1,10 @@
+## [1.2.12](https://github.com/azot-dev/cortex/compare/v1.2.11...v1.2.12) (2023-10-08)
+
+
+### Bug Fixes
+
+* attempt to deploy from ci ([d4ce82d](https://github.com/azot-dev/cortex/commit/d4ce82d3a2025378444ac053427319c2f3374cbc))
+
 ## [1.2.11](https://github.com/azot-dev/cortex/compare/v1.2.10...v1.2.11) (2023-10-08)
 
 
