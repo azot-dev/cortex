@@ -30,6 +30,7 @@ module.exports = {
         assets: ['CHANGELOG.md', 'package.json'],
         message:
           'chore(release): react-v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+        tagFormat: 'react-v${version}',
       },
     ],
   ],

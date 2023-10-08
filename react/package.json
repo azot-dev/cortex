@@ -10,8 +10,7 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "@azot-dev/cortex": "1.1.3",
-    "@azot.dev/cortex": "1.2.3"
+    "@azot-dev/cortex": "1.1.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
