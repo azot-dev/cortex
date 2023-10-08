@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/azot-dev/cortex/compare/v1.2.17...v1.3.0) (2023-10-08)
+
+
+### Features
+
+* replace XCore by Cortex ([cc82f01](https://github.com/azot-dev/cortex/commit/cc82f0195754c5617cc6ec80e3c4a8927e0b5ed1))
+
 ## [1.2.17](https://github.com/azot-dev/cortex/compare/v1.2.16...v1.2.17) (2023-10-08)
 
 
