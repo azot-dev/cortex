@@ -59,7 +59,7 @@ jobs:
           git config user.name 'GitHub Actions Bot'
           git config user.email 'githubactions@example.com'
           git add -A
-          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
+          git diff-index --quiet HEAD || git commit -m "fix: Update peerDependency to match local cortex version"
           git pull --rebase origin main
           git push
 
