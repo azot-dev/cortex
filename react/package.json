@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/react-cortex",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A React Provider to use Cortex",
   "main": "index.ts",
   "homepage": "https://azot-dev.github.io/cortex/",
