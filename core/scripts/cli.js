@@ -19,21 +19,23 @@ function isPackageInstalled(packageName) {
 function checkAndInstallPackage(packageName) {
   if (!isPackageInstalled(packageName)) {
     console.log(
-      `The package ${packageName} is not installed. Installing now...`
+      `💾 The package ${packageName} is not installed. Installing now...`
     );
     try {
-      execSync(`npm install ${packageName} --save`, { stdio: 'inherit' });
+      execSync(`npm install ${packageName} --save --silent > /dev/null 2>&1`, {
+        stdio: 'inherit',
+      });
       console.log(
-        `The package ${packageName} has been successfully installed.`
+        `✅ The package ${packageName} has been successfully installed.`
       );
     } catch (error) {
       console.error(
-        `Error while installing the package ${packageName}.`,
+        `❌ Error while installing the package ${packageName}.`,
         error
       );
     }
   } else {
-    console.log(`The package ${packageName} is already installed.`);
+    console.log(`✅ The package ${packageName} is already installed.`);
   }
 }
 
@@ -82,6 +84,10 @@ yargs
         checkAndInstallPackage('@azot-dev/cortex');
         checkAndInstallPackage('@azot-dev/react-cortex');
         checkAndInstallPackage('@legendapp/state');
+        console.info();
+        console.info(
+          'Package successfully installed, you need to wrap your app with the CortexProvider to use it with React'
+        );
       }
     }
   )

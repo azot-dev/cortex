@@ -105,7 +105,7 @@ interface Dependencies {
 Create the core
 
 ```typescript
-export const Core = createCoreFactory<Dependencies>()(store, services);
+export const Core = createCortexFactory<Dependencies>()(store, services);
 ```
 
 Instantiate the core with the dependencies needed
@@ -113,25 +113,25 @@ Instantiate the core with the dependencies needed
 For a React Native app
 
 ```tsx
-    <XCoreProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactNativeStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactNativeStorageAdapter()})}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
 ```
 
 For a React app
 
 ```tsx
-    <XCoreProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactStorageAdapter()})}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
 ```
 
 For an Electron app
 
 ```tsx
-    <XCoreProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ElectronStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ElectronStorageAdapter()})}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
 ```
 
 ### How to use it ?

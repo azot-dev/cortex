@@ -78,7 +78,7 @@ export const services = {
 ### Create your core
 
 ```typescript
-const Core = createCoreFactory<{}>()(myStore, services);
+const Core = createCortexFactory<{}>()(myStore, services);
 ```
 
 ### Instanciate the core
@@ -86,9 +86,9 @@ const Core = createCoreFactory<{}>()(myStore, services);
 ```typescript
 const AppWrapper = () => {
   return (
-    <XCoreProvider coreInstance={new Core()}>
+    <CortexProvider coreInstance={new Core()}>
       <App />
-    </XCoreProvider>
+    </CortexProvider>
   );
 };
 ```
