@@ -1,4 +1,4 @@
-name: Release and Update peerDependency
+name: Continuous Integration
 
 on:
   push:
@@ -7,9 +7,7 @@ on:
 
 jobs:
   release-core:
-    name: NPM release for core
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,28 +20,49 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies for core
-        run: |
-          cd core
-          yarn install --frozen-lockfile
+        run: yarn --cwd core install --frozen-lockfile
 
       - name: Release core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          cd core
-          git pull --rebase
-          npx semantic-release
+        run: npx --cwd core semantic-release
 
-  release-react:
-    name: NPM release for react
+  update-react-dep:
+    needs: release-core
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          fetch-depth: 0
+          node-version: '20'
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Update peer dependency version
+        run: |
+          CORTEX_VERSION=$(jq -r ".version" core/package.json)
+          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json
+          mv react/package.temp.json react/package.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
+          git push
+
+  release-react:
+    needs: update-react-dep
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -54,48 +73,10 @@ jobs:
         run: git pull origin main
 
       - name: Install Dependencies for react
-        run: |
-          cd react
-          yarn install --frozen-lockfile
+        run: yarn --cwd react install --frozen-lockfile
 
       - name: Release react
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          cd react
-          npx semantic-release
-
-  update-dep:
-    needs: [release-core, release-react]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
-
-      - name: Pull latest changes
-        run: git pull origin main
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Update peer dependency version
-        run: |
-          # Get the version of cortex from core/package.json
-          CORTEX_VERSION=$(jq -r ".version" core/package.json)
-          jq '.peerDependencies["'"@azot.dev/cortex"'"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json
-          mv react/package.temp.json react/package.json
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name 'GitHub Actions Bot'
-          git config user.email 'githubactions@example.com'
-          git add -A
-          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
-          git push
+        run: npx --cwd react semantic-release

@@ -30,6 +30,7 @@ module.exports = {
         assets: ['CHANGELOG.md', 'package.json'],
         message:
           'chore(release): core-v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+        tagFormat: 'core-v${version}',
       },
     ],
   ],
