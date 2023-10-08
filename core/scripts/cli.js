@@ -81,7 +81,7 @@ yargs
 
         checkAndInstallPackage('@azot-dev/cortex');
         checkAndInstallPackage('@azot-dev/react-cortex');
-        checkAndInstallPackage('@legend-app/state');
+        checkAndInstallPackage('@legendapp/state');
       }
     }
   )
