@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/azot-dev/cortex/compare/v1.2.9...v1.2.10) (2023-10-08)
+
+
+### Bug Fixes
+
+* Update peerDependency to match local cortex version ([31a8174](https://github.com/azot-dev/cortex/commit/31a8174433f764103890b78ed0f6a014ac411ec8))
+
 ## [1.2.2](https://github.com/azot-dev/cortex/compare/v1.2.1...v1.2.2) (2023-10-08)
 
 
