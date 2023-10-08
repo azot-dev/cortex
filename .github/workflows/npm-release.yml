@@ -48,9 +48,6 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
-      - name: Pull latest changes
-        run: git pull origin main
-
       - name: Update peer dependency version
         run: |
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
@@ -70,6 +67,9 @@ jobs:
     needs: update-react-dep
     runs-on: ubuntu-latest
     steps:
+      - name: Pull changes
+        run: git pull --rebase origin main
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
