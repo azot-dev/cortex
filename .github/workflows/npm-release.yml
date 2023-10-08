@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Combined Workflow
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   release-core:
+    name: NPM release for core
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,13 +21,17 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies for core
-        run: yarn --cwd core install --frozen-lockfile
+        run: |
+          cd core
+          yarn install --frozen-lockfile
 
       - name: Release core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx --cwd core semantic-release
+        run: |
+          cd core
+          npx semantic-release
 
   update-react-dep:
     needs: release-core
@@ -63,20 +68,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
 
-      - name: Pull latest changes
-        run: git pull origin main
-
       - name: Install Dependencies for react
-        run: yarn --cwd react install --frozen-lockfile
+        run: |
+          cd react
+          yarn install --frozen-lockfile
 
       - name: Release react
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx --cwd react semantic-release
+        run: |
+          cd react
+          npx semantic-release
