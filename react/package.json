@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/react-cortex",
-  "version": "1.2.10",
+  "version": "1.2.9",
   "description": "A React Provider to use Cortex",
   "main": "index.ts",
   "homepage": "https://azot-dev.github.io/cortex/",
@@ -10,7 +10,7 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "@azot-dev/cortex": "1.2.8"
+    "@azot-dev/cortex": "1.2.9"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
