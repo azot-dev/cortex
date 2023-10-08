@@ -45,6 +45,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Pull changes
+        run: git pull --rebase origin main
+
       - name: Install jq
         run: sudo apt-get install jq
 
