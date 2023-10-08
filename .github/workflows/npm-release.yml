@@ -60,6 +60,7 @@ jobs:
           git config user.email 'githubactions@example.com'
           git add -A
           git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
+          git pull --rebase origin main
           git push
 
   release-react:
