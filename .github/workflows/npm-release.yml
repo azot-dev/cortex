@@ -67,9 +67,6 @@ jobs:
     needs: update-react-dep
     runs-on: ubuntu-latest
     steps:
-      - name: Pull changes
-        run: git pull --rebase origin main
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -79,6 +76,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+
+      - name: Pull changes
+        run: git pull --rebase origin main
 
       - name: Install Dependencies for react
         run: |
