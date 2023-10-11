@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/azot-dev/cortex/core"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "bin": {
     "@azot-dev/cortex": "./scripts/cli.js"
   },
@@ -24,8 +27,11 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.1.0",
+    "@types/jest": "^29.5.5",
+    "jest": "^29.7.0",
     "react": "^18.2.0",
     "semantic-release": "^22.0.5",
+    "ts-jest": "^29.1.1",
     "typescript": "^4.5.4"
   }
 }
