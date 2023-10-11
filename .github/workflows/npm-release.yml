@@ -106,7 +106,7 @@ jobs:
           jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
 
       - name: Update yarn.lock
-        run: yarn
+        run: cd react && yarn
 
       - name: Commit and push if changed
         run: |
