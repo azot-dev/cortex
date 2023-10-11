@@ -10,7 +10,7 @@
     "url": "https://github.com/azot-dev/cortex/react"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
