@@ -10,7 +10,7 @@
     "url": "https://github.com/azot-dev/cortex/core"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "bin": {
     "@azot-dev/cortex": "./scripts/cli.js"
