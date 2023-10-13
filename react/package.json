@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/react-cortex",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "license": "MIT",
   "description": "A React Provider to use Cortex",
   "main": "index.ts",
@@ -14,10 +14,10 @@
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "@azot-dev/cortex": "1.4.3"
+    "@azot-dev/cortex": "1.5.0"
   },
   "devDependencies": {
-    "@azot-dev/cortex": "^1.4.3",
+    "@azot-dev/cortex": "^1.5.0",
     "@legendapp/state": "^1.11.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
