@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/azot-dev/cortex/compare/v1.4.3...v1.5.0) (2023-10-13)
+
+
+### Features
+
+* setup react tests ([8a27d2d](https://github.com/azot-dev/cortex/commit/8a27d2db4cc8e1979529642b8419579651ba6846))
+
 ## [1.4.3](https://github.com/azot-dev/cortex/compare/v1.4.2...v1.4.3) (2023-10-11)
 
 
