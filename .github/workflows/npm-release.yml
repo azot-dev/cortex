@@ -190,7 +190,7 @@ jobs:
 
   release:
     needs: release-core
-    environment:
+    env:
       NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
     runs-on: ubuntu-latest
     steps:
