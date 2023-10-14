@@ -187,3 +187,25 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  name: Publish Updated Adapters
+  needs: release-core
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Identify, Bump Version, and Publish Changed Adapters
+        run: ./scripts/publishChangedAdapters.sh
+
+    env:
+      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
