@@ -105,6 +105,9 @@ jobs:
           jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
           jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
 
+      - name: Update yarn.lock
+        run: yarn
+
       - name: Commit and push if changed
         run: |
           git config user.name 'GitHub Actions Bot'
