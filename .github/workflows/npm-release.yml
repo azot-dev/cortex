@@ -219,7 +219,9 @@ jobs:
         run: ./scripts/copy-adapters-doc.sh
 
       - name: Identify, Bump Version, and Publish Changed Adapters
-        run: ./scripts/publish-changed-adapters.sh
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          ./scripts/publish-changed-adapters.sh
 
       - name: Commit and push if changed
         run: |
