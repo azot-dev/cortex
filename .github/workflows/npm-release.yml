@@ -149,7 +149,7 @@ jobs:
           npm publish --access public
 
   deploy-doc:
-    needs: release-react
+    needs: [release-react, update-adapters]
     permissions:
       id-token: write
       pages: write
@@ -188,7 +188,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-  release:
+  update-adapters:
     env:
       NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
     runs-on: ubuntu-latest
@@ -198,11 +198,30 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
-        with:
-          registry-url: https://registry.npmjs.org/
+
+      - name: Pull changes
+        run: git pull --rebase origin main
+
+      - name: Install jq
+        run: sudo apt-get install jq
 
       - name: Install Dependencies
         run: npm install
 
+      - name: Update adapters READMEs
+        run: ./scripts/update-adapters-readme.sh
+
+      - name: Modify adapters in documentation
+        run: ./scripts/copy-adapters-doc.sh
+
       - name: Identify, Bump Version, and Publish Changed Adapters
         run: ./scripts/publish-changed-adapters.sh
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
+          git pull --rebase origin main
+          git push
