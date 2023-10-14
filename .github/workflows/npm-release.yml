@@ -54,8 +54,6 @@ jobs:
 
   release-core:
     needs: [test-core, test-react]
-    permissions:
-      id-token: write
     name: NPM release for core
     runs-on: ubuntu-latest
     steps:
