@@ -1,0 +1,56 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-core:
+    name: Run Core tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for Core
+        run: |
+          cd core
+          yarn install --frozen-lockfile
+
+      - name: Run Core tests
+        run: |
+          cd core
+          yarn test
+
+  test-react:
+    name: Run React tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for React
+        run: |
+          cd react
+          yarn install --frozen-lockfile
+
+      - name: Run React tests
+        run: |
+          cd react
+          yarn test

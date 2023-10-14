@@ -1,4 +1,4 @@
-name: Combined Workflow
+name: npm release
 
 on:
   push:
@@ -54,9 +54,7 @@ jobs:
       - name: Update peer dependency and package version
         run: |
           CORTEX_VERSION=$(jq -r ".version" core/package.json)
-          # Mise à jour de la version de peerDependency
           jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
-          # Mise à jour de la version de react à la version de cortex
           jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
 
       - name: Commit and push if changed

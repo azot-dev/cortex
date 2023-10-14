@@ -1,4 +1,19 @@
+- créer ces hooks:
+
+const todoService = useServices('todo')
+useAsyncMethod => const { isLoading, isError, isSuccess, isIdle, callback } = useMethod(() => todoService.append('salut'))
+useAsyncMethodEffect => const { isLoading, isError, isSuccess, isIdle, recall } = useMethod(() => todoService.append('salut'))
+
+créer un hook factory, qui renvoie toute la lib de hooks, comme ça on appelle une seule factory
+
+- faire les tests de react
+- ajouter les tests au bon endroit dans la CI
+- mise à jour du paquet de dev React
+
+- suppression du dossier lib et de l'exemple pour tout faire remonter d'un niveau
+
+- correction warning invalid script quand on installe les package.json
+
 - créer un exemple de todo list pour montrer l'interaction entre les services
 - créer un exemple d'authentification pour montrer le principe de port/adapters
-- séparation du paquet cortex et react-cortex
 - ajouter une FAQ pour expliquer si c'est utilisable avec GraphQL
