@@ -1,5 +1,0 @@
-{
-  "name": "@azot-dev/cortex/adapters/api/vue",
-  "version": "0.0.1",
-  "main": "vue.api.adapter.ts"
-}

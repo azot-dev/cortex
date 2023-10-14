@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "create-adapter": "node adapters/scripts/create-adapter.js",
+    "publish-changed-adapters": "./scripts/publish-changed-adapters.sh"
+  }
+}
