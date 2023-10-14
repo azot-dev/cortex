@@ -1,3 +1,12 @@
+## [1.6.2](https://github.com/azot-dev/cortex/compare/v1.6.1...v1.6.2) (2023-10-14)
+
+
+### Bug Fixes
+
+* add npm auth ([d809665](https://github.com/azot-dev/cortex/commit/d809665bafe53bfd4adf98bc9fd8b2d475516c63))
+* github action yaml indentation ([1178247](https://github.com/azot-dev/cortex/commit/11782472000e282b01e8c6693fae9c96a726957b))
+* modify adapters to test ci ([12577f5](https://github.com/azot-dev/cortex/commit/12577f586b928ebac09892eff17631a8d9732543))
+
 ## [1.6.1](https://github.com/azot-dev/cortex/compare/v1.6.0...v1.6.1) (2023-10-14)
 
 
