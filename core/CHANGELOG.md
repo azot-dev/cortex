@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/azot-dev/cortex/compare/v1.6.0...v1.6.1) (2023-10-14)
+
+
+### Bug Fixes
+
+* attempt to deploy the adapters ([d0ea05a](https://github.com/azot-dev/cortex/commit/d0ea05ac80e4102a714adea9edf08a1014cd2d67))
+
 # [1.6.0](https://github.com/azot-dev/cortex/compare/v1.5.0...v1.6.0) (2023-10-14)
 
 
