@@ -1,3 +1,0 @@
-export {};
-
-expect(true).toBeTruthy();
