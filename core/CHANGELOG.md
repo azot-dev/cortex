@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/azot-dev/cortex/compare/v1.4.1...v1.4.2) (2023-10-11)
+
+
+### Bug Fixes
+
+* merge github actions ([3a18f4e](https://github.com/azot-dev/cortex/commit/3a18f4e58b7c3602a8e784daad75646bb5eac4bc))
+* merge github actions ([4409575](https://github.com/azot-dev/cortex/commit/4409575e9c0044025964278b7d4cb95bd0060a8a))
+
 ## [1.4.1](https://github.com/azot-dev/cortex/compare/v1.4.0...v1.4.1) (2023-10-11)
 
 
