@@ -51,11 +51,12 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
-      - name: Update peer dependency and package version
-        run: |
-          CORTEX_VERSION=$(jq -r ".version" core/package.json)
-          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
-          jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
+    - name: Update peer dependency and package version
+      run: |
+        CORTEX_VERSION=$(jq -r ".version" core/package.json)
+        jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
+        jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
+        jq '.version = "'"$CORTEX_VERSION"'"' react/package.json > react/package.temp.json && mv react/package.temp.json react/package.json
 
       - name: Commit and push if changed
         run: |
