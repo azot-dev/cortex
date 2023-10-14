@@ -188,9 +188,10 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-  name: Publish Updated Adapters
-  needs: release-core
   release:
+    needs: release-core
+    environment:
+      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -206,6 +207,3 @@ jobs:
 
       - name: Identify, Bump Version, and Publish Changed Adapters
         run: ./scripts/publishChangedAdapters.sh
-
-    env:
-      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
