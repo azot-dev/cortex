@@ -1,3 +1,18 @@
+## [1.6.3](https://github.com/azot-dev/cortex/compare/v1.6.2...v1.6.3) (2023-10-14)
+
+
+### Bug Fixes
+
+* merge github actions ([38baf8d](https://github.com/azot-dev/cortex/commit/38baf8dd8b57e2401f1de7bbc3535cd66fefc348))
+* merge github actions ([41679ed](https://github.com/azot-dev/cortex/commit/41679ed949869d50c55965304729fe2abdb30590))
+* merge github actions ([0c79b86](https://github.com/azot-dev/cortex/commit/0c79b864f47599f759577a5ae9342ebd65cc3599))
+* modify adapters to test ci ([0962d5d](https://github.com/azot-dev/cortex/commit/0962d5d85a3b075f50fa8d1c2831310e1d7ac402))
+* modify adapters to test ci ([8931e37](https://github.com/azot-dev/cortex/commit/8931e37d65f355b5aa2a7abad2c8cffa3b7ede30))
+* modify adapters to test ci ([d71fde0](https://github.com/azot-dev/cortex/commit/d71fde07ce6e69cbdc33de6ea1cd674834da2656))
+* modify adapters to test ci ([bb04907](https://github.com/azot-dev/cortex/commit/bb04907b452dbe2b2a089ea3ba4874db5d3c2ff0))
+* modify adapters to test ci ([fbbbd53](https://github.com/azot-dev/cortex/commit/fbbbd538acb6f398f5b13ca4a6dd3b337ca8697c))
+* modify adapters to test ci ([8d3170b](https://github.com/azot-dev/cortex/commit/8d3170bb781228fa80f3bd49ce28462432b88b8d))
+
 ## [1.6.2](https://github.com/azot-dev/cortex/compare/v1.6.1...v1.6.2) (2023-10-14)
 
 
