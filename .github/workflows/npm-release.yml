@@ -54,6 +54,8 @@ jobs:
 
   release-core:
     needs: [test-core, test-react]
+    permissions:
+      id-token: write
     name: NPM release for core
     runs-on: ubuntu-latest
     steps:
@@ -195,6 +197,8 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    permissions:
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
