@@ -1,4 +1,4 @@
-name: npm release
+name: deployment workflow
 
 on:
   push:
@@ -6,7 +6,59 @@ on:
       - main
 
 jobs:
+
+###############################################
+
+  test-core:
+    name: Run Core tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for Core
+        run: |
+          cd core
+          yarn install --frozen-lockfile
+
+      - name: Run Core tests
+        run: |
+          cd core
+          yarn test
+
+  test-react:
+    name: Run React tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies for React
+        run: |
+          cd react
+          yarn install --frozen-lockfile
+
+      - name: Run React tests
+        run: |
+          cd react
+          yarn test
+
+######################################################
+
   release-core:
+    needs: [test-core, test-react]
     name: NPM release for core
     runs-on: ubuntu-latest
     steps:
@@ -97,3 +149,43 @@ jobs:
           cd react
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npm publish --access public
+
+  deploy-doc:
+      needs: release-react
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd doc
+          yarn install --frozen-lockfile --non-interactive
+
+      - name: Build
+        run: |
+          cd doc
+          yarn build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: doc/build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
