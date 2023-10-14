@@ -7,8 +7,6 @@ on:
 
 jobs:
 
-###############################################
-
   test-core:
     name: Run Core tests
     runs-on: ubuntu-latest
@@ -54,8 +52,6 @@ jobs:
         run: |
           cd react
           yarn test
-
-######################################################
 
   release-core:
     needs: [test-core, test-react]
@@ -151,7 +147,7 @@ jobs:
           npm publish --access public
 
   deploy-doc:
-      needs: release-react
+    needs: release-react
     permissions:
       id-token: write
       pages: write
