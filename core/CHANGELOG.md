@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/azot-dev/cortex/compare/v1.3.1...v1.4.0) (2023-10-11)
+
+
+### Features
+
+* add tests for core ([8330485](https://github.com/azot-dev/cortex/commit/8330485a1f02d8924a1d052b760e89c09a979cc6))
+
 ## [1.3.1](https://github.com/azot-dev/cortex/compare/v1.3.0...v1.3.1) (2023-10-08)
 
 
