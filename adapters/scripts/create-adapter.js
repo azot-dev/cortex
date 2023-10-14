@@ -26,17 +26,14 @@ const adapterClassName = `${capitalizeFirstLetter(
 )}${capitalizeFirstLetter(purpose)}Adapter`;
 const gatewayName = `${capitalizeFirstLetter(purpose)}Gateway`;
 
-// Helper function
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Create the 'purpose' directory if it doesn't exist
 if (!fs.existsSync(purposeDir)) {
   fs.mkdirSync(purposeDir, { recursive: true });
 }
 
-// Check if gateway file already exists
 if (!fs.existsSync(gatewayFilePath)) {
   const gatewayContent = `
 export interface ${gatewayName} {
@@ -48,10 +45,8 @@ export interface ${gatewayName} {
   console.log(`Gateway created at: ${gatewayFilePath}`);
 }
 
-// Create the directories if they don't exist
 fs.mkdirSync(rootPath, { recursive: true });
 
-// Generate the adapter file content
 const adapterContent = `
 export * from '../${purpose}.gateway'; // This exports the gateway
 
@@ -64,17 +59,12 @@ export class ${adapterClassName} implements ${gatewayName} {
 
 fs.writeFileSync(path.join(rootPath, adapterFileName), adapterContent.trim());
 
-// Create package.json, README.md, and .gitignore inside the framework folder
-
-const readmeContent = '# TODO: Add documentation for this adapter.';
-fs.writeFileSync(path.join(rootPath, 'README.md'), readmeContent.trim());
-
 const gitignoreContent = 'node_modules/';
 fs.writeFileSync(path.join(rootPath, '.gitignore'), gitignoreContent.trim());
 
 const packageJsonContent = {
-  name: `@azot-dev/cortex/adapters/${purpose}/${framework}`,
-  version: '0.0.1',
+  name: `@azot-dev/cortex-${purpose}-${framework}-adapter`,
+  version: '1.0.0',
   main: adapterFileName,
 };
 

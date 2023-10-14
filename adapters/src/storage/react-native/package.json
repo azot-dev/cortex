@@ -1,0 +1,8 @@
+{
+  "name": "@azot-dev/cortex-storage-react-native-adapter",
+  "version": "1.0.0",
+  "main": "react-native.storage.adapter.ts",
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.3"
+  }
+}

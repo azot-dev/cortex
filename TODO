@@ -1,13 +1,24 @@
 1. Tests React
 2. Tests Typescript React
 3. Tests Typescript core
+
 4. Ecriture des hooks avec des states observables, donc legendapp (pas de useState)
 5. Utiliser une factory pour générer tous les hooks
 6. Update de la documentation
 
+- deplacement des frameworks dans un dossier frameworks
+- detection et déploiement automatique des changements de frameworks dans la ci (pas prio avant que yoyo travaille dessus)
+
 7. Système de persistence
 
-8. Système d'adapteur API
+- système de déploiement automatique d'adapteurs
+- autogénération des README.md automatique des adapteurs dans le readme.md
+- ajout automatique des nouveaux adapteurs dans la partie docusaurus
+- docusaurus needs déploiement d'adapteurs dans la CI
+- adapteurs: react-native => ReactNative
+- check du workflow complet
+
+- workflow de pull requests
 
 - créer ces hooks:
 
@@ -18,10 +29,6 @@ on part sur ça
 Dire dans la doc que je ne préfère pas utiliser data, et garder ça pour les view models
 
 créer un hook factory, qui renvoie toute la lib de hooks, comme ça on appelle une seule factory
-
-- faire les tests de react
-- ajouter les tests au bon endroit dans la CI
-- mise à jour du paquet de dev React
 
 - suppression du dossier lib et de l'exemple pour tout faire remonter d'un niveau
 

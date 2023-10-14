@@ -205,4 +205,4 @@ jobs:
         run: npm install
 
       - name: Identify, Bump Version, and Publish Changed Adapters
-        run: ./scripts/publishChangedAdapters.sh
+        run: ./scripts/publish-changed-adapters.sh

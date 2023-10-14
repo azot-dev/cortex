@@ -1,1 +1,0 @@
-# TODO: Add documentation for this adapter.
