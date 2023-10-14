@@ -22,6 +22,4 @@ export class ReactStorageAdapter implements StorageGateway {
   async getAllKeys() {
     return Object.keys(localStorage);
   }
-
-  hello() {}
 }
