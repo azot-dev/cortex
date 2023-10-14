@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/azot-dev/cortex/compare/v1.6.3...v1.6.4) (2023-10-14)
+
+
+### Bug Fixes
+
+* merge github actions ([ec45d8e](https://github.com/azot-dev/cortex/commit/ec45d8e427e32403bba76032727067cac9e484d7))
+
 ## [1.6.3](https://github.com/azot-dev/cortex/compare/v1.6.2...v1.6.3) (2023-10-14)
 
 
