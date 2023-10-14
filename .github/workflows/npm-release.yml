@@ -193,8 +193,9 @@ jobs:
 
   update-adapters:
     env:
-      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-    runs-on: ubuntu-latest
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
