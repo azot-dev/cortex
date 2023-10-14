@@ -194,8 +194,6 @@ jobs:
         uses: actions/deploy-pages@v2
 
   update-adapters:
-    permissions:
-      id-token: write
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
