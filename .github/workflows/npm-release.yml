@@ -203,6 +203,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
 
+      - name: Configure npm authentication
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+
       - name: Pull changes
         run: git pull --rebase origin main
 
@@ -219,9 +222,7 @@ jobs:
         run: ./scripts/copy-adapters-doc.sh
 
       - name: Identify, Bump Version, and Publish Changed Adapters
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          ./scripts/publish-changed-adapters.sh
+        run: ./scripts/publish-changed-adapters.sh
 
       - name: Commit and push if changed
         run: |
