@@ -189,7 +189,6 @@ jobs:
         uses: actions/deploy-pages@v2
 
   release:
-    needs: release-core
     env:
       NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
     runs-on: ubuntu-latest
