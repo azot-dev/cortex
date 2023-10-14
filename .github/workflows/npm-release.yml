@@ -81,6 +81,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd core
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npx semantic-release
 
   update-react-dep:
