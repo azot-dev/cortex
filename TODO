@@ -1,8 +1,21 @@
+1. Tests React
+2. Tests Typescript React
+3. Tests Typescript core
+4. Ecriture des hooks avec des states observables, donc legendapp (pas de useState)
+5. Utiliser une factory pour générer tous les hooks
+6. Update de la documentation
+
+7. Système de persistence
+
+8. Système d'adapteur API
+
 - créer ces hooks:
 
 const todoService = useServices('todo')
-useAsyncMethod => const { isLoading, isError, isSuccess, isIdle, callback } = useMethod(() => todoService.append('salut'))
-useAsyncMethodEffect => const { isLoading, isError, isSuccess, isIdle, recall } = useMethod(() => todoService.append('salut'))
+useMethod => const { isLoading, isError, isSuccess, isIdle, callback, data } = useMethod(() => todoService.append('salut')) // charge manuellement
+useMethodMount => const { isLoading, isError, isSuccess, isIdle, recall, data } = useMethod(() => todoService.append('salut')) // charge au premier render
+on part sur ça
+Dire dans la doc que je ne préfère pas utiliser data, et garder ça pour les view models
 
 créer un hook factory, qui renvoie toute la lib de hooks, comme ça on appelle une seule factory
 

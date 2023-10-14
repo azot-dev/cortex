@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, Context } from 'react';
 import { useSelector } from '@legendapp/state/react';
 
 interface CoreInterface {
@@ -30,8 +30,8 @@ export const CortexProvider: React.FC<ProviderProps> = ({
   </AppStateContext.Provider>
 );
 
-function useAppContext<T>(): T {
-  const context = useContext<T | null>(AppStateContext);
+export function useAppContext<T>(): T {
+  const context = useContext<T | null>(AppStateContext as Context<T | null>);
   if (!context) {
     throw new Error('useAppContext must be used within an AppProvider');
   }
