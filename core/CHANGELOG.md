@@ -1,3 +1,15 @@
+## [1.4.1](https://github.com/azot-dev/cortex/compare/v1.4.0...v1.4.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* change version of eact in dev dependencies ([20db575](https://github.com/azot-dev/cortex/commit/20db575b42e7d1f388c9e22ba8673c420df72c05))
+* merge github actions ([1bba1ec](https://github.com/azot-dev/cortex/commit/1bba1ec4d24e6868122fa017aff35c04aa974643))
+* merge github actions ([262244c](https://github.com/azot-dev/cortex/commit/262244cb1639a63d7da4737be89f3fee6c02315c))
+* merge github actions ([e5a2b9c](https://github.com/azot-dev/cortex/commit/e5a2b9ce690460bc84a26d765001b36f36a46a9d))
+* merge github actions ([bb1ced0](https://github.com/azot-dev/cortex/commit/bb1ced0f4bda81fa85155731d90b9ec2396e239f))
+* merge github actions ([c178b39](https://github.com/azot-dev/cortex/commit/c178b395c19891294ac9b2cca01f535b604e9e12))
+
 # [1.4.0](https://github.com/azot-dev/cortex/compare/v1.3.1...v1.4.0) (2023-10-11)
 
 
