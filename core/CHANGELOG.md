@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/azot-dev/cortex/compare/v1.5.0...v1.6.0) (2023-10-14)
+
+
+### Bug Fixes
+
+* modify release job to pull newer commits ([a44509d](https://github.com/azot-dev/cortex/commit/a44509de830141bdaf97b21d54edd56804c2f377))
+
+
+### Features
+
+* create README.md ([ff846a2](https://github.com/azot-dev/cortex/commit/ff846a28ded7f0b78d541a0a4f4f1b881d54c92f))
+* create README.md ([f55733f](https://github.com/azot-dev/cortex/commit/f55733f8e423c5901fad592c726e821caae22d68))
+
 # [1.5.0](https://github.com/azot-dev/cortex/compare/v1.4.3...v1.5.0) (2023-10-13)
 
 
