@@ -47,6 +47,10 @@ export function createCortexFactory<DependenciesType>() {
             instance
           );
         }
+
+        Object.keys(serviceConstructors).forEach((service) => {
+          this.#serviceRegistry.get(service).init?.();
+        });
       }
 
       getService<K extends keyof ServiceInstances>(
