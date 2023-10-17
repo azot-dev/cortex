@@ -1,36 +1,137 @@
-1. Tests React
-2. Tests Typescript React
-3. Tests Typescript core
+- adapteurs: react-native => ReactNative
+- passer les dependencies en peer dependencies
+- ajouter les peer dependencies dans les instructions d'installation dans le readme
+- description des paquets d'adapteurs dans le script de création
+- titre du Readme doit être le framework pour que le titre apparaisse dans le menu
+
+- api adapter
+- les documenter
+- (on peut très bien prendre le service de chez nock)
+
+export class apiGateway {
+  setHeaders
+  get
+  put
+  delete
+  post
+}
+
+export class AxiosBaseApiGateway {
+  // en fait on met ce que l'on veut
+  setHeaders
+  get
+  post
+  put
+  delete
+}
+
+export class GraphQLBaseApiGateway {
+  // en fait on met ce que l'on veut
+  setHeaders
+  mutate
+  query
+}
+
+export class ApiService extends Service {
+  async login(email: string, password: string) {
+    const token = await this.dependencies.api.auth.post('/login', { email, password });
+    this.
+  }
+}
+
+export class UserService {
+  login(email: string, password: string) {
+    this.getService('api').login(email, password)
+  }
+}
+
+Il doit y avoir chainage optionnel de toutes les methodes de l'api
+Cela nous donne une vue comptete de l'api de user au lieu de quelque chose de split
+
+En fait soit on fait un chainage optionnel soit il faudra split les adapteurs
+
+En clean archi si je veux créer un nouvel endpoint,
+- je crée une nouvelle gateway
+- je le type dans cette gateway
+- je crée un nouvel adapteur avec sa route
+- je branche l'adapteur à l'app
+- je l'utilise dans les services
+
+Sinon:
+- je le type dans la gateway existante
+- je mets l'implémentation avec chainage optionnel dans l'adapteur api
+- je l'utilise dans les services
+
+Pour les tests:
+- Je peux réutiliser des autres adapteurs de tests pour avoir une app cohérente si plusieurs calls dans différentes api sont faits
+- une fake app va pouvoir tourner sans problème avec les différentes parties qui vont s'imbriquer
+
+- je n'ai qu'un adapteur donc la logique sera moins modulaire
+- il faudra déclarer plusieurs feedWith dans un seul adapteur de test
+- le chainage ne représente pas la réalité de l'app
+
+
+export class ApiGateway {
+  login?(email: string; password: string): Promise<string>
+  getUser?(): Promise<User>
+}
+
+comme ça on peut créer notre adapter de test directement dans le test
+
+export class StubUserApiAdapter extends ApiGateway {
+
+}
+
+approche sans baseService injecté:
+on est obligé d'avoir des get et post quelque part et aussi de set les headers non?
+ou tu crois que l'on peut coder ça dans le service?
+ça donnerait:
+
+class ApiService extends Service {
+  private token: string = '';
+
+  async loadToken(token: string) {
+    this.dependencies.api.setHeaders((headers) => ({...headers, token}))
+  }
+
+  async getUser() {
+    return this.dependencies.api.get('/user/me');
+  }
+
+  async login(email: string, password: string) {
+    return this.dependencies.api.post('/login', { email, password })
+  }
+}
+
+pour les tests:
+
+core.
+
+- tests d'adapteurs
 
 4. Ecriture des hooks avec des states observables, donc legendapp (pas de useState)
 5. Utiliser une factory pour générer tous les hooks
 6. Update de la documentation
-
-- deplacement des frameworks dans un dossier frameworks
-- detection et déploiement automatique des changements de frameworks dans la ci (pas prio avant que yoyo travaille dessus)
-
-7. Système de persistence
-
-- système de déploiement automatique d'adapteurs
-- autogénération des README.md automatique des adapteurs dans le readme.md
-- ajout automatique des nouveaux adapteurs dans la partie docusaurus
-- docusaurus needs déploiement d'adapteurs dans la CI
-- adapteurs: react-native => ReactNative
-- check du workflow complet
-
-- workflow de pull requests
-
 - créer ces hooks:
-
 const todoService = useServices('todo')
 useMethod => const { isLoading, isError, isSuccess, isIdle, callback, data } = useMethod(() => todoService.append('salut')) // charge manuellement
 useMethodMount => const { isLoading, isError, isSuccess, isIdle, recall, data } = useMethod(() => todoService.append('salut')) // charge au premier render
 on part sur ça
 Dire dans la doc que je ne préfère pas utiliser data, et garder ça pour les view models
-
 créer un hook factory, qui renvoie toute la lib de hooks, comme ça on appelle une seule factory
 
+1. Tests React
+2. Tests Typescript React
+3. Tests Typescript core
+
+7. Système de persistence
+
 - suppression du dossier lib et de l'exemple pour tout faire remonter d'un niveau
+
+- deplacement des frameworks dans un dossier frameworks
+- detection et déploiement automatique des changements de frameworks dans la ci (pas prio avant que yoyo travaille dessus)
+
+- workflow de pull requests
 
 - correction warning invalid script quand on installe les package.json
 
