@@ -78,7 +78,7 @@ export class BaseService<
 
   constructor(
     protected store: StoreType,
-    protected dependencies: Partial<DependenciesType>,
+    protected dependencies: DependenciesType,
     serviceRegistry: ServiceRegistry<
       ServiceConstructorsType,
       StoreType,
