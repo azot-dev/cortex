@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.7.0.tgz#644baebdddd057ad12acf780c475bf5686f9ffac"
-  integrity sha512-76GThIRkBM+ShAfTTkcRxRdY4Su/9erwWiVb5Vm7eXZl34jKvZIp1FAa4eqjcKJT8qhahOQEtnRWFLU09lFKKQ==
+"@azot-dev/cortex@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.8.0.tgz#6d0c2649e9e396888906497224d20ec0ecb01bce"
+  integrity sha512-m2t7FJv2aO2Pw6c4B5x/J7QkQ5yURh2iCvVazMCo1iuDqrqs84p9xXgu63HkgtD4pWRt0n6yOWvZSzADIpQvGg==
   dependencies:
     yargs "^17.7.2"
 
