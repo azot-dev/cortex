@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/azot-dev/cortex/compare/v1.7.0...v1.8.0) (2023-10-17)
+
+
+### Features
+
+* add init execution at core instanciation ([f8e32f1](https://github.com/azot-dev/cortex/commit/f8e32f14eff5a2fb1fe9832952f8bb81c40db29b))
+
 # [1.7.0](https://github.com/azot-dev/cortex/compare/v1.6.8...v1.7.0) (2023-10-17)
 
 
