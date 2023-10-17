@@ -3,14 +3,15 @@
   "version": "1.6.8",
   "private": false,
   "description": "A lib to make TDD and clean architecture easy to use with React",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "homepage": "https://azot-dev.github.io/cortex/",
   "repository": {
     "type": "git",
     "url": "https://github.com/azot-dev/cortex/core"
   },
   "scripts": {
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "build": "tsc"
   },
   "bin": {
     "@azot-dev/cortex": "./scripts/cli.js"

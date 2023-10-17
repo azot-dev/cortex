@@ -75,6 +75,9 @@ jobs:
           cd core
           yarn install --frozen-lockfile
 
+      - name: Build
+        run: yarn build
+
       - name: Release core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
