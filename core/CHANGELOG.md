@@ -1,3 +1,10 @@
+## [1.6.8](https://github.com/azot-dev/cortex/compare/v1.6.7...v1.6.8) (2023-10-17)
+
+
+### Bug Fixes
+
+* modify partial dependencies in dependencies in services ([97ba4f3](https://github.com/azot-dev/cortex/commit/97ba4f396f89b1fb971ad6164a1ebe6cc9099cea))
+
 ## [1.6.7](https://github.com/azot-dev/cortex/compare/v1.6.6...v1.6.7) (2023-10-17)
 
 
