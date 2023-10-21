@@ -1,5 +1,5 @@
 {
   "name": "@azot-dev/cortex-storage-stub-adapter",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "main": "stub.storage.adapter.ts"
 }
