@@ -63,7 +63,7 @@ const gitignoreContent = 'node_modules/';
 fs.writeFileSync(path.join(rootPath, '.gitignore'), gitignoreContent.trim());
 
 const packageJsonContent = {
-  name: `@azot-dev/cortex-${purpose}-${framework}-adapter`,
+  name: `@azot-dev/cortex-${framework}-${purpose}-adapter`,
   version: '1.0.0',
   main: adapterFileName,
 };
