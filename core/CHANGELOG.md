@@ -1,3 +1,11 @@
+## [1.6.7](https://github.com/azot-dev/cortex/compare/v1.6.6...v1.6.7) (2023-10-17)
+
+
+### Bug Fixes
+
+* modifiy react native storage adapter ([8361132](https://github.com/azot-dev/cortex/commit/8361132726823f438a11b8b9952ce065edb66a94))
+* replace x-core by cortex import in template installation ([53d5674](https://github.com/azot-dev/cortex/commit/53d5674a9fc17bec927ddfc791c37bd4e22db17f))
+
 ## [1.6.6](https://github.com/azot-dev/cortex/compare/v1.6.5...v1.6.6) (2023-10-14)
 
 
