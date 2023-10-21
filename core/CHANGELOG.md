@@ -1,3 +1,13 @@
+# [1.7.0](https://github.com/azot-dev/cortex/compare/v1.6.8...v1.7.0) (2023-10-17)
+
+
+### Features
+
+* remove example + build the project ([89a6263](https://github.com/azot-dev/cortex/commit/89a626361bd6911d02826d679dcd4247b6e2f432))
+* remove example + build the project ([1046552](https://github.com/azot-dev/cortex/commit/10465529672cd6c217b49b5b0cd58162d0b4f228))
+* remove example + build the project ([f0666da](https://github.com/azot-dev/cortex/commit/f0666dabb76ecadcdf5a42395503dd3c6b726861))
+* remove example + build the project ([0be49ac](https://github.com/azot-dev/cortex/commit/0be49ac8a70527f54ed39bb55fca27e42e85d15b))
+
 ## [1.6.8](https://github.com/azot-dev/cortex/compare/v1.6.7...v1.6.8) (2023-10-17)
 
 
