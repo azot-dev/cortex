@@ -1,4 +1,4 @@
-import { BaseService, createCortexFactory } from '../';
+import { BaseService, createCortexFactory } from '../src';
 
 const store = { user: { name: 'John', age: 28 } };
 
