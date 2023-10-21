@@ -23,7 +23,7 @@ export function createCortexFactory<DependenciesType>() {
     const store = observable(rawStore);
 
     return class Core {
-      private serviceRegistry: ServiceRegistry<
+      #serviceRegistry: ServiceRegistry<
         ServiceInstances,
         StoreType,
         DependenciesType
@@ -31,7 +31,7 @@ export function createCortexFactory<DependenciesType>() {
       public store: typeof store;
 
       constructor(dependencies: Partial<DependenciesType> = {}) {
-        this.serviceRegistry = new ServiceRegistry();
+        this.#serviceRegistry = new ServiceRegistry();
         this.store = store;
 
         for (const [key, ServiceConstructor] of Object.entries(
@@ -40,9 +40,9 @@ export function createCortexFactory<DependenciesType>() {
           const instance = new ServiceConstructor(
             this.store,
             dependencies as DependenciesType,
-            this.serviceRegistry
+            this.#serviceRegistry
           );
-          this.serviceRegistry.setInstance(
+          this.#serviceRegistry.setInstance(
             key as keyof ServiceInstances,
             instance
           );
@@ -52,7 +52,7 @@ export function createCortexFactory<DependenciesType>() {
       getService<K extends keyof ServiceInstances>(
         name: K
       ): ServiceInstances[K] {
-        return this.serviceRegistry.get(name);
+        return this.#serviceRegistry.get(name);
       }
     };
   };
