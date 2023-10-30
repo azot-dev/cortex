@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.9.0":
+"@azot-dev/cortex@^1.8.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.9.0.tgz#a1b2cb5a911c772e5937b634380abe2890aa45c1"
   integrity sha512-1hgmsi4TrL77qqydsE3co/fjwoJF2vdwWhOe6KhEKAz1Q4rmLW5IHp7+bCI7EQu3+94olMmuJ16yvo4/R+30PQ==
