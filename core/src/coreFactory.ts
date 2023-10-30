@@ -5,7 +5,7 @@ import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 import { cloneDeep } from 'lodash';
 
-const extensionId = 'ljmkbjlbiefamgbmmbohkdbbnpndhcep'; // Remplacez par l'ID de votre extension
+const extensionId = 'ljmkbjlbiefamgbmmbohkdbbnpndhcep';
 
 export function createCortexFactory<DependenciesType>(
   {

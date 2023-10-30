@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { CortexProvider, useAppContext } from '../provider';
+import { CortexProvider, useAppContext } from '../src/provider';
 import React from 'react';
 
 describe('provider', () => {
