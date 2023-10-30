@@ -1,3 +1,11 @@
+## [1.9.1](https://github.com/azot-dev/cortex/compare/v1.9.0...v1.9.1) (2023-10-30)
+
+
+### Bug Fixes
+
+* build cortex-react ([94a3990](https://github.com/azot-dev/cortex/commit/94a39909a9e9810d938d7a526c2471f9cbc4bbcf))
+* build cortex-react ([2a46d4d](https://github.com/azot-dev/cortex/commit/2a46d4d26190b9f85f1f65df651c6793d5db9443))
+
 # [1.9.0](https://github.com/azot-dev/cortex/compare/v1.8.0...v1.9.0) (2023-10-30)
 
 
