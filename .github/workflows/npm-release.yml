@@ -148,6 +148,11 @@ jobs:
           cd react
           yarn install --frozen-lockfile
 
+      - name: Build
+        run: |
+          cd react
+          yarn build
+
       - name: Release react
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

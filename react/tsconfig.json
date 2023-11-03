@@ -2,7 +2,8 @@
   "compilerOptions": {
     "jsx": "react",
     "target": "es2017",
-    "module": "commonjs",
+    "skipLibCheck": true,
+    "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -12,7 +13,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   },
   "include": [
     "src/**/*.ts"
