@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/azot-dev/cortex/compare/v1.8.0...v1.9.0) (2023-10-30)
+
+
+### Features
+
+* add basic chrome debugger popup + replace commonJS by ESNext ([5f4022b](https://github.com/azot-dev/cortex/commit/5f4022be1cec7ff674725466469db5bfb4eea9a4))
+
 # [1.8.0](https://github.com/azot-dev/cortex/compare/v1.7.0...v1.8.0) (2023-10-17)
 
 
