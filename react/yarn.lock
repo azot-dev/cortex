@@ -10,11 +10,12 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.8.0.tgz#6d0c2649e9e396888906497224d20ec0ecb01bce"
-  integrity sha512-m2t7FJv2aO2Pw6c4B5x/J7QkQ5yURh2iCvVazMCo1iuDqrqs84p9xXgu63HkgtD4pWRt0n6yOWvZSzADIpQvGg==
+"@azot-dev/cortex@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.9.0.tgz#a1b2cb5a911c772e5937b634380abe2890aa45c1"
+  integrity sha512-1hgmsi4TrL77qqydsE3co/fjwoJF2vdwWhOe6KhEKAz1Q4rmLW5IHp7+bCI7EQu3+94olMmuJ16yvo4/R+30PQ==
   dependencies:
+    lodash "^4.17.21"
     yargs "^17.7.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.21.4", "@babel/code-frame@^7.22.13":
@@ -3877,7 +3878,7 @@ lodash.uniqby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
   integrity sha512-e/zcLx6CSbmaEgFHCA7BnoQKyCtKMxnuWrJygbwPs/AIn+IMKl66L8/s+wBUn5LRw2pZx3bUHibiV1b6aTWIww==
 
-lodash@^4.17.4:
+lodash@^4.17.21, lodash@^4.17.4:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
