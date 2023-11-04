@@ -33,7 +33,7 @@ export const CortexProvider: React.FC<ProviderProps> = ({
 export function useAppContext<T>(): T {
   const context = useContext<T | null>(AppStateContext as Context<T | null>);
   if (!context) {
-    throw new Error('useAppContext must be used within an AppProvider');
+    throw new Error('useAppContext must be used within a CortexProvider');
   }
   return context;
 }

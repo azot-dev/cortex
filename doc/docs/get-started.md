@@ -12,9 +12,22 @@ import TabItem from '@theme/TabItem';
 ## Automatic installation
 
 In the folder you want to instantiate cortex (inside your React project)
+It will install a template of your core structure, you can then modify it as you wish
 
 ```bash
-    npx @azot-dev/cortex init react
+npx @azot-dev/cortex init react
+```
+
+Then wrap your root component with the Cortex provider:
+
+```tsx
+const App = () => {
+  return (
+    <CortexProvider coreInstance={new Core()}>
+      <App />
+    </CortexProvider>
+  );
+};
 ```
 
 ## Manual Installation

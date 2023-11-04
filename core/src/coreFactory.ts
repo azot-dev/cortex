@@ -3,8 +3,22 @@
 import { observable } from '@legendapp/state';
 import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
+import { cloneDeep } from 'lodash';
 
-export function createCortexFactory<DependenciesType>() {
+const extensionId = 'ljmkbjlbiefamgbmmbohkdbbnpndhcep'; // Remplacez par l'ID de votre extension
+
+export function createCortexFactory<DependenciesType>(
+  {
+    debug,
+    persistence,
+  }: {
+    debug?: boolean;
+    persistence?: boolean;
+  } = {
+    debug: false,
+    persistence: false,
+  }
+) {
   return <
     StoreType extends Record<string, any>,
     ServiceConstructorsType extends Record<
@@ -20,7 +34,7 @@ export function createCortexFactory<DependenciesType>() {
         ServiceConstructorsType[K]
       >;
     };
-    const store = observable(rawStore);
+    const store = observable(cloneDeep(rawStore));
 
     return class Core {
       #serviceRegistry: ServiceRegistry<
@@ -51,6 +65,28 @@ export function createCortexFactory<DependenciesType>() {
         Object.keys(serviceConstructors).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
+
+        if (typeof chrome !== 'undefined' && chrome.runtime) {
+          chrome.runtime.sendMessage(extensionId, {
+            type: 'INITIAL_STATE',
+            data: {},
+          });
+        }
+
+        if (debug) {
+          if (typeof chrome !== 'undefined' && chrome.runtime) {
+            chrome.runtime.sendMessage(extensionId, {
+              type: 'INITIAL_STATE',
+              data: store.get(),
+            });
+            this.store.onChange((newState) => {
+              chrome.runtime.sendMessage(extensionId, {
+                type: 'NEW_STATE',
+                data: newState.value,
+              });
+            });
+          }
+        }
       }
 
       getService<K extends keyof ServiceInstances>(
