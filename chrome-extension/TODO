@@ -1,0 +1,15 @@
+- image cerveau pour le panel.html et l'extension
+- écrire le décorateur dans le core
+- faire le test sur un projet avec le module npm linké
+- faire un panel à gauche qui listera les changements de state et de services
+- ajout des onglets pour switch
+- comment stocker la donnée pour l'afficher (source de vérité)
+- s'assurer que rien ne soit afficher si le mode debug est à false
+- bien ranger les fichiers dans le core pour que le paquet soit le plus modulaire possible
+- faire un bouton clear
+- faire des onglets pour switch entre services, states et les deux
+
+on peut la stocker en local depuis le moment où la page est chargée, comme ça on pourra la conserver de page en page.
+
+2. Logs
+- faire un autre onglet, panel de gauche on a les services avec des coches qu'on peut séléctionner avec states, dans le panel central on aurait les logs, les services et les states, on peut afficher tout ce qu'on veut dans le panel de droite

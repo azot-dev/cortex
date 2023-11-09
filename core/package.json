@@ -1,9 +1,11 @@
 {
   "name": "@azot-dev/cortex",
   "version": "1.9.1",
+  "license": "MIT",
   "private": false,
   "description": "A lib to make TDD and clean architecture easy to use with React",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "homepage": "https://azot-dev.github.io/cortex/",
   "repository": {
     "type": "git",
@@ -14,7 +16,7 @@
     "build": "tsc"
   },
   "bin": {
-    "@azot-dev/cortex": "./scripts/cli.js"
+    "cortex": "./scripts/cli.js"
   },
   "peerDependencies": {
     "@legendapp/state": ">=1.0.0",
@@ -25,7 +27,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@legendapp/state": "^1.11.3",
+    "@legendapp/state": "^2.1.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.1.0",

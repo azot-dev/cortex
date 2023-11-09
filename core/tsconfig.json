@@ -6,6 +6,7 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
@@ -14,9 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": [ "src/**/*.ts", "../chrome-extension/type.ts" ],
   "exclude": [
     "node_modules"
   ]
