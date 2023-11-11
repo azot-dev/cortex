@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "A React Provider to use Cortex",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "homepage": "https://azot-dev.github.io/cortex/",
   "repository": {
     "type": "git",

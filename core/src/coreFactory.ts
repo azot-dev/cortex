@@ -4,8 +4,11 @@ import { observable } from '@legendapp/state';
 import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 import { cloneDeep } from 'lodash';
-
-const extensionId = 'ljmkbjlbiefamgbmmbohkdbbnpndhcep';
+import {
+  checkChromeAvailability,
+  decorateAllMethodsWithChromeLogger,
+  enableChromeDebugger,
+} from './debuggerLib';
 
 export function createCortexFactory<DependenciesType>(
   {
@@ -35,6 +38,14 @@ export function createCortexFactory<DependenciesType>(
       >;
     };
     const store = observable(cloneDeep(rawStore));
+    const canDebug = checkChromeAvailability();
+    console.log({ canDebug });
+
+    if (debug && !canDebug) {
+      console.warn(
+        'You have to install the Cortex Devtool Chrome extension in order to debug'
+      );
+    }
 
     return class Core {
       #serviceRegistry: ServiceRegistry<
@@ -51,6 +62,9 @@ export function createCortexFactory<DependenciesType>(
         for (const [key, ServiceConstructor] of Object.entries(
           serviceConstructors
         )) {
+          if (debug) {
+            decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
+          }
           const instance = new ServiceConstructor(
             this.store,
             dependencies as DependenciesType,
@@ -66,25 +80,11 @@ export function createCortexFactory<DependenciesType>(
           this.#serviceRegistry.get(service).init?.();
         });
 
-        if (typeof chrome !== 'undefined' && chrome.runtime) {
-          chrome.runtime.sendMessage(extensionId, {
-            type: 'INITIAL_STATE',
-            data: {},
-          });
-        }
-
         if (debug) {
-          if (typeof chrome !== 'undefined' && chrome.runtime) {
-            chrome.runtime.sendMessage(extensionId, {
-              type: 'INITIAL_STATE',
-              data: store.get(),
-            });
-            this.store.onChange((newState) => {
-              chrome.runtime.sendMessage(extensionId, {
-                type: 'NEW_STATE',
-                data: newState.value,
-              });
-            });
+          try {
+            enableChromeDebugger(this);
+          } catch (e) {
+            console.error('ta mère en slip de guerre');
           }
         }
       }

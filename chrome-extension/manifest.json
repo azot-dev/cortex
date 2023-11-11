@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Nom de votre extension",
+  "name": "Cortex Devtools",
   "version": "1.0",
-  "description": "Description de votre extension",
+  "description": "Debugger for the npm package @azot-dev/cortex",
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "externally_connectable": {
     "matches": [
@@ -16,7 +17,5 @@
   "background": {
     "service_worker": "background.js"
   },
-  "action": {
-    "default_popup": "popup.html"
-  }
+  "devtools_page": "devtools.html"
 }

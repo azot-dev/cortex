@@ -1,10 +1,20 @@
+console.log('envoi du message get current state');
 chrome.runtime.sendMessage({ type: 'GET_CURRENT_STATE' }, function (response) {
   const div = document.getElementById('stateInfo');
+  console.log({ response });
   if (response && response.data) {
-    div.innerHTML = ''; // Effacer "Chargement..."
+    div.innerHTML = '';
     div.appendChild(createTreeElement(response.data));
   } else {
-    div.textContent = "Erreur: La réponse n'a pas la structure attendue.";
+    div.textContent = 'Error: bad format data';
+  }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === 'UPDATE_UI') {
+    const div = document.getElementById('stateInfo');
+    div.innerHTML = '';
+    div.appendChild(createTreeElement(request.data));
   }
 });
 
