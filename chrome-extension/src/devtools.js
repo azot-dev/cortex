@@ -1,7 +1,7 @@
 chrome.devtools.panels.create(
   'Cortex',
-  'icon.jpg',
-  'popup.html',
+  'images/icon.jpg',
+  'js/popup.html',
   function (panel) {
     console.log('Panel created !');
   }

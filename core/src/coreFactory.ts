@@ -5,7 +5,6 @@ import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 import { cloneDeep } from 'lodash';
 import {
-  checkChromeAvailability,
   decorateAllMethodsWithChromeLogger,
   enableChromeDebugger,
 } from './debuggerLib';
@@ -13,13 +12,10 @@ import {
 export function createCortexFactory<DependenciesType>(
   {
     debug,
-    persistence,
   }: {
     debug?: boolean;
-    persistence?: boolean;
   } = {
     debug: false,
-    persistence: false,
   }
 ) {
   return <
@@ -38,14 +34,6 @@ export function createCortexFactory<DependenciesType>(
       >;
     };
     const store = observable(cloneDeep(rawStore));
-    const canDebug = checkChromeAvailability();
-    console.log({ canDebug });
-
-    if (debug && !canDebug) {
-      console.warn(
-        'You have to install the Cortex Devtool Chrome extension in order to debug'
-      );
-    }
 
     return class Core {
       #serviceRegistry: ServiceRegistry<
@@ -81,11 +69,7 @@ export function createCortexFactory<DependenciesType>(
         });
 
         if (debug) {
-          try {
-            enableChromeDebugger(this);
-          } catch (e) {
-            console.error('ta mère en slip de guerre');
-          }
+          enableChromeDebugger(this);
         }
       }
 

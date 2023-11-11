@@ -1,4 +1,4 @@
-import { ChromeMessageType, chrome } from '../core/src/debuggerLib';
+import { ChromeMessageType } from '../../core/src/debuggerLib';
 
 let currentState = {};
 
