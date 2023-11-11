@@ -1,5 +1,5 @@
 export const chrome = (window as any).chrome;
-export const extensionId = 'ljmkbjlbiefamgbmmbohkdbbnpndhcep';
+export const extensionId = 'cbbghjphpnmlbbploeajbblkgmcabnbn';
 
 export type ChromeMessageType =
   | 'INITIAL_STATE'
@@ -60,15 +60,6 @@ export const decorateAllMethodsWithChromeLogger = <
       }
     }
   );
-};
-
-export const checkChromeAvailability = () => {
-  try {
-    sendMessageToChrome('CHECK');
-  } catch (e) {
-    return false;
-  }
-  return true;
 };
 
 const sendMessageToChrome = (type: ChromeMessageType, data?: any) => {
