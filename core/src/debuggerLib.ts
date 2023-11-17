@@ -7,6 +7,19 @@ export type ChromeMessageType =
   | 'SERVICE_STATE'
   | 'CHECK';
 
+export type Store = any;
+
+type DataType<T extends ChromeMessageType> = T extends 'NEW_STATE'
+  ? Store
+  : T extends 'SERVICE_STATE'
+  ? { serviceName: string; methodName: string }
+  : never;
+
+export type ChromeResponse<T extends ChromeMessageType> = {
+  type: T;
+  data: DataType<T>;
+};
+
 export const enableChromeDebugger = (core: any) => {
   sendMessageToChrome('INITIAL_STATE', core.store.get());
 

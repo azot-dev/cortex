@@ -10,6 +10,9 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Chip from '@mui/material/Chip';
+import { CortexProvider } from '@azot-dev/react-cortex';
+import { Core } from './cortex/_core';
+import { useAppSelector } from './cortex/utils/hooks';
 
 const theme = createTheme({
   components: {
@@ -56,26 +59,28 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Split
-          sizes={[20, 40, 40]}
-          minSize={100}
-          expandToMin={false}
-          gutterSize={2}
-          gutterAlign="center"
-          snapOffset={30}
-          dragInterval={1}
-          direction="horizontal"
-          cursor="col-resize"
-          style={{
-            display: 'flex',
-            height: '100vh',
-          }}
-          gutter={createGutter}
-        >
-          <DisplayPanel />
-          <HistoryPanel />
-          <StorePanel />
-        </Split>
+        <CortexProvider coreInstance={new Core()}>
+          <Split
+            sizes={[20, 40, 40]}
+            minSize={100}
+            expandToMin={false}
+            gutterSize={2}
+            gutterAlign="center"
+            snapOffset={30}
+            dragInterval={1}
+            direction="horizontal"
+            cursor="col-resize"
+            style={{
+              display: 'flex',
+              height: '100vh',
+            }}
+            gutter={createGutter}
+          >
+            <DisplayPanel />
+            <HistoryPanel />
+            <StorePanel />
+          </Split>
+        </CortexProvider>
       </ThemeProvider>
     </div>
   );
@@ -109,7 +114,15 @@ const createGutter = (
 
 const VerticalPanel: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div style={{ height: '100%', backgroundColor: '#2A2F3A' }}>{children}</div>
+    <div
+      style={{
+        height: '100%',
+        overflowY: 'scroll',
+        backgroundColor: '#2A2F3A',
+      }}
+    >
+      {children}
+    </div>
   );
 };
 
@@ -141,12 +154,28 @@ function DisplayPanel() {
 }
 
 function HistoryPanel() {
+  const events = useAppSelector((state) => state.chrome.events);
+
+  console.log({ events });
+
   return (
     <VerticalPanel>
       <Box sx={{ marginLeft: '-5px', marginRight: '-5px' }}>
-        <Event label="salut" />
-        <Event label="salut" />
-        <Event label="salut" />
+        {Object.keys(events).map((key: any) => {
+          const event = events[key];
+          if (event.type === 'NEW_STATE') {
+            return <Event label="store changed" />;
+          }
+          if (event.type === 'SERVICE_STATE') {
+            return (
+              <Event
+                label={`[ ${event.serviceName} ] ${event.methodName}`}
+                color="#BAE1FF"
+              />
+            );
+          }
+          return <Event label="unknown event" />;
+        })}
       </Box>
     </VerticalPanel>
   );
@@ -228,20 +257,20 @@ function StorePanel() {
   };
 
   useEffect(() => {
-    // console.log('envoi du message get current state');
-    // chrome.runtime.sendMessage(
-    //   { type: 'GET_CURRENT_STATE' },
-    //   function (response) {
-    //     if (response?.data) {
-    //       setState(response.data);
-    //     }
-    //   }
-    // );
-    // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    //   if (request.type === 'UPDATE_UI') {
-    //     setState(request.data);
-    //   }
-    // });
+    console.log('envoi du message get current state');
+    chrome.runtime.sendMessage(
+      { type: 'GET_CURRENT_STATE' },
+      function (response) {
+        if (response?.data) {
+          setState(response.data);
+        }
+      }
+    );
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.type === 'UPDATE_UI') {
+        setState(request.data);
+      }
+    });
   }, []);
 
   return (
