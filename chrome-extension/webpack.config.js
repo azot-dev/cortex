@@ -8,7 +8,13 @@ module.exports = {
     devtools: './src/devtools.js', // Ajoutez un point d'entrée pour la page DevTools
     background: './src/background.ts',
   },
+  devtool: 'source-map',
   mode: 'production',
+  resolve: {
+    fallback: {
+      process: require.resolve('process/browser'),
+    },
+  },
   module: {
     rules: [
       {

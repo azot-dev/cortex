@@ -9,7 +9,7 @@
   "homepage": "https://azot-dev.github.io/cortex/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/azot-dev/cortex/core"
+    "url": "https://github.com/azot-dev/cortex"
   },
   "scripts": {
     "test": "jest --passWithNoTests",
