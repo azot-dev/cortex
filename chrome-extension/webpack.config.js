@@ -4,8 +4,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.tsx', // Point d'entrée pour votre popup
-    devtools: './src/devtools.js', // Ajoutez un point d'entrée pour la page DevTools
+    index: './src/index.tsx',
+    devtools: './src/devtools.js',
     background: './src/background.ts',
   },
   devtool: 'source-map',
@@ -40,7 +40,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'manifest.json', to: '../manifest.json' },
-        { from: 'src/images', to: '../images' }, // Ajoutez si vous avez des images à copier
+        { from: 'src/images', to: '../images' },
       ],
     }),
     new HTMLPlugin({

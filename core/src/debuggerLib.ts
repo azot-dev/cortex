@@ -1,30 +1,47 @@
-export const chrome = (window as any).chrome;
 export const extensionId = 'cbbghjphpnmlbbploeajbblkgmcabnbn';
 
-export type ChromeMessageType =
-  | 'INITIAL_STATE'
-  | 'NEW_STATE'
-  | 'SERVICE_STATE'
-  | 'CHECK';
+export type ChromeMessageType = keyof ChromeMessageData;
+
+export type ChromeRequestType = 'GET_CORE_STATE';
+
+type ChromeMessageData = {
+  INITIAL_CORE_STATE: { store: Store; serviceNames: string[] };
+  CURRENT_CORE_STATE: { store: Store; serviceNames: string[] };
+  NEW_STATE: Store;
+  SERVICE_STATE: { serviceName: string; methodName: string };
+};
 
 export type Store = any;
 
-type DataType<T extends ChromeMessageType> = T extends 'NEW_STATE'
-  ? Store
-  : T extends 'SERVICE_STATE'
-  ? { serviceName: string; methodName: string }
-  : never;
-
-export type ChromeResponse<T extends ChromeMessageType> = {
+type ChromeResponseByType<T extends ChromeMessageType> = {
   type: T;
-  data: DataType<T>;
+  data: ChromeMessageData[T];
 };
 
-export const enableChromeDebugger = (core: any) => {
-  sendMessageToChrome('INITIAL_STATE', core.store.get());
+export type ChromeResponse = ChromeResponseByType<ChromeMessageType>;
+
+export const enableChromeDebugger = (core: any, serviceNames: string[]) => {
+  sendMessageToChrome('INITIAL_CORE_STATE', {
+    store: core.store.get(),
+    serviceNames,
+  });
+  listenToCoreStateRequest(core, serviceNames);
 
   core.store.onChange((newState: any) => {
-    sendMessageToChrome('NEW_STATE', newState.value);
+    sendMessageToChrome('NEW_STATE', {
+      store: newState.value,
+      changes: newState.changes,
+      previous: newState.getPrevious(),
+    });
+  });
+};
+
+const listenToCoreStateRequest = (core: any, serviceNames: string[]) => {
+  document.addEventListener('CoreInfoRequest', (e) => {
+    sendMessageToChrome('CURRENT_CORE_STATE', {
+      store: core.store.get(),
+      serviceNames,
+    });
   });
 };
 
@@ -75,7 +92,10 @@ export const decorateAllMethodsWithChromeLogger = <
   );
 };
 
-const sendMessageToChrome = (type: ChromeMessageType, data?: any) => {
+const sendMessageToChrome = <T extends ChromeMessageType>(
+  type: T,
+  data?: ChromeMessageData[T]
+) => {
   if (typeof chrome === 'undefined' || !chrome.runtime) {
     console.error(
       'No chrome environment found, the debugger features cannot work'
@@ -85,7 +105,21 @@ const sendMessageToChrome = (type: ChromeMessageType, data?: any) => {
 
   chrome.runtime.sendMessage(extensionId, { type, data }, () => {
     if (chrome.runtime.lastError) {
+      console.warn('trying to send', type, data);
       throw new Error('Cortex Devtools not detected');
     }
+  });
+};
+
+export const sendMessageToCore = <T extends ChromeRequestType>(type: T) => {
+  if (typeof chrome === 'undefined' || !chrome.runtime) {
+    console.error(
+      'No chrome environment found, the debugger features cannot work'
+    );
+    return;
+  }
+  chrome.runtime.sendMessage({
+    type,
+    tabId: chrome.devtools.inspectedWindow.tabId,
   });
 };

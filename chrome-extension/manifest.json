@@ -6,7 +6,11 @@
     "permissions": [
         "storage",
         "activeTab",
-        "tabs"
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://localhost/*"
     ],
     "externally_connectable": {
         "matches": [

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode, Context } from 'react';
 import { useSelector } from '@legendapp/state/react';
+import { Observable } from '@legendapp/state';
 
 interface CoreInterface {
   store: any;
@@ -12,14 +13,6 @@ interface ProviderProps {
   children: ReactNode;
   coreInstance: CoreInterface;
 }
-
-type DeepOmitFunctionsExceptGet<T> = {
-  [K in keyof T as T[K] extends (...args: any[]) => any
-    ? K extends 'get'
-      ? K
-      : never
-    : K]: T[K] extends object ? DeepOmitFunctionsExceptGet<T[K]> : T[K];
-};
 
 export const CortexProvider: React.FC<ProviderProps> = ({
   children,
@@ -39,9 +32,9 @@ export function useAppContext<T>(): T {
 }
 
 export function createSelectorHook<Store>() {
-  return function (
-    selectorFunc: (state: DeepOmitFunctionsExceptGet<Store>) => any
-  ) {
+  return function <ReturnType>(
+    selectorFunc: (state: Observable<Store>) => ReturnType
+  ): ReturnType {
     const instance = useAppContext<CoreInterface>();
     return useSelector(() => selectorFunc(instance.store));
   };

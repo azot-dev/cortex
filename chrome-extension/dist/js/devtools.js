@@ -1,2 +1,2 @@
-chrome.devtools.panels.create("Cortex","images/icon.jpg","js/popup.html",(function(e){console.log("Panel created !")}));
+chrome.devtools.panels.create("Cortex","images/icon.jpg","js/popup.html");
 //# sourceMappingURL=devtools.js.map

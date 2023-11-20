@@ -1,21 +1,31 @@
-A simple Hello World Chrome extension using React. 
+# Cortex Devtool
 
-# Getting Started with Create React App
+## Development
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Prerequites
 
-## Available Scripts
+Install fswatch:
+`brew install fswatch`
 
-In the project directory, you can run:
+Install the [Chrome extension loader](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid)
 
-### `npm run build`
-bundle the extension.
+install the project:
 
-### `npm run watch`
-bundle the extension with interactive watch mode.
+`yarn install`
 
-## Learn More
+Build it for the first time, so the html and js files can be readable by Chrome with:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`yarn build`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Activate the developer mode on Install the [chrome://extensions/](https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid) (top right switch)
+
+load the unload extension from `dist`
+
+## Developing
+
+The process for developing a Chrome extension can be really exhausting and repetitive,
+
+run `yarn dev` to rebuild the Chrome extension whenever any file changes
+run `yarn refresh` to listen to any change in the build folder and reload automatically the extension
+
+You still will have to manually close and reopen the Chrome devtools panel each time though
