@@ -1,4 +1,5 @@
 import { ChromeResponse } from '../../../../core/src/debuggerLib';
+import { scrollEventsToBottom } from '../events';
 import { Service } from '../utils/service';
 
 export class EventsService extends Service {
@@ -16,6 +17,7 @@ export class EventsService extends Service {
     }));
     if (isLastEventSelected) {
       this.store.chrome.selectedEvent.set(newLastEventId);
+      scrollEventsToBottom.fire();
     }
   }
 

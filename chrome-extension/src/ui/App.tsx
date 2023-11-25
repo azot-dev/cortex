@@ -7,6 +7,7 @@ import { theme } from './theme';
 import { ServicesPanel } from './panels/services.panel';
 import { EventsPanel } from './panels/events/events.panel';
 import { StorePanel } from './panels/store/store.panel';
+import 'typeface-roboto-mono';
 
 const App = () => {
   useEffect(() => {
