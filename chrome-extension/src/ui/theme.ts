@@ -1,6 +1,13 @@
 import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: 'Roboto Mono, monospace',
+    fontSize: 11,
+    allVariants: {
+      letterSpacing: '0.3px',
+    },
+  },
   components: {
     MuiFormControlLabel: {
       styleOverrides: {

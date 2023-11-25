@@ -118,8 +118,21 @@ export const sendMessageToCore = <T extends ChromeRequestType>(type: T) => {
     );
     return;
   }
+
+  console.log('Current URL:', window.location.href);
+  console.log('Search string:', window.location.search);
+
+  const tabIdParam = new URLSearchParams(window.location.search).get('tabId');
+  const tabIdFromPopup = tabIdParam ? parseInt(tabIdParam, 10) : null;
+
+  // can be sent from popup or devtool
+  const tabId = chrome.devtools?.inspectedWindow
+    ? chrome.devtools.inspectedWindow.tabId
+    : tabIdFromPopup;
+
+  console.log('sending message to core with tabId', tabId);
   chrome.runtime.sendMessage({
     type,
-    tabId: chrome.devtools.inspectedWindow.tabId,
+    tabId,
   });
 };

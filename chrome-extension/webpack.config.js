@@ -32,7 +32,6 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
-        exclude: /node_modules/,
       },
     ],
   },
@@ -44,12 +43,12 @@ module.exports = {
       ],
     }),
     new HTMLPlugin({
-      title: 'React Extension Popup',
+      title: 'Cortex Devtools',
       filename: 'popup.html',
       chunks: ['index'],
     }),
     new HTMLPlugin({
-      title: 'React Extension DevTools',
+      title: 'Cortex Devtools',
       filename: 'devtools.html',
       chunks: ['devtools'],
     }),

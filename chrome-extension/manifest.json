@@ -7,8 +7,18 @@
         "storage",
         "activeTab",
         "tabs",
-        "scripting"
+        "scripting",
+        "system.display",
+        "windows",
+        "<all_urls>"
     ],
+    "action": {
+        "default_icon": {
+            "16": "images/icon.jpg",
+            "48": "images/icon.jpg",
+            "128": "images/icon.jpg"
+        }
+    },
     "host_permissions": [
         "*://localhost/*"
     ],

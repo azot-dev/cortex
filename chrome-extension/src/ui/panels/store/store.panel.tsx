@@ -1,24 +1,65 @@
 import { Box, Tab, Tabs, Typography } from '@mui/material';
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren, useRef, useState } from 'react';
 import { VerticalPanel } from '../../components/vertical-panel';
-import ReactJson from 'react-json-view';
 import { useAppSelector } from '../../../cortex/utils/hooks';
 import { currentStoreVM } from './current-store.vm';
 import { DIFF_MARKER, diffStoreVM } from './diff-store.vm';
-import { JSONTree } from 'react-json-tree';
+import { JSONTree, KeyPath } from 'react-json-tree';
 
 export const StorePanel: FC = () => {
   const [value, setValue] = useState(0);
+  const [openNodes, setOpenNodes] = useState<Set<string>>(new Set());
+  const treeContainerRef = useRef<HTMLDivElement>(null);
 
   // @ts-ignore
   const currentStore = useAppSelector(currentStoreVM);
   // @ts-ignore
   const diffStore = useAppSelector(diffStoreVM);
 
-  console.log({ diffStore });
-
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const shouldExpandNodeInitially = (keyPath: KeyPath): boolean => {
+    const pathString = keyPath.join('.');
+    return openNodes.has(pathString);
+  };
+
+  const labelRenderer = (keyPath: KeyPath) => {
+    const pathString = keyPath.join('.');
+    const toggleNode = () => {
+      setOpenNodes((prevOpenNodes) => {
+        const newOpenNodes = new Set(prevOpenNodes);
+        if (newOpenNodes.has(pathString)) {
+          newOpenNodes.delete(pathString);
+        } else {
+          newOpenNodes.add(pathString);
+        }
+        return newOpenNodes;
+      });
+    };
+
+    let fullLineWidth = 0;
+    if (treeContainerRef.current) {
+      fullLineWidth = treeContainerRef.current.offsetWidth;
+    }
+
+    return (
+      <div style={{ position: 'relative' }}>
+        <div
+          onClick={toggleNode}
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: -20,
+            width: `${fullLineWidth}px`,
+            cursor: 'pointer',
+          }}
+        />
+        <span>{keyPath[keyPath.length - 1]}</span>
+      </div>
+    );
   };
 
   const valueRenderer = (raw: any, value: any) => {
@@ -28,9 +69,34 @@ export const StorePanel: FC = () => {
       const [oldValue, newValue] = diffString.split(' => ');
       return (
         <span>
-          <span style={{ color: 'red' }}>{oldValue}</span>
+          <span
+            style={{
+              backgroundColor: '#8B0000',
+              paddingLeft: 3,
+              paddingRight: 3,
+              paddingTop: 1,
+              paddingBottom: 1,
+              borderRadius: 3,
+              color: 'white',
+              textDecoration: 'line-through',
+            }}
+          >
+            {oldValue}
+          </span>
           <span> {'=>'} </span>
-          <span style={{ color: 'green' }}>{newValue}</span>
+          <span
+            style={{
+              backgroundColor: '#006500',
+              color: 'white',
+              paddingLeft: 3,
+              paddingRight: 3,
+              paddingTop: 1,
+              paddingBottom: 1,
+              borderRadius: 3,
+            }}
+          >
+            {newValue}
+          </span>
         </span>
       );
     }
@@ -40,7 +106,7 @@ export const StorePanel: FC = () => {
   const theme = {
     scheme: 'monokai',
     author: 'wimer hazenberg (http://www.monokai.nl)',
-    base00: '#272822',
+    base00: 'transparent',
     base01: '#383830',
     base02: '#49483e',
     base03: '#75715e',
@@ -48,12 +114,12 @@ export const StorePanel: FC = () => {
     base05: '#f8f8f2',
     base06: '#f5f4f1',
     base07: '#f9f8f5',
-    base08: '#f92672', // null
-    base09: '#fd971f', // boolean, number
+    base08: '#4EBCF7', // null
+    base09: '#CA8E76', // boolean, number
     base0A: '#f4bf75',
-    base0B: '#a6e22e',
+    base0B: '#CA8E76',
     base0C: '#a1efe4',
-    base0D: '#66d9ef', // keys
+    base0D: '#9CDCFD', // keys
     base0E: '#ae81ff',
     base0F: '#cc6633',
   };
@@ -63,7 +129,6 @@ export const StorePanel: FC = () => {
       <div
         style={{
           height: '50px',
-          marginBottom: '15px',
           backgroundColor: '#3D444F',
           marginLeft: -5,
           display: 'flex',
@@ -76,11 +141,16 @@ export const StorePanel: FC = () => {
         </Tabs>
       </div>
       <CustomTabPanel value={value} index={0}>
-        <ReactJson
-          src={currentStore}
-          theme={'apathy'}
-          style={{ backgroundColor: 'transparent' }}
-        />
+        <div ref={treeContainerRef}>
+          <JSONTree
+            data={currentStore}
+            hideRoot={true}
+            theme={theme}
+            getItemString={() => ''}
+            shouldExpandNodeInitially={shouldExpandNodeInitially}
+            labelRenderer={labelRenderer}
+          />
+        </div>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <JSONTree
@@ -118,7 +188,7 @@ const CustomTabPanel: FC<
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
