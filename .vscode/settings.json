@@ -1,0 +1,10 @@
+{
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "/chrome-extension/dist/.*",
+        "cmd": "open -a 'Google Chrome' http://reload.extensions"
+      }
+    ]
+  },
+}

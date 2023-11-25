@@ -69,7 +69,7 @@ export function createCortexFactory<DependenciesType>(
         });
 
         if (debug) {
-          enableChromeDebugger(this);
+          enableChromeDebugger(this, Object.keys(serviceConstructors));
         }
       }
 

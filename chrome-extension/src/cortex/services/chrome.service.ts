@@ -1,39 +1,28 @@
 import {
-  ChromeMessageType,
   ChromeResponse,
+  sendMessageToCore,
 } from '../../../../core/src/debuggerLib';
 import { Service } from '../utils/service';
 
 export class ChromeService extends Service {
   init() {
     this.listenToUpdates();
+    sendMessageToCore('GET_CORE_STATE');
   }
 
   listenToUpdates() {
-    console.log('listening to updates');
-    chrome.runtime.onMessage.addListener(
-      (response: ChromeResponse<ChromeMessageType>) => {
-        console.log('listening updates:', response.type, response.data);
-        this.appendEvent(response);
+    const eventsService = this.getService('events');
+    chrome.runtime.onMessage.addListener((response: ChromeResponse) => {
+      console.log('listening updates:', response.type, response.data);
+      if (
+        ['INITIAL_CORE_STATE', 'CURRENT_CORE_STATE'].includes(response.type)
+      ) {
+        console.log('reseting events');
+        eventsService.resetEvents();
+        this.getService('services').loadServices(response.data.serviceNames);
       }
-    );
-  }
-
-  private appendEvent(response: ChromeResponse<ChromeMessageType>) {
-    this.store.chrome.events.set((events) => ({
-      ...events,
-      [this.generateUniqueId()]: {
-        type: response.type,
-        date: Date.now(),
-        ...response.data,
-      },
-    }));
-  }
-
-  private generateUniqueId() {
-    const timestamp = Date.now().toString(36);
-    const randomString = Math.random().toString(36).substring(2, 15);
-
-    return `${timestamp}-${randomString}`;
+      console.log('appending event', response);
+      eventsService.appendEvent(response);
+    });
   }
 }
