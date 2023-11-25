@@ -10,12 +10,13 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.9.1.tgz#ea054bf0c92dbfc8f454b82541369290bebdc1cd"
-  integrity sha512-HX8V8kOg7oU6/lnUUVAivCiSHKhA70J8QfrZ/6DBiP8xravW6bKUCl31iMrtS3nNRxF+huG3ikeCVxH9CQbGPA==
+"@azot-dev/cortex@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.10.0.tgz#9f4b2ad0e8ec798d45699ecd36a377c6a29c1c5f"
+  integrity sha512-td/p0C+ZTjNqQcPQLtSBU8G3q1xqTzNdyA1gdBzcZrIVBbbXLueNEVCeMEsnR1AZdzYuWfFehTjJTFPyHoL4YA==
   dependencies:
     lodash "^4.17.21"
+    ws "^8.14.2"
     yargs "^17.7.2"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.22.13":
@@ -5817,7 +5818,7 @@ write-file-atomic@^5.0.0, write-file-atomic@^5.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^4.0.1"
 
-ws@^8.11.0:
+ws@^8.11.0, ws@^8.14.2:
   version "8.14.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.14.2.tgz#6c249a806eb2db7a20d26d51e7709eab7b2e6c7f"
   integrity sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==
