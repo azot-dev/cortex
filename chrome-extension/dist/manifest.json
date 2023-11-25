@@ -9,14 +9,13 @@
         "tabs",
         "scripting",
         "system.display",
-        "windows",
-        "<all_urls>"
+        "windows"
     ],
     "action": {
         "default_icon": {
-            "16": "images/icon.jpg",
-            "48": "images/icon.jpg",
-            "128": "images/icon.jpg"
+            "16": "images/logo_16.png",
+            "48": "images/logo_48.png",
+            "128": "images/logo_128.png"
         }
     },
     "host_permissions": [

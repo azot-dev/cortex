@@ -14,7 +14,7 @@ function HomepageHeader() {
       <div className="container">
         <img
           alt="logo"
-          src={require('@site/static/img/logo-heart.png').default}
+          src={require('@site/static/img/logo_512.png').default}
           width="200px"
           height="200px"
         />

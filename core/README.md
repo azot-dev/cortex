@@ -1,7 +1,7 @@
 # cortex
 
 <p align="center">
-  <img src="./assets/logo.png" width="200px" height="200px">
+  <img src="./assets/logo_512.png" width="200px" height="200px">
 </p>
 
 ## Motivation
