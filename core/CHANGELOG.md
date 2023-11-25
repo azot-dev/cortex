@@ -1,3 +1,20 @@
+# [1.10.0](https://github.com/azot-dev/cortex/compare/v1.9.1...v1.10.0) (2023-11-25)
+
+
+### Bug Fixes
+
+* add debugger log for services ([e6aa95f](https://github.com/azot-dev/cortex/commit/e6aa95f9a316c99d2d64306892a71759caf89336))
+
+
+### Features
+
+* add diff to chrome devtools ([d5d0aa9](https://github.com/azot-dev/cortex/commit/d5d0aa9f9aab370a2de285721e2f5e23a1959cac))
+* add popup to chrome extension ([b61492a](https://github.com/azot-dev/cortex/commit/b61492a909019903616b73025c993c81ca9d3b90))
+* change logo ([10d41cb](https://github.com/azot-dev/cortex/commit/10d41cbf1bf4740ff349ced76ca0150a013f9b13))
+* display services and add make chrome extension panels scrollable ([672aa17](https://github.com/azot-dev/cortex/commit/672aa17b8e9047b22f89de290a81067e3ea04a64))
+* implement UI of the Chrome extension ([05ced6d](https://github.com/azot-dev/cortex/commit/05ced6d3c466831e0cc9967e6fc63945b2f19992))
+* use React instead of Vanilla JS for the cortex debug ([1824f29](https://github.com/azot-dev/cortex/commit/1824f29bc96ef35e0cd6f8190e6452c5736634ea))
+
 ## [1.9.1](https://github.com/azot-dev/cortex/compare/v1.9.0...v1.9.1) (2023-10-30)
 
 
