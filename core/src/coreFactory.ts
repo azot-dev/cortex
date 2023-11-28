@@ -64,6 +64,15 @@ export function createCortexFactory<DependenciesType>(
           );
         }
 
+        Object.keys(serviceConstructors).forEach((serviceName) => {
+          const serviceInstance = this.#serviceRegistry.get(
+            serviceName as keyof typeof serviceConstructors
+          );
+          if (serviceInstance) {
+            bindAllMethods(serviceInstance);
+          }
+        });
+
         Object.keys(serviceConstructors).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
@@ -81,3 +90,14 @@ export function createCortexFactory<DependenciesType>(
     };
   };
 }
+
+const bindAllMethods = (service: any) => {
+  Object.getOwnPropertyNames(Object.getPrototypeOf(service)).forEach(
+    (methodName) => {
+      const method = service[methodName];
+      if (typeof method === 'function') {
+        service[methodName] = method.bind(service);
+      }
+    }
+  );
+};
