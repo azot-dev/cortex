@@ -4,9 +4,7 @@
     "version": "1.0.0",
     "description": "Debugger for the npm package @azot-dev/cortex",
     "permissions": [
-        "storage",
         "activeTab",
-        "tabs",
         "scripting",
         "system.display",
         "windows"
