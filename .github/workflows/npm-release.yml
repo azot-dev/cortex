@@ -139,7 +139,7 @@ jobs:
 
       - name: Upload step
         run: |
-          chrome-webstore-upload upload --source chrome-extension/build.zip --extension-id fpiekoekdbcomggnffgallmgbcmllhgh --client-id ${{ secrets.CHROME_CLIENT_ID }} --client-secret ${{ secrets.CHROME_CLIENT_SECRET }} --refresh-token ${{ secrets.CHROME_REFRESH_TOKEN }}
+          chrome-webstore-upload upload --source chrome-extension/build.zip --extension-id fpiekoekdbcomggnffgallmgbcmllhgh --client-id ${{ secrets.CHROME_CLIENT_ID }} --client-secret ${{ secrets.CHROME_CLIENT_SECRET }} --refresh-token ${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }}
 
   update-react-dep:
     needs: release-core
