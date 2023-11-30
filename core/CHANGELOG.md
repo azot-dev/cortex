@@ -1,3 +1,17 @@
+# [1.11.0](https://github.com/azot-dev/cortex/compare/v1.10.0...v1.11.0) (2023-11-30)
+
+
+### Bug Fixes
+
+* add a decorator to bind all service methods to their services" ([0234b23](https://github.com/azot-dev/cortex/commit/0234b23bbfe40ba22b759ad0fb3de27d734c0587))
+* attempt continuous deployment for chrome extension ([83ff360](https://github.com/azot-dev/cortex/commit/83ff360daa64d2e594e168c0520da634a8f0e37c))
+* attempt continuous deployment for chrome extension ([c84c056](https://github.com/azot-dev/cortex/commit/c84c056fd3f8507db8cfa75b56b35ab3541c6844))
+
+
+### Features
+
+* change documentation theme ([4d70f2d](https://github.com/azot-dev/cortex/commit/4d70f2d87242f95e9036e5b813f746beacaca57d))
+
 # [1.10.0](https://github.com/azot-dev/cortex/compare/v1.9.1...v1.10.0) (2023-11-25)
 
 
