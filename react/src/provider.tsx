@@ -1,6 +1,14 @@
-import React, { createContext, useContext, ReactNode, Context } from 'react';
-import { useSelector } from '@legendapp/state/react';
-import { Observable } from '@legendapp/state';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  Context,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
+import { useSelector as useLegendSelector } from '@legendapp/state/react';
+import { Observable, observable } from '@legendapp/state';
 
 interface CoreInterface {
   store: any;
@@ -13,6 +21,8 @@ interface ProviderProps {
   children: ReactNode;
   coreInstance: CoreInterface;
 }
+
+type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
 
 export const CortexProvider: React.FC<ProviderProps> = ({
   children,
@@ -31,22 +41,122 @@ export function useAppContext<T>(): T {
   return context;
 }
 
-export function createSelectorHook<Store>() {
-  return function <ReturnType>(
+export function createCortexHooks<
+  Store,
+  Services extends Record<string, abstract new (...args: any[]) => any>
+>() {
+  /**
+   * Hook to select and return a part of the application state
+   *
+   * @example const username = useAppSelector(state => state.user.name.get())
+   */
+  function useAppSelector<ReturnType>(
     selectorFunc: (state: Observable<Store>) => ReturnType
   ): ReturnType {
     const instance = useAppContext<CoreInterface>();
-    return useSelector(() => selectorFunc(instance.store));
-  };
-}
+    return useLegendSelector(() => selectorFunc(instance.store));
+  }
 
-export function createServiceHook<
-  Services extends Record<any, abstract new (...args: any) => any>
->() {
-  return function <T extends keyof Services>(
+  /**
+   * Hook to get a service
+   *
+   * @example const userService = useService('user')
+   * const changeName = userService.changeName
+   */
+  function useService<T extends keyof Services>(
     service: T
   ): InstanceType<Services[T]> {
     const core = useAppContext<CoreInterface>();
-    return core.getService(service) as InstanceType<Services[T]>;
-  };
+    return core.getService(service as string) as InstanceType<Services[T]>;
+  }
+  /**
+   * Hook to access to the store
+   *
+   * @example const store = useStore()
+   * const username = store.user.name.get()
+   */
+  function useStore(): Observable<Store> {
+    const { store } = useAppContext<CoreInterface>();
+    return store;
+  }
+
+  /**
+   * Hook to get the states of an async method of a service,
+   * it has to be triggered by calling call()
+   *
+   * @example const userService = useService('user')
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
+
+   */
+  function useLazyMethod<Method extends () => Promise<any>>(
+    serviceMethod: Method
+  ) {
+    const [data, setData] = useState<
+      ExtractPromiseType<ReturnType<Method>> | undefined
+    >(undefined);
+    const state: {
+      isLoading: boolean;
+      isError: boolean | undefined;
+      isSuccess: boolean | undefined;
+      isCalled: boolean;
+      error: unknown | undefined;
+    } = {
+      isLoading: false,
+      isError: undefined,
+      isSuccess: undefined,
+      isCalled: false,
+      error: undefined,
+    };
+
+    const observableState = observable(state);
+
+    const call = useCallback(async () => {
+      observableState.isError.set(undefined);
+      observableState.isSuccess.set(undefined);
+      observableState.error.set(undefined);
+      setData(undefined);
+
+      observableState.isLoading.set(true);
+      try {
+        setData(await serviceMethod());
+      } catch (e) {
+        observableState.error.set(e);
+      }
+      const isError = !!observableState.error.get();
+      observableState.isLoading.set(false);
+      observableState.isCalled.set(true);
+      observableState.isError.set(isError);
+      observableState.isSuccess.set(!isError);
+    }, []);
+
+    return {
+      isLoading: observableState.isLoading.get(),
+      isError: observableState.isError.get(),
+      isSuccess: observableState.isSuccess.get(),
+      isCalled: observableState.isCalled.get(),
+      error: observableState.error.get(),
+      call,
+      data,
+    };
+  }
+
+  /** 
+   * Hook to get the states of an async method of a service,
+   * it is automatically triggered when the component mounts
+   *
+   * @example const userService = useService('articles')
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
+
+   */
+  function useMethod<Method extends () => Promise<any>>(serviceMethod: Method) {
+    const lazyMethod = useLazyMethod(serviceMethod);
+
+    useEffect(() => {
+      lazyMethod.call();
+    }, []);
+
+    return lazyMethod;
+  }
+
+  return { useAppSelector, useService, useStore, useMethod, useLazyMethod };
 }
