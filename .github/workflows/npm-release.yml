@@ -134,13 +134,14 @@ jobs:
           zip -r build.zip dist/
 
       - name: Deploy to Chrome Web Store
-        uses: Klemensas/action-chrome-extension-upload@v1
+        uses: mobilefirstllc/cws-publish@latest
         with:
-          clientId: ${{ secrets.CHROME_CLIENT_ID }}
-          clientSecret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refreshToken: ${{ secrets.CHROME_REFRESH_TOKEN }}
-          extensionId: fpiekoekdbcomggnffgallmgbcmllhgh
-          zipFile: chrome-extension/build.zip
+          action: 'upload'
+          client_id: ${{ secrets.CHROME_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          extension_id: 'fpiekoekdbcomggnffgallmgbcmllhgh'
+          zip_file: chrome-extension/build.zip
 
   update-react-dep:
     needs: release-core
