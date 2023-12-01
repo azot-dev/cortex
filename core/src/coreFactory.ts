@@ -8,6 +8,7 @@ import {
   decorateAllMethodsWithChromeLogger,
   enableChromeDebugger,
 } from './debuggerLib';
+import { DevtoolsGateway } from './chrome-debugger/devtools.gateway';
 
 export function createCortexFactory<DependenciesType>(
   {
@@ -34,6 +35,7 @@ export function createCortexFactory<DependenciesType>(
       >;
     };
     const store = observable(cloneDeep(rawStore));
+    let devtools: DevtoolsGateway;
 
     return class Core {
       #serviceRegistry: ServiceRegistry<

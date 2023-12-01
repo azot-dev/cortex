@@ -6,22 +6,62 @@ sidebar_position: 4
 
 A service can access to:
 
-- any other service
-- the store
-- the dependencies
+## The store
+
+You can access the store by reading and writing on it
 
 ```ts
-export class RandomService extends Service {
-  async anyMethod() {
-    this.store.something.get()
-    this.store.something.set("something)
-
-    this.getService("otherService").doSomethingElse() // <= doSomethingElse is a method of otherService
-    
-    await this.dependencies.userApi.getMe()
+export class CounterService extends Service {
+  async decrement() {
+    const value = this.store.counter.value.get()
+    if (value === 0) {
+      return
+    }
+    this.store.counter.value.set(value - 1)
   }
 }
 ```
+
+
+## The other services
+
+For exemple we have a todoList form, it should append the form values to a todoList,
+then the form resets.
+
+```ts
+// todoForm service
+export class TodoFormService extends Service {
+  submit() {
+    const todoListService = this.services.get('todoList') 
+
+    todoListService.append(this.store.todoListForm.get())
+    this.store.todoListForm.set(null) 
+  }
+}
+
+// todoList service
+export class TodoListService extends Service {
+  append(todo: Todo) {
+    this.store.todo.push(todo)
+  }
+}
+```
+
+This way each service can have a single responsibility
+
+## The dependencies
+
+If your app is in clean architecture and uses the port-adapter pattern, you can access any of the dependencies in any service method
+
+```ts
+export class CounterService extends Service {
+  async loadShoes() {
+    const shoes = await this.dependencies.shoesApi.get() // a call api encapsulated in a dependency
+    this.store.shoes.set(shoes)
+  }
+}
+```
+
 
 ## init()
 
@@ -29,14 +69,13 @@ You can write an init method that will be executed right after the core is insta
 It is the perfect place to listen to some parts of the store that have been changed
 
 ```ts
-export class RandomService extends Service {
+export class MessageService extends Service {
   init() {
-    // this method will be executed right after the core is instantiated
-    this.store.user.onChange(this.listenerMethod)
+    this.dependencies.notifications.onReceive(this.onReceive)
   }
 
-  listenerMethod() {
-    // do something
+  onReceive(notificationReceived: string) {
+    this.store.messages.push(notificationReceived)
   }
 }
 ```

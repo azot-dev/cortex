@@ -54,6 +54,9 @@ export const myStore: Store = {
 
 ### Create the services
 
+Each part of the store is accessible from any service and strongly typed.
+You can modify any store value by using its method `set` and read any store value by using its method `get`
+
 ```typescript
 class CounterService extends Service {
   increment() {
@@ -68,28 +71,6 @@ class CounterService extends Service {
     this.store.counter.set(value)
   }
 }
-
-export const services = {
-  counter: CounterService,
-};
-```
-
-### Create your core
-
-```typescript
-const Core = createCortexFactory<{}>()(myStore, services);
-```
-
-### Instanciate the core
-
-```typescript
-const AppWrapper = () => {
-  return (
-    <CortexProvider coreInstance={new Core()}>
-      <App />
-    </CortexProvider>
-  );
-};
 ```
 
 ### Access the store data and the services in your app
@@ -99,7 +80,7 @@ const AppWrapper = () => {
 
 const App = () => {
   const counter = useAppSelector((state) => state.counter);
-  const { increment, decrement } = useAppService('counter');
+  const { increment, decrement } = useService('counter');
   
   return (
     <button onClick={() => increment()}> - </button>
@@ -109,47 +90,3 @@ const App = () => {
 };
 
 ```
-
-### Test your code logic
-In test driven development (TDD), this file should be created before coding the method services
-
-```typescript
-// counter.spec.ts
-
-describe('counter', () => {
-  let core = new Core();
-
-  beforeEach(() => {
-    core = new Core()
-  })
-
-  it('should be incremented', () => {
-    expect(core.store.counter.get()).toBe(0)
-
-    core.services.counter.increment()
-    expect(core.store.counter.get()).toBe(1)
-
-    core.services.counter.increment()
-    expect(core.store.counter.get()).toBe(2)
-  })
-
-  it('should be decremented', () => {
-    core.services.counter.setValue(5)
-
-    core.services.counter.decrement()
-    expect(core.store.counter.get()).toBe(4)
-
-    core.services.counter.decrement()
-    expect(core.store.counter.get()).toBe(3)
-  })
-
-  it('should not be decremented at a lower value than 0', () => {
-    core.services.counter.setValue(1)
-
-    core.services.counter.decrement()
-    expect(core.store.counter.get()).toBe(0)
-
-    core.services.counter.decrement()
-    expect(core.store.counter.get()).toBe(0)
-  })
-}) 

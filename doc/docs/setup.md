@@ -7,15 +7,28 @@ import TabItem from '@theme/TabItem';
 
 
 
-# Get started
+# Setup
 
-## Automatic installation
+<Tabs>
+  <TabItem value="yarn" label="yarn" default>
+
+    yarn add @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+
+  </TabItem>
+  <TabItem value="npm" label="npm" >
+
+    npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+
+  </TabItem>
+</Tabs>
+
+## Automatic installation of the template
 
 In the folder you want to instantiate cortex (inside your React project)
 It will install a template of your core structure, you can then modify it as you wish
 
 ```bash
-npx @azot-dev/cortex init react
+npx @azot-dev/cortex@latest init react
 ```
 
 Then wrap your root component with the Cortex provider:
@@ -31,19 +44,6 @@ const App = () => {
 ```
 
 ## Manual Installation
-
-<Tabs>
-  <TabItem value="yarn" label="yarn" default>
-
-    yarn add @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
-
-  </TabItem>
-  <TabItem value="npm" label="npm" >
-
-    npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
-
-  </TabItem>
-</Tabs>
 
 ## File tree structure example
 
@@ -108,7 +108,7 @@ import { Service } from '../utils/service';
 export class UserService extends Service {
   changeName(firstName: string, lastName: string) {
     this.store.user.firstName.set(firstName);
-    this.store.user.lastName.set(firstName);
+    this.store.user.lastName.set(lastName);
   }
 }
 
@@ -184,17 +184,18 @@ export const Core = createCortexFactory<DependenciesType>()(store, services);
 ### The hooks
 
 ```typescript
-// core/utils/hooks.ts
+// utils/hooks.ts
 
-import {
-  createSelectorHook,
-  createServiceHook,
-} from '@azot-dev/cortex';
-import { Core } from '../_core';
-import { Store, Services } from './utils/types';
+import { createCortexHooks } from '@azot-dev/react-cortex';
+import { Services, StoreType } from './types';
 
-export const useAppSelector = createSelectorHook<Store>();
-export const useAppService = createServiceHook<Services>();
+export const {
+  useAppSelector,
+  useService,
+  useStore,
+  useLazyMethod,
+  useMethod,
+} = createCortexHooks<StoreType, Services>();
 
 ```
 
@@ -210,7 +211,7 @@ import {
 import { Core } from '.';
 
 const App = () => {
-  const userService = useAppService('user');
+  const userService = useService('user');
   const user = useAppSelector((state) => state.user);
   return (
     <div>

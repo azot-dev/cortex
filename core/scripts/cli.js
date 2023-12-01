@@ -3,41 +3,6 @@
 const yargs = require('yargs');
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
-
-console.log('script called');
-
-function isPackageInstalled(packageName) {
-  try {
-    require.resolve(packageName);
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-
-function checkAndInstallPackage(packageName) {
-  if (!isPackageInstalled(packageName)) {
-    console.log(
-      `💾 The package ${packageName} is not installed. Installing now...`
-    );
-    try {
-      execSync(`npm install ${packageName} --save --silent > /dev/null 2>&1`, {
-        stdio: 'inherit',
-      });
-      console.log(
-        `✅ The package ${packageName} has been successfully installed.`
-      );
-    } catch (error) {
-      console.error(
-        `❌ Error while installing the package ${packageName}.`,
-        error
-      );
-    }
-  } else {
-    console.log(`✅ The package ${packageName} is already installed.`);
-  }
-}
 
 function copyRecursively(src, dest) {
   const exists = fs.existsSync(src);
@@ -80,10 +45,6 @@ yargs
         } else {
           console.error(`The library "${argv.library}" is not recognized.`);
         }
-
-        checkAndInstallPackage('@azot-dev/cortex');
-        checkAndInstallPackage('@azot-dev/react-cortex');
-        checkAndInstallPackage('@legendapp/state');
         console.info();
         console.info(
           'Package successfully installed, you need to wrap your app with the CortexProvider to use it with React'

@@ -9,7 +9,7 @@ describe('provider', () => {
     const TestComponent = () => {
       const context = useAppContext();
       expect(context).toEqual(dummyCoreInstance);
-      return null; // This component doesn't render anything.
+      return null;
     };
 
     render(

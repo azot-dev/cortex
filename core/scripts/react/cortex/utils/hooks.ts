@@ -1,7 +1,12 @@
 // utils/hooks.ts
 
-import { createSelectorHook, createServiceHook } from '@azot-dev/react-cortex';
+import { createCortexHooks } from '@azot-dev/react-cortex';
 import { Services, StoreType } from './types';
 
-export const useAppSelector = createSelectorHook<StoreType>();
-export const useAppService = createServiceHook<Services>();
+export const {
+  useAppSelector,
+  useService,
+  useStore,
+  useLazyMethod,
+  useMethod,
+} = createCortexHooks<StoreType, Services>();

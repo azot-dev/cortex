@@ -1,0 +1,8 @@
+# useStore
+
+Access to the store
+
+```tsx
+  const store = useStore();
+  const counter = store.counter.get()
+```
