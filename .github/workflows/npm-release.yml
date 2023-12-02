@@ -137,9 +137,13 @@ jobs:
         run: |
           npm install -g chrome-webstore-upload-cli
 
-      - name: Upload step
+      - name: Upload zipped build
         run: |
           chrome-webstore-upload upload --source chrome-extension/build.zip --extension-id fpiekoekdbcomggnffgallmgbcmllhgh --client-id ${{ secrets.CHROME_CLIENT_ID }} --client-secret ${{ secrets.CHROME_CLIENT_SECRET }} --refresh-token ${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }}
+
+      - name: Publish
+        run: |
+          CLIENT_ID=${{ secrets.CHROME_CLIENT_ID }} CLIENT_SECRET=${{ secrets.CHROME_CLIENT_SECRET }} REFRESH_TOKEN=${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }} chrome-webstore-upload publish --extension-id fpiekoekdbcomggnffgallmgbcmllhgh
 
   update-react-dep:
     needs: release-core
