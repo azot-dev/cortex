@@ -133,15 +133,18 @@ jobs:
           cd chrome-extension
           zip -r build.zip dist/
 
-      - name: Deploy to Chrome Web Store
-        uses: mobilefirstllc/cws-publish@latest
-        with:
-          action: 'upload'
-          client_id: ${{ secrets.CHROME_CLIENT_ID }}
-          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-          extension_id: 'fpiekoekdbcomggnffgallmgbcmllhgh'
-          zip_file: chrome-extension/build.zip
+      - name: Install webstore cli
+        run: |-
+          npm install -g chrome-webstore-upload-cli
+
+      - name: Upload step
+        run: |-
+          chrome-webstore-upload upload \\
+            --source chrome-extension/build.zip \\
+            --extension-id fpiekoekdbcomggnffgallmgbcmllhgh \\
+            --client-id ${{ secrets.CHROME_CLIENT_ID }} \\
+            --client-secret ${{ secrets.CHROME_CLIENT_SECRET }} \\
+            --refresh-token ${{ secrets.CHROME_REFRESH_TOKEN }}
 
   update-react-dep:
     needs: release-core
