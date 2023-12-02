@@ -1,5 +1,5 @@
 {
   "name": "@azot-dev/cortex-storage-react-adapter",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "main": "react.storage.adapter.ts"
 }
