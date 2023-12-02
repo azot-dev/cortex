@@ -6,8 +6,7 @@
     "permissions": [
         "activeTab",
         "scripting",
-        "system.display",
-        "windows"
+        "system.display"
     ],
     "action": {
         "default_icon": {

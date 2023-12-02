@@ -1,4 +1,4 @@
-export const extensionId = 'cbbghjphpnmlbbploeajbblkgmcabnbn';
+export const extensionId = 'fpiekoekdbcomggnffgallmgbcmllhgh';
 
 export type ChromeMessageType = keyof ChromeMessageData;
 
@@ -53,9 +53,6 @@ const ServiceMethodDecorator = (
   const originalMethod = descriptor.value;
 
   descriptor.value = function (...args: any[]) {
-    const now = new Date();
-
-    console.log(`[${now.toISOString()}] - ${serviceName}/${methodName} called`);
     sendMessageToChrome('SERVICE_STATE', {
       serviceName,
       methodName,
@@ -105,8 +102,6 @@ const sendMessageToChrome = <T extends ChromeMessageType>(
 
   chrome.runtime.sendMessage(extensionId, { type, data }, () => {
     if (chrome.runtime.lastError) {
-      console.warn('trying to send', type, data);
-      throw new Error('Cortex Devtools not detected');
     }
   });
 };
@@ -118,10 +113,6 @@ export const sendMessageToCore = <T extends ChromeRequestType>(type: T) => {
     );
     return;
   }
-
-  console.log('Current URL:', window.location.href);
-  console.log('Search string:', window.location.search);
-
   const tabIdParam = new URLSearchParams(window.location.search).get('tabId');
   const tabIdFromPopup = tabIdParam ? parseInt(tabIdParam, 10) : null;
 
@@ -130,7 +121,6 @@ export const sendMessageToCore = <T extends ChromeRequestType>(type: T) => {
     ? chrome.devtools.inspectedWindow.tabId
     : tabIdFromPopup;
 
-  console.log('sending message to core with tabId', tabId);
   chrome.runtime.sendMessage({
     type,
     tabId,
