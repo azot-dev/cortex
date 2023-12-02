@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.11.2":
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.11.2.tgz#72ea07c39ce83c689cd06fe90299245815249e69"
-  integrity sha512-HdVppWHhNW1a4X2XmZqe5iGx+dZ5RjpzuGD68NatEzztbKfzAIU63Y03Zrvq4aG+aASZ3qu36ssmyNJJZ1WcBw==
+"@azot-dev/cortex@^1.11.3":
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.11.3.tgz#2cc706a859cbdd8432e30cba00d1bf5a5d39b668"
+  integrity sha512-OSbYDGznJspWXo/euUJ0pntqAqTmRXlxmAtJGiy33Ssw2iveu2NTSVPsTwReI/OdzL40epspwhc9RrNjxCtcWw==
   dependencies:
     lodash "^4.17.21"
     ws "^8.14.2"
