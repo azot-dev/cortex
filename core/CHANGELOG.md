@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/azot-dev/cortex/compare/v1.11.0...v1.11.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* attempt continuous deployment for chrome extension ([6d57027](https://github.com/azot-dev/cortex/commit/6d570271b0fbd80cd8a1876c5c2d4cb127da5b2a))
+
 # [1.11.0](https://github.com/azot-dev/cortex/compare/v1.10.0...v1.11.0) (2023-11-30)
 
 
