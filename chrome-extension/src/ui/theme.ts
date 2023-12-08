@@ -20,6 +20,20 @@ export const theme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#D0D0D0',
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        size: 'small',
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         root: {
@@ -40,6 +54,16 @@ export const theme = createTheme({
     },
     background: {
       default: '#2A2F3A',
+    },
+    success: {
+      main: '#B5F7C3',
+      light: '#B5F7C3',
+      dark: '#B5F7C3',
+    },
+    error: {
+      main: '#F7ADB4',
+      light: '#F7ADB4',
+      dark: '#F7ADB4',
     },
   },
 });
