@@ -182,6 +182,55 @@ jobs:
           git pull --rebase origin main
           git push
 
+  update-chrome-devtools-server:
+    needs: release-core
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Pull changes
+        run: git pull --rebase origin main
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Update peer dependency and package version
+        run: |
+          CORTEX_VERSION=$(jq -r ".version" core/package.json)
+          jq '.version = "'"$CORTEX_VERSION"'"' chrome-extension/websocket-server/package.json > chrome-extension/websocket-server/package.temp.json && mv chrome-extension/websocket-server/package.temp.json chrome-extension/websocket-server/package.json
+
+      - name: Update yarn.lock
+        run: cd chrome-extension/websocket-server && yarn
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update cortex websocket server"
+          git pull --rebase origin main
+          git push
+
+      - name: Build
+        run: |
+          cd chrome-extension/websocket-server
+          yarn build
+
+      - name: Release chrome-extension/websocket-server
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd chrome-extension/websocket-server
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          npm publish --access public
+
   release-react:
     needs: update-react-dep
     runs-on: ubuntu-latest

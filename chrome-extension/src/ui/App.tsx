@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Split from 'react-split';
 import { ThemeProvider } from '@mui/material';
 import { CortexProvider } from '@azot-dev/react-cortex';
-import { Core } from '../cortex/_core';
+import { Core, core } from '../cortex/_core';
 import { theme } from './theme';
 import { ServicesPanel } from './panels/services.panel';
 import { EventsPanel } from './panels/events/events.panel';
@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <CortexProvider coreInstance={new Core()}>
+        <CortexProvider coreInstance={core}>
           <Split
             sizes={[20, 40, 40]}
             minSize={100}

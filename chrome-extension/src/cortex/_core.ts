@@ -6,3 +6,5 @@ import { store } from './store/_store';
 import { Dependencies } from './dependencies/_dependencies';
 
 export const Core = createCortexFactory<Dependencies>()(store, services);
+
+export const core = new Core();

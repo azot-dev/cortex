@@ -4,19 +4,20 @@ import { observable } from '@legendapp/state';
 import { ServiceRegistry } from './base';
 import { ServiceConstructor } from './types/service-constructor';
 import { cloneDeep } from 'lodash';
-import {
-  decorateAllMethodsWithChromeLogger,
-  enableChromeDebugger,
-} from './debuggerLib';
-import { DevtoolsGateway } from './chrome-debugger/devtools.gateway';
+import { CommunicationService } from './chrome-debugger/communication-service';
 
 export function createCortexFactory<DependenciesType>(
   {
     debug,
+    host,
+    port,
   }: {
     debug?: boolean;
+    host?: string;
+    port?: number;
   } = {
     debug: false,
+    host: 'localhost',
   }
 ) {
   return <
@@ -35,7 +36,7 @@ export function createCortexFactory<DependenciesType>(
       >;
     };
     const store = observable(cloneDeep(rawStore));
-    let devtools: DevtoolsGateway;
+    const devtools = new CommunicationService(debug, 'localhost', 9091);
 
     return class Core {
       #serviceRegistry: ServiceRegistry<
@@ -52,9 +53,7 @@ export function createCortexFactory<DependenciesType>(
         for (const [key, ServiceConstructor] of Object.entries(
           serviceConstructors
         )) {
-          if (debug) {
-            decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
-          }
+          devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
           const instance = new ServiceConstructor(
             this.store,
             dependencies as DependenciesType,
@@ -78,10 +77,7 @@ export function createCortexFactory<DependenciesType>(
         Object.keys(serviceConstructors).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
-
-        if (debug) {
-          enableChromeDebugger(this, Object.keys(serviceConstructors));
-        }
+        devtools.enableChromeDebugger(this, Object.keys(serviceConstructors));
       }
 
       getService<K extends keyof ServiceInstances>(
