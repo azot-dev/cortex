@@ -43,7 +43,6 @@
     "ws": "^8.14.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "webpack --config webpack.config.js",
     "dev": "webpack -w --config webpack.config.js",
     "refresh": "fswatch -o dist | xargs -n1 -I{} open -a 'Google Chrome' http://reload.extensions"

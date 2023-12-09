@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import Split from 'react-split';
 import { ThemeProvider } from '@mui/material';
 import { CortexProvider } from '@azot-dev/react-cortex';
@@ -8,8 +8,9 @@ import { ServicesPanel } from './panels/services.panel';
 import { EventsPanel } from './panels/events/events.panel';
 import { StorePanel } from './panels/store/store.panel';
 import 'typeface-roboto-mono';
+import { TopBanner } from './components/top-banner';
 
-const App = () => {
+const App: FC = () => {
   useEffect(() => {
     document.body.style.margin = '0';
     document.body.style.backgroundColor = theme.palette.background.default;
@@ -19,6 +20,7 @@ const App = () => {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CortexProvider coreInstance={core}>
+          <TopBanner />
           <Split
             sizes={[20, 40, 40]}
             minSize={100}
@@ -31,7 +33,7 @@ const App = () => {
             cursor="col-resize"
             style={{
               display: 'flex',
-              height: '100vh',
+              height: 'calc(100vh - 30px)',
             }}
             gutter={createGutter}
           >
