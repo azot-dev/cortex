@@ -94,6 +94,7 @@ jobs:
           cd core
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           RELEASE_VERSION=1.10.0 npx semantic-release
+          cd ..
 
   release-chrome-extension:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
