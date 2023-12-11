@@ -1,5 +1,6 @@
 import { ChromeCommunicationAdapter } from './chrome-communication.adapter';
 import { CommunicationGateway } from './communication.gateway';
+import { NoCommunicationAdapter } from './no-communication.adapter';
 import { ChromeMessageType, ChromeResponseByType } from './types';
 import { WebsocketCommunicationAdapter } from './websocket-communication.adapter';
 
@@ -7,19 +8,20 @@ export type ChromeResponse = ChromeResponseByType<ChromeMessageType>;
 
 export class CommunicationService {
   private communication: CommunicationGateway;
-  constructor(
-    private debug: boolean = false,
-    private host: string = 'localhost',
-    private port?: number
-  ) {
-    this.communication = this.port
-      ? new WebsocketCommunicationAdapter(this.host, this.port)
-      : new ChromeCommunicationAdapter();
-    this.sendMessageToCore = this.communication.sendMessageToCore.bind(
-      this.communication
-    );
-    this.addCoreMessagesListener =
-      this.communication.addCoreMessagesListener.bind(this.communication);
+  constructor(private debug: boolean = false, private host: string = 'localhost', private port?: number) {
+    if (!this.debug) {
+      console.log('no communication adapter');
+      this.communication = new NoCommunicationAdapter();
+    } else if (this.port) {
+      console.log('websocket adapter');
+      this.communication = new WebsocketCommunicationAdapter(this.host, this.port);
+    } else {
+      console.log('chrome adapter');
+      this.communication = new ChromeCommunicationAdapter();
+    }
+
+    this.sendMessageToCore = this.communication.sendMessageToCore.bind(this.communication);
+    this.addCoreMessagesListener = this.communication.addCoreMessagesListener.bind(this.communication);
   }
   sendMessageToCore;
   addCoreMessagesListener;
@@ -42,45 +44,26 @@ export class CommunicationService {
     });
   }
 
-  decorateAllMethodsWithChromeLogger<T extends { new (...args: any[]): {} }>(
-    serviceName: string,
-    classConstructor: T
-  ) {
+  decorateAllMethodsWithChromeLogger<T extends { new (...args: any[]): {} }>(serviceName: string, classConstructor: T) {
     if (!this.debug) {
       return;
     }
-    Object.getOwnPropertyNames(classConstructor.prototype).forEach(
-      (methodName) => {
-        if (methodName === 'constructor') return;
+    Object.getOwnPropertyNames(classConstructor.prototype).forEach((methodName) => {
+      if (methodName === 'constructor') return;
 
-        const descriptor = Object.getOwnPropertyDescriptor(
-          classConstructor.prototype,
-          methodName
-        );
-        if (descriptor && typeof descriptor.value === 'function') {
-          Object.defineProperty(
-            classConstructor.prototype,
-            methodName,
-            this.serviceMethodDecorator(serviceName, methodName, descriptor)
-          );
-        }
+      const descriptor = Object.getOwnPropertyDescriptor(classConstructor.prototype, methodName);
+      if (descriptor && typeof descriptor.value === 'function') {
+        Object.defineProperty(classConstructor.prototype, methodName, this.serviceMethodDecorator(serviceName, methodName, descriptor));
       }
-    );
+    });
   }
 
-  serviceMethodDecorator(
-    serviceName: string,
-    methodName: string,
-    descriptor: PropertyDescriptor
-  ) {
+  serviceMethodDecorator(serviceName: string, methodName: string, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
     const communication = this.communication;
 
     descriptor.value = function (...args: any[]) {
-      communication.sendMessageToChrome('SERVICE_STATE', {
-        serviceName,
-        methodName,
-      });
+      communication.sendMessageToChrome('SERVICE_STATE', { serviceName, methodName });
 
       return originalMethod.apply(this, args);
     };

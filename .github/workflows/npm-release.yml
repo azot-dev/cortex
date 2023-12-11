@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      run_release_chrome_extension:
+        description: 'Set to true to run release-chrome-extension job'
+        required: false
+        default: 'false'
 
 jobs:
   test-core:
@@ -90,6 +96,7 @@ jobs:
           npx semantic-release
 
   release-chrome-extension:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
     needs: release-core
     runs-on: ubuntu-latest
     steps:
@@ -268,7 +275,7 @@ jobs:
           npm publish --access public
 
   deploy-doc:
-    needs: [release-react, update-adapters]
+    needs: [release-react]
     permissions:
       id-token: write
       pages: write
@@ -306,47 +313,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-
-  update-adapters:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-
-      - name: Configure npm authentication
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-
-      - name: Pull changes
-        run: git pull --rebase origin main
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Update adapters READMEs
-        run: ./scripts/update-adapters-readme.sh
-
-      - name: Modify adapters in documentation
-        run: ./scripts/copy-adapters-doc.sh
-
-      - name: Identify, Bump Version, and Publish Changed Adapters
-        run: ./scripts/publish-changed-adapters.sh
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name 'GitHub Actions Bot'
-          git config user.email 'githubactions@example.com'
-          git add -A
-          git diff-index --quiet HEAD || git commit -m "Update adapter versions"
-          git pull --rebase origin main
-          git push https://${{secrets.GITHUB_TOKEN}}@github.com/azot-dev/cortex.git main

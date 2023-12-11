@@ -1,14 +1,15 @@
 import { BaseService, createCortexFactory } from '../src';
 
-const store = { user: { name: 'John', age: 28 } };
-
 class UserService extends BaseService<any, any, any> {
+  static initialState = { name: 'John', age: 28 };
+
   changeName(newName: string) {
-    this.store.user.name.set(newName);
+    this.state.name.set(newName);
   }
 
   getName() {
-    return this.store.user.name.get();
+    console.log({ stateFromService: this.state.get() });
+    return this.state.name.get();
   }
 }
 
@@ -18,7 +19,7 @@ class OtherService extends BaseService<any, any, any> {
   }
 }
 
-const Cortex = createCortexFactory<{}>()(store, {
+const Cortex = createCortexFactory()({
   user: UserService,
   other: OtherService,
 });
@@ -27,6 +28,11 @@ describe('core', () => {
   let core = new Cortex();
   beforeEach(() => {
     core = new Cortex();
+  });
+
+  it('should instanciate its store slice', () => {
+    const name = core.getService('user').getName();
+    expect(name).not.toBeUndefined();
   });
 
   it('should access the store', () => {

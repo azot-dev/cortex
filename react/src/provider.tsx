@@ -1,12 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  ReactNode,
-  Context,
-  useCallback,
-  useState,
-  useEffect,
-} from 'react';
+import React, { createContext, useContext, ReactNode, Context, useCallback, useState, useEffect } from 'react';
 import { useSelector as useLegendSelector } from '@legendapp/state/react';
 import { Observable, observable } from '@legendapp/state';
 
@@ -24,13 +16,8 @@ interface ProviderProps {
 
 type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
 
-export const CortexProvider: React.FC<ProviderProps> = ({
-  children,
-  coreInstance,
-}) => (
-  <AppStateContext.Provider value={coreInstance}>
-    {children}
-  </AppStateContext.Provider>
+export const CortexProvider: React.FC<ProviderProps> = ({ children, coreInstance }) => (
+  <AppStateContext.Provider value={coreInstance}>{children}</AppStateContext.Provider>
 );
 
 export function useAppContext<T>(): T {
@@ -41,18 +28,19 @@ export function useAppContext<T>(): T {
   return context;
 }
 
-export function createCortexHooks<
-  Store,
-  Services extends Record<string, abstract new (...args: any[]) => any>
->() {
+export function createCortexHooks<Services extends Record<string, abstract new (...args: any[]) => any>>() {
+  type HasStaticInitialState<T> = T extends { initialState: infer S } ? S : never;
+
+  type Store = {
+    [K in keyof Services as HasStaticInitialState<Services[K]> extends never ? never : K]: HasStaticInitialState<Services[K]>;
+  };
+
   /**
    * Hook to select and return a part of the application state
    *
    * @example const username = useAppSelector(state => state.user.name.get())
    */
-  function useAppSelector<ReturnType>(
-    selectorFunc: (state: Observable<Store>) => ReturnType
-  ): ReturnType {
+  function useAppSelector<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
     const instance = useAppContext<CoreInterface>();
     return useLegendSelector(() => selectorFunc(instance.store));
   }
@@ -63,9 +51,7 @@ export function createCortexHooks<
    * @example const userService = useService('user')
    * const changeName = userService.changeName
    */
-  function useService<T extends keyof Services>(
-    service: T
-  ): InstanceType<Services[T]> {
+  function useService<T extends keyof Services>(service: T): InstanceType<Services[T]> {
     const core = useAppContext<CoreInterface>();
     return core.getService(service as string) as InstanceType<Services[T]>;
   }
@@ -88,12 +74,8 @@ export function createCortexHooks<
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
 
    */
-  function useLazyMethod<Method extends () => Promise<any>>(
-    serviceMethod: Method
-  ) {
-    const [data, setData] = useState<
-      ExtractPromiseType<ReturnType<Method>> | undefined
-    >(undefined);
+  function useLazyMethod<Method extends () => Promise<any>>(serviceMethod: Method) {
+    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
     const state: {
       isLoading: boolean;
       isError: boolean | undefined;
@@ -111,6 +93,7 @@ export function createCortexHooks<
     const observableState = observable(state);
 
     const call = useCallback(async () => {
+      console.log('calling');
       observableState.isError.set(undefined);
       observableState.isSuccess.set(undefined);
       observableState.error.set(undefined);
@@ -122,6 +105,7 @@ export function createCortexHooks<
       } catch (e) {
         observableState.error.set(e);
       }
+      console.log('end of the call');
       const isError = !!observableState.error.get();
       observableState.isLoading.set(false);
       observableState.isCalled.set(true);

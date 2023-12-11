@@ -145,8 +145,8 @@ export class UserService extends Service {
       const token = await this.dependencies.userApi.login(email, password)
       this.dependencies.baseApi.setToken(token) // normally the token is injected letting the next call be authenticated 
       const user = await this.dependencies.userApi.getMe()
-      this.store.user.set(user)
-      this.store.app.isLoggedIn(true)
+      this.state.set(user)
+      this.getService('app').setIsLoggedIn(true)
     } catch (e) {
       this.store.loginForm.error.set("The email or the password seem to be incorrect")
     }
@@ -191,5 +191,5 @@ describe('login', () => {
 
 ### Conlusion
 
-With that approach we append a bit more complexity because the adapters can be inconvenient to write, but we get an app that can run on any device and be easily testable.
-You can still write your API and other dependencies as services but your app will be harder to test and won't be considered as coded in clean architecture anymore
+With this approach we append a bit more complexity because the adapters can be inconvenient to write, but we get an app that can run on any device and be easily testable.
+You can also write your API and other dependencies as services, but your app will be harder to test and won't be considered as coded in clean architecture anymore.

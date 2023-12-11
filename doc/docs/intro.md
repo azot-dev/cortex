@@ -19,6 +19,7 @@ So I tried clean architecture with Redux Toolkit, very nice but still hard to re
 I ended up with the cortex architecture, in order to help developers (and myself) to gain more readability over their code, help them test it easily, and not being stopped by any issue the could encounter.
 
 cortex is easy to use, and can be setup at the architecture complexity you want.
+
 ## Purpose
 
 React is a library not a framework, it has been created to reflect the changes of some variables (the states) to the UI, nothing else.
@@ -37,56 +38,3 @@ All of that using oriented object programming!
 ## Technical choices
 
 It is built over [the legend app state lib](https://legendapp.com/open-source/state/), and add a strongly typed system of services and dependency injections
-
-## Basic example
-
-### Create a store
-
-```typescript
-type Store = {
-  counter: number;
-}
-
-export const myStore: Store = {
-  counter: 0,
-};
-```
-
-### Create the services
-
-Each part of the store is accessible from any service and strongly typed.
-You can modify any store value by using its method `set` and read any store value by using its method `get`
-
-```typescript
-class CounterService extends Service {
-  increment() {
-    this.store.counter.set(counter => counter + 1);
-  }
-  
-  decrement() {
-    this.store.counter.set(counter => counter === 0 ? 0 : counter - 1);
-  }
-
-  setValue(value: number) {
-    this.store.counter.set(value)
-  }
-}
-```
-
-### Access the store data and the services in your app
-
-```typescript
-// App.tsx
-
-const App = () => {
-  const counter = useAppSelector((state) => state.counter);
-  const { increment, decrement } = useService('counter');
-  
-  return (
-    <button onClick={() => increment()}> - </button>
-    <div>{counter}</div>
-    <button onClick={() => decrement()}> + </button>
-  );
-};
-
-```

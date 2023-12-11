@@ -48,3 +48,4 @@ describe('counter', () => {
     expect(core.store.counter.get()).toBe(0)
   })
 }) 
+```

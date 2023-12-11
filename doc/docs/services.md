@@ -6,43 +6,59 @@ sidebar_position: 4
 
 A service can access to:
 
-## The store
+## State
 
-You can access the store by reading and writing on it
+You can access the local state by reading and writing on it
+
+In this example the counter is decremented only if it is not 0
 
 ```ts
-export class CounterService extends Service {
+type State = { count: number };
+
+export class CounterService extends Service<State> {
+  static initialState: State = { count: 0 };
+
   async decrement() {
-    const value = this.store.counter.value.get()
+    const value = this.state.count.get()
     if (value === 0) {
       return
     }
-    this.store.counter.value.set(value - 1)
+    this.state.count.set(value - 1)
   }
 }
 ```
 
-
-## The other services
+## Access to the other services
 
 For exemple we have a todoList form, it should append the form values to a todoList,
 then the form resets.
 
+The `submit` method of  `TodoFormService` calls the method `append` of `TodoListService`
+
 ```ts
 // todoForm service
-export class TodoFormService extends Service {
-  submit() {
-    const todoListService = this.services.get('todoList') 
 
-    todoListService.append(this.store.todoListForm.get())
-    this.store.todoListForm.set(null) 
+type Form = { name: string };
+
+type TodoFormState = Form;
+export class TodoFormService extends Service<TodoFormState> {
+  static initialState: TodoFormState = { name: '' };
+
+  submit() {
+    const todoListService = this.services.get('todoList');
+
+    todoListService.append(this.state.get());
+    this.state.name.set('') ;
   }
 }
 
 // todoList service
+type TodoListState = Form[];
 export class TodoListService extends Service {
+  static initialState: TodoListService = [];
+
   append(todo: Todo) {
-    this.store.todo.push(todo)
+    this.state.push(todo)
   }
 }
 ```
@@ -54,10 +70,14 @@ This way each service can have a single responsibility
 If your app is in clean architecture and uses the port-adapter pattern, you can access any of the dependencies in any service method
 
 ```ts
-export class CounterService extends Service {
+type State = Shoes[];
+
+export class CounterService extends Service<State> {
+  static initialState: State = [];
+
   async loadShoes() {
-    const shoes = await this.dependencies.shoesApi.get() // a call api encapsulated in a dependency
-    this.store.shoes.set(shoes)
+    const shoes = await this.dependencies.shoesApi.get() // an api call encapsulated in a dependency
+    this.state.set(shoes)
   }
 }
 ```

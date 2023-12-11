@@ -6,9 +6,9 @@ import { ServiceRegistry } from '../base';
 export type ConstructedServiceTypes<
   ServiceConstructorsType extends Record<
     string,
-    ServiceConstructor<any, Observable<StoreType>, DependenciesType>
+    ServiceConstructor<any, Observable<StateType>, DependenciesType>
   >,
-  StoreType,
+  StateType,
   DependenciesType
 > = {
   [K in keyof ServiceConstructorsType]: InstanceType<
@@ -16,8 +16,15 @@ export type ConstructedServiceTypes<
   >;
 };
 
-export type ServiceConstructor<ServiceType, StoreType, DependenciesType> = new (
-  store: Observable<StoreType>,
-  dependencies: DependenciesType,
-  serviceRegistry: ServiceRegistry<any, Observable<StoreType>, DependenciesType>
-) => ServiceType;
+export type ServiceConstructor<ServiceType, StateType, DependenciesType> = {
+  initialState?: StateType;
+  new (
+    state: Observable<StateType>,
+    dependencies: DependenciesType,
+    serviceRegistry: ServiceRegistry<
+      any,
+      Observable<StateType>,
+      DependenciesType
+    >
+  ): ServiceType;
+};

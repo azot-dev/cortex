@@ -1,20 +1,15 @@
 // utils/service.ts
 
-import { Observable } from '@legendapp/state';
 import { BaseService } from '@azot-dev/cortex';
-import { Services, StoreType } from './types';
 import { Dependencies } from '../dependencies/_dependencies';
+import { services } from '../services/_services';
 
-export abstract class Service extends BaseService<
-  Services,
-  Observable<StoreType>,
+export abstract class Service<T = any> extends BaseService<
+  T,
+  typeof services,
   Dependencies
 > {
-  constructor(
-    store: Observable<StoreType>,
-    dependencies: Dependencies,
-    serviceRegistry: any
-  ) {
-    super(store, dependencies, serviceRegistry);
+  constructor(...args: [any, any, any]) {
+    super(...args);
   }
 }

@@ -3,7 +3,7 @@ import { CommunicationService } from '../../../../core/src/chrome-debugger/commu
 import { ChromeResponse } from '../../../../core/src/chrome-debugger/types';
 
 export class ChromeService extends Service {
-  private communication = new CommunicationService(true, 'localhost', 9091);
+  private communication = new CommunicationService(true);
 
   init() {
     this.communication.sendMessageToCore('GET_CORE_STATE');
@@ -15,9 +15,7 @@ export class ChromeService extends Service {
     this.communication.addCoreMessagesListener((response: ChromeResponse) => {
       console.log({ response });
       console.log('listening updates:', response.type, response.data);
-      if (
-        ['INITIAL_CORE_STATE', 'CURRENT_CORE_STATE'].includes(response.type)
-      ) {
+      if (['INITIAL_CORE_STATE', 'CURRENT_CORE_STATE'].includes(response.type)) {
         console.log('reseting events');
         eventsService.resetEvents();
         this.getService('services').loadServices(response.data.serviceNames);

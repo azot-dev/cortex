@@ -1,14 +1,15 @@
 import { BaseService, createCortexFactory } from '../src';
 
-const store = { user: { name: 'John', age: 28 } };
-
 class UserService extends BaseService<any, any, any> {
+  static initialState = { name: 'John', age: 28 };
+
   changeName(newName: string) {
-    this.store.user.name.set(newName);
+    console.log('in changeName');
+    this.state.name.set(newName);
   }
 }
 
-const Cortex = createCortexFactory<{}>()(store, { user: UserService });
+const Cortex = createCortexFactory()({ user: UserService });
 
 describe('core', () => {
   let core = new Cortex();

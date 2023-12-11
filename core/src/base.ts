@@ -4,7 +4,6 @@ import {
   ServiceConstructor,
 } from './types/service-constructor';
 
-// lib/base.ts
 export class ServiceRegistry<
   ServiceConstructorsType extends Record<
     string,
@@ -62,37 +61,44 @@ export class ServiceRegistry<
   }
 }
 
+// le store n'est plus passé en paramètres mais est consititué à partir des services
+
+// on doit maintenant passer un state, comment faire en sorte que chaque service ait son propre state
+// il faut extraire le type du initialState et le passer dans un observable, ensuite on pourra passer sur les tests web en local
+
+type InferStoreType<ServiceConstructorsType> = {
+  [K in keyof ServiceConstructorsType]: ServiceConstructorsType[K] extends ServiceConstructor<
+    any,
+    infer I,
+    any
+  >
+    ? I
+    : never;
+};
+
 export class BaseService<
+  State,
   ServiceConstructorsType extends Record<
     string,
-    ServiceConstructor<any, Observable<StoreType>, DependenciesType>
+    ServiceConstructor<any, any, DependenciesType>
   >,
-  StoreType,
   DependenciesType
 > {
-  private serviceRegistry: ServiceRegistry<
-    ServiceConstructorsType,
-    StoreType,
-    DependenciesType
-  >;
-
   constructor(
-    protected store: StoreType,
+    protected state: Observable<State>,
     protected dependencies: DependenciesType,
-    serviceRegistry: ServiceRegistry<
+    private serviceRegistry: ServiceRegistry<
       ServiceConstructorsType,
-      StoreType,
+      InferStoreType<ServiceConstructorsType>,
       DependenciesType
     >
-  ) {
-    this.serviceRegistry = serviceRegistry;
-  }
+  ) {}
 
   protected getService<K extends keyof ServiceConstructorsType>(
     name: K
   ): ConstructedServiceTypes<
     ServiceConstructorsType,
-    StoreType,
+    InferStoreType<ServiceConstructorsType>,
     DependenciesType
   >[K] {
     return this.serviceRegistry.get(name);

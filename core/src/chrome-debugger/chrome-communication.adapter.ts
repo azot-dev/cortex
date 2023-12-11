@@ -1,47 +1,32 @@
 import { CommunicationGateway } from './communication.gateway';
-import {
-  ChromeMessageData,
-  ChromeMessageType,
-  ChromeRequestType,
-  ChromeResponse,
-  extensionId,
-} from './types';
+import { ChromeMessageData, ChromeMessageType, ChromeRequestType, ChromeResponse, extensionId } from './types';
 
 export class ChromeCommunicationAdapter implements CommunicationGateway {
-  addCoreMessagesListener(
-    response: (chromeResponse: ChromeResponse) => void
-  ): void {
+  addCoreMessagesListener(response: (chromeResponse: ChromeResponse) => void): void {
     chrome.runtime.onMessage.addListener(response);
   }
-  sendMessageToChrome<T extends ChromeMessageType>(
-    type: T,
-    data?: ChromeMessageData[T]
-  ) {
+  sendMessageToChrome<T extends ChromeMessageType>(type: T, data?: ChromeMessageData[T]) {
     if (typeof chrome === 'undefined' || !chrome.runtime) {
-      console.error(
-        'No chrome environment found, the debugger features cannot work'
-      );
+      console.error('No chrome environment found, the debugger features cannot work');
       return;
     }
     chrome.runtime.sendMessage(extensionId, { type, data }, () => {
+      console.log('sending message');
       if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
       }
     });
   }
 
   sendMessageToCore<T extends ChromeRequestType>(type: T) {
     if (typeof chrome === 'undefined' || !chrome.runtime) {
-      console.error(
-        'No chrome environment found, the debugger features cannot work'
-      );
+      console.error('No chrome environment found, the debugger features cannot work');
       return;
     }
     const tabIdParam = new URLSearchParams(window.location.search).get('tabId');
     const tabIdFromPopup = tabIdParam ? parseInt(tabIdParam, 10) : null;
 
-    const tabId = chrome.devtools?.inspectedWindow
-      ? chrome.devtools.inspectedWindow.tabId
-      : tabIdFromPopup;
+    const tabId = chrome.devtools?.inspectedWindow ? chrome.devtools.inspectedWindow.tabId : tabIdFromPopup;
 
     chrome.runtime.sendMessage({
       type,

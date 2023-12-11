@@ -25,204 +25,32 @@ import TabItem from '@theme/TabItem';
 ## Automatic installation of the template
 
 In the folder you want to instantiate cortex (inside your React project)
-It will install a template of your core structure, you can then modify it as you wish
+It will install a basic template of the Cortex structure, you can then modify it as you wish
 
 ```bash
 npx @azot-dev/cortex@latest init react
+```
+
+The structure installed with the above command line
+
+```sh
+├── cortex
+│ ├── dependencies
+│ │   ├── _dependencies.ts
+│ ├── services
+│ │   ├── _services.ts
+│ │   └── counter.service.ts
+│ ├── utils
+│ │  ├── service.ts
+│ │  ├── hooks.ts
+│ │  └── types.ts
+│ ├── _core.ts
 ```
 
 Then wrap your root component with the Cortex provider:
 
 ```tsx
 const App = () => {
-  return (
-    <CortexProvider coreInstance={new Core()}>
-      <App />
-    </CortexProvider>
-  );
-};
-```
-
-## Manual Installation
-
-## File tree structure example
-
-You can use any file tree structure you want, however I give one to get started
-
-```sh
-├── core
-│ ├── dependencies
-│ ├── services
-│ │   ├── _services.ts
-│ │   └── user.service.ts
-│ ├── store
-│ │   ├── _store.ts
-│ │   └── user.store.ts
-│ ├── utils
-│ │  ├── service.ts
-│ │  ├── hooks.ts
-│ │  └── types.ts
-│ ├── _core.ts
-└── react
-   └── App.tsx
-
-```
-
-I use the underscore _ in some file names to keep them on top of their folder
-
-## Setup
-
-### The Store
-
-```typescript
-// core/store/user.store.ts
-
-type UserStore = {
-  firstName: string | null
-  lastName: string | null
-}
-
-export const userStore: UserStore = {
-  firstName: null,
-  lastName: null,
-}
-
-```  
-
-```typescript
-// core/store/_store.ts
-
-export const store = {
-  user: UserStore,
-};
-
-```  
-
-### The Services
-
-```typescript
-// core/services/user-service.ts
-
-import { Service } from '../utils/service';
-
-export class UserService extends Service {
-  changeName(firstName: string, lastName: string) {
-    this.store.user.firstName.set(firstName);
-    this.store.user.lastName.set(lastName);
-  }
-}
-
-```  
-
-```typescript
-// core/_services.ts
-
-import { UserService } from './user.service';
-
-export const services = {
-  user: UserService,
-};
-
-```
-
-### Types
-
-```typescript
-// core/utils/types.ts
-
-import { services } from '../services/_services';
-import { store } from '../store/_store';
-
-export type StoreType = typeof store;
-
-export type Dependencies = {}
-
-export type Services = typeof services;
-
-```
-
-### The Service class
-
-As you can see, the Service class does not exist yet, it is the most important brick of the app in order to get strong typing and get it to work
-It is the only "magic" piece of code to copy paste, Unfortunately I could not create a factory for this because of circular dependencies, so if anyone can figure out how to move that piece of code in the library, PR welcome :)
-
-```typescript
-// core/utils/service.ts
-
-import { Observable } from '@legendapp/state';
-import { BaseService } from '@azot-dev/cortex';
-import { DependenciesType, Services, StoreType } from './types';
-
-export abstract class Service extends BaseService<
-  Services,
-  Observable<StoreType>,
-  DependenciesType
-> {
-  constructor(
-    store: Observable<StoreType>,
-    dependencies: Partial<DependenciesType>,
-    serviceRegistry: any
-  ) {
-    super(store, dependencies, serviceRegistry);
-  }
-}
-```  
-
-### The core
-
-```typescript
-// core/_core.ts
-
-import { createCortexFactory } from '@azot-dev/cortex';
-import { services } from './services/_services';
-import { store } from './store/_store';
-import { Dependencies } from './utils/types';
-
-export const Core = createCortexFactory<DependenciesType>()(store, services);
-```
-
-### The hooks
-
-```typescript
-// utils/hooks.ts
-
-import { createCortexHooks } from '@azot-dev/react-cortex';
-import { Services, StoreType } from './types';
-
-export const {
-  useAppSelector,
-  useService,
-  useStore,
-  useLazyMethod,
-  useMethod,
-} = createCortexHooks<StoreType, Services>();
-
-```
-
-### React
-
-```tsx
-// react/App.tsx
-
-import React from 'react';
-import {
-  CortexProvider,
-} from '@azot-dev/react-cortex';
-import { Core } from '.';
-
-const App = () => {
-  const userService = useService('user');
-  const user = useAppSelector((state) => state.user);
-  return (
-    <div>
-      <div>fist name: {user.firstName}</div>
-      <div>last name: {user.lastName}</div>
-      <button onClick={() => userService.changeName('John', 'Doe')}>change name</button>
-    </div>
-  );
-};
-
-const AppWrapper = () => {
   return (
     <CortexProvider coreInstance={new Core()}>
       <App />
