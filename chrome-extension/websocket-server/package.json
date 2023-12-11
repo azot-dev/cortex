@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/cortex-remote-debugger",
-  "version": "1.0.0",
+  "version": "1.13.1",
   "description": "Cortex devtools websocket server to send logs over the air",
   "main": "src/index.ts",
   "author": "Xavier Le Cunff",
