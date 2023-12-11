@@ -90,7 +90,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          RELEASE_VERSION: 1.10.0
+          RELEASE_VERSION: 1.12.4
         run: |
           cd core
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
