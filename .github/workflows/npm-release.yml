@@ -90,11 +90,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          RELEASE_VERSION: 1.10.0
         run: |
           cd core
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          RELEASE_VERSION=1.10.0 npx semantic-release
-          cd ..
+          npx semantic-release
 
   release-chrome-extension:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
