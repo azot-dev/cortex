@@ -12,19 +12,11 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <img
-          alt="logo"
-          src={require('@site/static/img/logo_512.png').default}
-          width="200px"
-          height="200px"
-        />
+        <img alt="logo" src={require('@site/static/img/logo_512.png').default} width="200px" height="200px" />
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
-          >
+          <Link className="button button--secondary button--lg" to="/docs/basic-example">
             Get Started
           </Link>
         </div>
@@ -36,10 +28,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title={`${siteConfig.title}`}
-      description="THe missing brick of React to code in TDD and clean architecture"
-    >
+    <Layout title={`${siteConfig.title}`} description="THe missing brick of React to code in TDD and clean architecture">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

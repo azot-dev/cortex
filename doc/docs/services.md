@@ -36,8 +36,6 @@ then the form resets.
 The `submit` method of  `TodoFormService` calls the method `append` of `TodoListService`
 
 ```ts
-// todoForm service
-
 type Form = { name: string };
 
 type TodoFormState = Form;
@@ -45,43 +43,17 @@ export class TodoFormService extends Service<TodoFormState> {
   static initialState: TodoFormState = { name: '' };
 
   submit() {
+    // highlight-next-line
     const todoListService = this.services.get('todoList');
-
+    // highlight-next-line
     todoListService.append(this.state.get());
-    this.state.name.set('') ;
-  }
-}
 
-// todoList service
-type TodoListState = Form[];
-export class TodoListService extends Service {
-  static initialState: TodoListService = [];
-
-  append(todo: Todo) {
-    this.state.push(todo)
+    this.state.name.set('');
   }
 }
 ```
 
 This way each service can have a single responsibility
-
-## The dependencies
-
-If your app is in clean architecture and uses the port-adapter pattern, you can access any of the dependencies in any service method
-
-```ts
-type State = Shoes[];
-
-export class CounterService extends Service<State> {
-  static initialState: State = [];
-
-  async loadShoes() {
-    const shoes = await this.dependencies.shoesApi.get() // an api call encapsulated in a dependency
-    this.state.set(shoes)
-  }
-}
-```
-
 
 ## init()
 
@@ -98,4 +70,47 @@ export class MessageService extends Service {
     this.store.messages.push(notificationReceived)
   }
 }
+```
+
+## The dependencies
+
+If your app is in clean architecture and uses the port-adapter pattern, you can access any of the dependencies in any service method
+
+```ts
+interface ShoesApiGateway {
+  get(): Promise<Shoe[]>
+}
+
+type Dependencies = {
+  shoesApi: ShoesApiGateway,
+}
+
+export const Core = createCortexFactory<Dependencies>()(services);
+```
+
+```ts
+type State = Shoe[];
+
+export class CounterService extends Service<State> {
+  static initialState: State = [];
+
+  async loadShoes() {
+    // highlight-next-line
+    const shoes = await this.dependencies.shoesApi.get()
+    this.state.set(shoes)
+  }
+}
+```
+
+The dependencies can then be injected in the core
+
+```ts
+
+class RealShoesApiAdapter implements ShoesApiGateway {
+  async get() {
+    return axios.get<Shoe[]>('https://my-api/shoes/get')
+  }
+}
+
+const core = new Core({ shoesApi: RealShoesApiAdapter })
 ```

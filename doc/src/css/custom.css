@@ -13,6 +13,11 @@
   --ifm-color-primary-light: #0588ED;
   --ifm-color-primary-lighter: #0588ED;
   --ifm-color-primary-lightest: #0588ED;
+  --code-color: var(--ifm-color-primary);
+}
+
+code {
+  color: var(--code-color);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
