@@ -146,7 +146,7 @@ describe('counter', () => {
 
     expect(core.store.counter.get()).toBe(0)
 
-    core.services.counter.increment()
+    core.getService("counter").increment()
     expect(core.store.counter.get()).toBe(1)
   })
 }) 

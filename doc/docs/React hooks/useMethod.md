@@ -24,7 +24,7 @@ if (!isCalled || !isLoading) {
 }
 
 if (isError) {
-  return <span>An error occured<span/>
+  return <span>An error occured</span>
 }
 
 return <Shoes data={data}>
