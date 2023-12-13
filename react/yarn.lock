@@ -10,10 +10,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.13.3":
-  version "1.13.3"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.13.3.tgz#098a28f2ae2119984ee085c45666ea70c7cc153c"
-  integrity sha512-JHmL3vPK4e58Dh7sRrZalu+8CLEqcDHdEJaghfm3k/BhKQ2wHIRvPlNgwWzrx1UdRf0Mt+R1IvbP25NRNSIeng==
+"@azot-dev/cortex@^1.13.4":
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.13.4.tgz#96bfcb7a3d45f1a685c3a1f97ad4c7f0f3cf4b08"
+  integrity sha512-Sr5OMqpKtMed+SeQCeGftZMbTzF9o/dcULalPYiy/kEZn1Eec82K1gvls/cBbClcB3298MvI+ViKdSa50bwi8Q==
   dependencies:
     lodash "^4.17.21"
     socket.io-client "^4.7.2"
