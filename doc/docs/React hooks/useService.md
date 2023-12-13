@@ -1,4 +1,4 @@
-# useStore
+# useService
 
 Access to services
 
