@@ -1,3 +1,10 @@
+## [1.13.3](https://github.com/azot-dev/cortex/compare/v1.13.2...v1.13.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* modify some docs problems ([242e6c3](https://github.com/azot-dev/cortex/commit/242e6c3e1a5826554f6fb5cb1309aa2fdfb2a602))
+
 ## [1.13.2](https://github.com/azot-dev/cortex/compare/v1.13.1...v1.13.2) (2023-12-13)
 
 
