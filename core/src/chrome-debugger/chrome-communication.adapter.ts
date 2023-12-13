@@ -11,7 +11,6 @@ export class ChromeCommunicationAdapter implements CommunicationGateway {
       return;
     }
     chrome.runtime.sendMessage(extensionId, { type, data }, () => {
-      console.log('sending message');
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
       }

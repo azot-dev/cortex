@@ -1,6 +1,6 @@
-import React, { createContext, useContext, ReactNode, Context, useCallback, useState, useEffect } from 'react';
+import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from 'react';
 import { useSelector as useLegendSelector } from '@legendapp/state/react';
-import { Observable, observable } from '@legendapp/state';
+import { Observable } from '@legendapp/state';
 
 interface CoreInterface {
   store: any;
@@ -76,49 +76,37 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    */
   function useLazyMethod<Method extends () => Promise<any>>(serviceMethod: Method) {
     const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
-    const state: {
-      isLoading: boolean;
-      isError: boolean | undefined;
-      isSuccess: boolean | undefined;
-      isCalled: boolean;
-      error: unknown | undefined;
-    } = {
-      isLoading: false,
-      isError: undefined,
-      isSuccess: undefined,
-      isCalled: false,
-      error: undefined,
-    };
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean | undefined>(undefined);
+    const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
+    const [isCalled, setIsCalled] = useState<boolean>(false);
+    const [error, setError] = useState<unknown | undefined>(false);
 
-    const observableState = observable(state);
-
-    const call = useCallback(async () => {
-      console.log('calling');
-      observableState.isError.set(undefined);
-      observableState.isSuccess.set(undefined);
-      observableState.error.set(undefined);
+    const call = async () => {
+      setIsError(undefined);
+      setIsSuccess(undefined);
+      setError(undefined);
       setData(undefined);
-
-      observableState.isLoading.set(true);
+      setIsLoading(true);
       try {
         setData(await serviceMethod());
+        setIsSuccess(true);
       } catch (e) {
-        observableState.error.set(e);
+        setError(e);
+        setIsError(true);
+        setIsSuccess(false);
+      } finally {
+        setIsCalled(true);
+        setIsLoading(false);
       }
-      console.log('end of the call');
-      const isError = !!observableState.error.get();
-      observableState.isLoading.set(false);
-      observableState.isCalled.set(true);
-      observableState.isError.set(isError);
-      observableState.isSuccess.set(!isError);
-    }, []);
+    };
 
     return {
-      isLoading: observableState.isLoading.get(),
-      isError: observableState.isError.get(),
-      isSuccess: observableState.isSuccess.get(),
-      isCalled: observableState.isCalled.get(),
-      error: observableState.error.get(),
+      isLoading,
+      isError,
+      isSuccess,
+      isCalled,
+      error,
       call,
       data,
     };

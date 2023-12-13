@@ -10,13 +10,10 @@ export class CommunicationService {
   private communication: CommunicationGateway;
   constructor(private debug: boolean = false, private host: string = 'localhost', private port?: number) {
     if (!this.debug) {
-      console.log('no communication adapter');
       this.communication = new NoCommunicationAdapter();
     } else if (this.port) {
-      console.log('websocket adapter');
       this.communication = new WebsocketCommunicationAdapter(this.host, this.port);
     } else {
-      console.log('chrome adapter');
       this.communication = new ChromeCommunicationAdapter();
     }
 

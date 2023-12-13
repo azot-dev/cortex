@@ -4,7 +4,6 @@ class UserService extends BaseService<any, any, any> {
   static initialState = { name: 'John', age: 28 };
 
   changeName(newName: string) {
-    console.log('in changeName');
     this.state.name.set(newName);
   }
 }
@@ -17,7 +16,7 @@ describe('core', () => {
     core = new Cortex();
   });
 
-  it('should access the store', () => {
+  it('should access to the store', () => {
     const userName = core.store.user.name.get();
     expect(userName).toBe('John');
   });

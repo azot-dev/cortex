@@ -63,7 +63,6 @@ export const StorePanel: FC = () => {
   };
 
   const valueRenderer = (raw: any, value: any) => {
-    console.log({ raw, value });
     if (value?.startsWith?.(DIFF_MARKER)) {
       const diffString = value.substring(DIFF_MARKER.length);
       const [oldValue, newValue] = diffString.split(' => ');
@@ -180,13 +179,7 @@ const CustomTabPanel: FC<
   }>
 > = ({ children, value, index, ...other }) => {
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && (
         <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>

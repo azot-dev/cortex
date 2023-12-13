@@ -41,10 +41,7 @@ export function createCortexFactory<DependenciesType>(
       }
     }
 
-    console.log({ rawStates });
-
     const states = observable(cloneDeep(rawStates));
-    console.log({ states: states.get() });
     const devtools = new CommunicationService(debug, host, port);
 
     return class Core {

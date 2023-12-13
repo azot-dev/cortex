@@ -35,18 +35,12 @@ export class WebsocketCommunicationAdapter implements CommunicationGateway {
     return this.coreSocket;
   }
 
-  addCoreMessagesListener(
-    response: (chromeResponse: ChromeResponse) => void
-  ): void {
+  addCoreMessagesListener(response: (chromeResponse: ChromeResponse) => void): void {
     const socket = this.getChromeSocket();
     socket.on('message', response);
   }
 
-  sendMessageToChrome<T extends keyof ChromeMessageData>(
-    type: T,
-    data?: ChromeMessageData[T] | undefined
-  ): void {
-    console.log('adapter: sending message to chrome', type, data);
+  sendMessageToChrome<T extends keyof ChromeMessageData>(type: T, data?: ChromeMessageData[T] | undefined): void {
     const socket = this.getCoreSocket();
     socket.emit('message', { type, data }, 'chrome');
   }
@@ -62,7 +56,6 @@ export class WebsocketCommunicationAdapter implements CommunicationGateway {
   }
 
   sendMessageToCore<T extends 'GET_CORE_STATE'>(type: T): void {
-    console.log('adapter: sending message to core', type);
     const socket = this.getChromeSocket();
     socket.emit('message', { type }, 'core');
   }

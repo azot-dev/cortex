@@ -102,18 +102,18 @@ interface Dependencies {
 }
 ```
 
-Create the core
+Add the dependencies to the core
 
 ```typescript
-export const Core = createCortexFactory<Dependencies>()(store, services);
+export const Core = createCortexFactory<Dependencies>()(services);
 ```
 
-Instantiate the core with the dependencies needed
+Instantiate the core with the dependencies needed, we can see that we just need to change the storage adapter (few lines of code) to make our app compatible with all Javascript framework
 
 For a React Native app
 
 ```tsx
-    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactNativeStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({ userApi: new RealUserApiAdapter(), storage: new AsyncStorageAdapter() })}>
       <App />
     </CortexProvider>
 ```
@@ -121,7 +121,7 @@ For a React Native app
 For a React app
 
 ```tsx
-    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ReactStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({ userApi: new RealUserApiAdapter(),storage: new LocalStorageAdapter() })}>
       <App />
     </CortexProvider>
 ```
@@ -129,7 +129,7 @@ For a React app
 For an Electron app
 
 ```tsx
-    <CortexProvider coreInstance={new Core({userApi: new RealUserApiAdapter(), storage: new ElectronStorageAdapter()})}>
+    <CortexProvider coreInstance={new Core({ userApi: new RealUserApiAdapter(), storage: new ElectronStorageAdapter() })}>
       <App />
     </CortexProvider>
 ```
@@ -139,7 +139,12 @@ For an Electron app
 In the services, through `this.dependencies`, you will get the typescript autocompletion:
 
 ```ts
-export class UserService extends Service {
+
+type State = { firstName: string; lastName: string } | null
+
+export class UserService extends Service<State> {
+  static initialState: State = null;
+
   async login(email: string, password: string) {
     try {
       const token = await this.dependencies.userApi.login(email, password)
@@ -154,7 +159,7 @@ export class UserService extends Service {
 
   logout() {
     this.dependencies.baseApi.unsetToken()
-    this.store.user.set(null)
+    this.state.set(null)
     this.store.app.isLoggedIn(false)
   }
  }

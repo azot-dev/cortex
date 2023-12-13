@@ -8,7 +8,6 @@ class UserService extends BaseService<any, any, any> {
   }
 
   getName() {
-    console.log({ stateFromService: this.state.get() });
     return this.state.name.get();
   }
 }
