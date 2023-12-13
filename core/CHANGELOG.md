@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/azot-dev/cortex/compare/v1.13.1...v1.13.2) (2023-12-13)
+
+
+### Bug Fixes
+
+* use states for useMethod ([533c00a](https://github.com/azot-dev/cortex/commit/533c00aca2a40a590f706cd761da951d2325c073))
+
 ## [1.13.1](https://github.com/azot-dev/cortex/compare/v1.13.0...v1.13.1) (2023-12-11)
 
 
