@@ -27,9 +27,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Debug hashFiles function
-        id: yarn-lock-hash
-        run: echo "::set-output name=hash::$(hashFiles('**/yarn.lock'))"
+      - name: Get yarn.lock hash
+        id: get-hash
+        run: echo "YARN_LOCK_HASH=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_ENV
+
+      - name: Display yarn.lock hash
+        run: echo "Yarn.lock hash $YARN_LOCK_HASH"
 
       - name: Cache node modules
         uses: actions/cache@v3
