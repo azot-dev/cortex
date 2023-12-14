@@ -33,6 +33,9 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          
+        - name: Debug hashFiles function
+          run: echo "Hash of yarn.lock: ${{ hashFiles('**/yarn.lock') }}"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
