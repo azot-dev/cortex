@@ -26,6 +26,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+      
+      - name: Debug hashFiles function
+        run: echo "Hash of yarn.lock: ${{ hashFiles('**/yarn.lock') }}"
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -33,9 +36,6 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          
-        - name: Debug hashFiles function
-          run: echo "Hash of yarn.lock: ${{ hashFiles('**/yarn.lock') }}"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
