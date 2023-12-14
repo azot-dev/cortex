@@ -16,7 +16,7 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
     outputs:
-      cache-key: ${{ steps.cache-dependencies.outputs.cache-key }}
+      cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
     steps:
       - name: Checkout
