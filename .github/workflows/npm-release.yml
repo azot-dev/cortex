@@ -85,7 +85,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: '**/node_modules'
-          key: ${{ needs.install-dependencies.outputs.cache-key }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Run React tests
         run: yarn workspace @azot-dev/react-cortex test
