@@ -168,154 +168,154 @@ jobs:
         run: |
           CLIENT_ID=${{ secrets.CHROME_CLIENT_ID }} CLIENT_SECRET=${{ secrets.CHROME_CLIENT_SECRET }} REFRESH_TOKEN=${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }} chrome-webstore-upload publish --extension-id fpiekoekdbcomggnffgallmgbcmllhgh
 
- update-react-dep:
-  needs: release-core
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+  update-react-dep:
+    needs: release-core
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Pull changes
-      run: git pull --rebase origin main
+      - name: Pull changes
+        run: git pull --rebase origin main
 
-    - name: Install jq
-      run: sudo apt-get install jq
+      - name: Install jq
+        run: sudo apt-get install jq
 
-    - name: Update peer dependency and package version
-      run: |
-        CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-        jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/react/package.json
-        jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/react/package.json
-        jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/react/package.json
+      - name: Update peer dependency and package version
+        run: |
+          CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
+          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/ package.temp.json packages/react/package.json
+          jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/ package.temp.json packages/react/package.json
+          jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/ react/package.json
 
-    - name: Update yarn.lock
-      run: yarn workspace react install
+      - name: Update yarn.lock
+        run: yarn workspace react install
 
-    - name: Commit and push if changed
-      run: |
-        git config user.name 'GitHub Actions Bot'
-        git config user.email 'githubactions@example.com'
-        git add -A
-        git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
-        git pull --rebase origin main
-        git push
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
+          git pull --rebase origin main
+          git push
 
-update-chrome-devtools-server:
-  needs: release-core
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+  update-chrome-devtools-server:
+    needs: release-core
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Pull changes
-      run: git pull --rebase origin main
+      - name: Pull changes
+        run: git pull --rebase origin main
 
-    - name: Install jq
-      run: sudo apt-get install jq
+      - name: Install jq
+        run: sudo apt-get install jq
 
-    - name: Update peer dependency and package version
-      run: |
-        CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-        jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/websocket-server/package.json > packages/chrome-extension/websocket-server/package.temp.json && mv packages/chrome-extension/websocket-server/package.temp.json packages/chrome-extension/websocket-server/package.json
+      - name: Update peer dependency and package version
+        run: |
+          CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
+          jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/websocket-server/package.json > packages/chrome-extension/websocket-server/package.temp.  json && mv packages/chrome-extension/websocket-server/package.temp.json packages/chrome-extension/websocket-server/package.json
 
-    - name: Update yarn.lock
-      run: yarn workspace chrome-extension-websocket-server install
+      - name: Update yarn.lock
+        run: yarn workspace chrome-extension-websocket-server install
 
-    - name: Commit and push if changed
-      run: |
-        git config user.name 'GitHub Actions Bot'
-        git config user.email 'githubactions@example.com'
-        git add -A
-        git diff-index --quiet HEAD || git commit -m "Update cortex websocket server"
-        git pull --rebase origin main
-        git push
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'GitHub Actions Bot'
+          git config user.email 'githubactions@example.com'
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Update cortex websocket server"
+          git pull --rebase origin main
+          git push
 
-    - name: Build
-      run: yarn workspace chrome-extension-websocket-server build
+      - name: Build
+        run: yarn workspace chrome-extension-websocket-server build
 
-    - name: Release chrome-extension/websocket-server
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: |
-        cd packages/chrome-extension/websocket-server
-        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        npm publish --access public
+      - name: Release chrome-extension/websocket-server
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd packages/chrome-extension/websocket-server
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          npm publish --access public
 
-release-react:
-  needs: update-react-dep
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+  release-react:
+    needs: update-react-dep
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Pull changes
-      run: git pull --rebase origin main
+      - name: Pull changes
+        run: git pull --rebase origin main
 
-    - name: Install Dependencies for react
-      run: yarn workspace react install --frozen-lockfile
+      - name: Install Dependencies for react
+        run: yarn workspace react install --frozen-lockfile
 
-    - name: Build
-      run: yarn workspace react build
+      - name: Build
+        run: yarn workspace react build
 
-    - name: Release react
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: |
-        cd packages/react
-        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        npm publish --access public
+      - name: Release react
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd packages/react
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          npm publish --access public
 
-deploy-doc:
-  needs: [release-react]
-  permissions:
-    id-token: write
-    pages: write
-  environment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+  deploy-doc:
+    needs: [release-react]
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Install dependencies
-      run: yarn workspace doc install --frozen-lockfile --non-interactive
+      - name: Install dependencies
+        run: yarn workspace doc install --frozen-lockfile --non-interactive
 
-    - name: Build
-      run: yarn workspace doc build
+      - name: Build
+        run: yarn workspace doc build
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: packages/doc/build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: packages/doc/build
 
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v2
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
