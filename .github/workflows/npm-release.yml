@@ -58,7 +58,7 @@ jobs:
           key: ${{ needs.install-dependencies.outputs.cache-key }}
 
       - name: Run Core tests
-        run: yarn workspace core test
+        run: yarn workspace @azot-dev/cortex test
 
   test-react:
     name: Run React tests
@@ -81,7 +81,7 @@ jobs:
           key: ${{ needs.install-dependencies.outputs.cache-key }}
 
       - name: Run React tests
-        run: yarn workspace react test
+        run: yarn workspace @azot-dev/react-cortex test
 
   release-core:
     needs: [test-core, test-react]
@@ -105,7 +105,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build Core
-        run: yarn workspace core build
+        run: yarn workspace @azot-dev/cortex build
 
       - name: Release Core
         env:
@@ -194,7 +194,7 @@ jobs:
           jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/ react/package.json
 
       - name: Update yarn.lock
-        run: yarn workspace react install
+        run: yarn workspace @azot-dev/react-cortex install
 
       - name: Commit and push if changed
         run: |
@@ -229,7 +229,7 @@ jobs:
           jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/websocket-server/package.json > packages/chrome-extension/websocket-server/package.temp.  json && mv packages/chrome-extension/websocket-server/package.temp.json packages/chrome-extension/websocket-server/package.json
 
       - name: Update yarn.lock
-        run: yarn workspace chrome-extension-websocket-server install
+        run: yarn workspace @azot-dev/cortex-remote-debugger install
 
       - name: Commit and push if changed
         run: |
@@ -241,7 +241,7 @@ jobs:
           git push
 
       - name: Build
-        run: yarn workspace chrome-extension-websocket-server build
+        run: yarn workspace @azot-dev/cortex-remote-debugger build
 
       - name: Release chrome-extension/websocket-server
         env:
@@ -270,10 +270,10 @@ jobs:
         run: git pull --rebase origin main
 
       - name: Install Dependencies for react
-        run: yarn workspace react install --frozen-lockfile
+        run: yarn workspace @azot-dev/react-cortex install --frozen-lockfile
 
       - name: Build
-        run: yarn workspace react build
+        run: yarn workspace @azot-dev/react-cortex build
 
       - name: Release react
         env:
