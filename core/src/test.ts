@@ -1,9 +1,7 @@
 import { BaseService } from './base';
 import { createCortexFactory } from './coreFactory';
 
-export abstract class Service<T = any> extends BaseService<T, typeof services, {}> {
-  protected initialState?: T;
-  protected init?: () => void;
+export abstract class Service<T = undefined> extends BaseService<T, typeof services, {}> {
   constructor(...args: [any, any, any]) {
     super(...args);
   }
@@ -14,6 +12,7 @@ type State = {
 };
 
 class UserService extends Service<State> {
+  initialState = { isLoggedIn: false };
   static initialState: State = {
     isLoggedIn: false,
   };
@@ -24,20 +23,18 @@ class UserService extends Service<State> {
   }
 }
 
-class CounterService extends Service {
-  static initialState = {
-    count: 0,
-  };
-
-  increment() {}
+type CountState = { count: number };
+class CounterService extends Service<CountState> {
+  initialState = { hello: 'salut', count: 0 };
+  init?: (() => void) | undefined;
+  increment() {
+    this.state.count.set((count) => count + 1);
+  }
 }
-
-class RienService extends Service {}
 
 const services = {
   user: UserService,
   counter: CounterService,
-  rien: RienService,
 };
 
 export const Core = createCortexFactory()(services);
