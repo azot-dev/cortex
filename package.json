@@ -1,10 +1,7 @@
 {
   "license": "MIT",
-  "scripts": {
-    "create-adapter": "node adapters/scripts/create-adapter.js",
-    "publish-changed-adapters": "./scripts/publish-changed-adapters.sh"
-  },
-  "devDependencies": {
-    "typescript": "^5.2.2"
-  }
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
 }
