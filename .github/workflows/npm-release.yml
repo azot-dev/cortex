@@ -26,9 +26,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      
+
       - name: Debug hashFiles function
-        run: echo "Hash of yarn.lock: ${{ hashFiles('**/yarn.lock') }}"
+        id: yarn-lock-hash
+        run: echo "::set-output name=hash::$(hashFiles('**/yarn.lock'))"
 
       - name: Cache node modules
         uses: actions/cache@v3
