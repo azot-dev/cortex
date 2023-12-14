@@ -1,3 +1,24 @@
+# [1.14.0](https://github.com/azot-dev/cortex/compare/v1.13.4...v1.14.0) (2023-12-14)
+
+
+### Bug Fixes
+
+* attempt to instantiate the monorepo with yarn workspace ([f787c08](https://github.com/azot-dev/cortex/commit/f787c085bac9eaef145784d8ca09b75f89190175))
+* attempt to instantiate the monorepo with yarn workspace ([02f4a1c](https://github.com/azot-dev/cortex/commit/02f4a1c1dddc779de29176e7cb3f1d67bc3c1d3d))
+* attempt to instantiate the monorepo with yarn workspace ([45e2e90](https://github.com/azot-dev/cortex/commit/45e2e90e791ef27e556d7f8d0c4f6eda595622b2))
+* attempt to instantiate the monorepo with yarn workspace ([3269124](https://github.com/azot-dev/cortex/commit/32691242d1c9e45274f2af27547c289f48df4cfa))
+* attempt to instantiate the monorepo with yarn workspace ([092f150](https://github.com/azot-dev/cortex/commit/092f150b208ddbca379158a83ee62a42f38a9f33))
+* attempt to instantiate the monorepo with yarn workspace ([42d7c05](https://github.com/azot-dev/cortex/commit/42d7c05cf8a9545d185f5a305fe7418b7ec60309))
+* attempt to instantiate the monorepo with yarn workspace ([5d0ad55](https://github.com/azot-dev/cortex/commit/5d0ad55d35d46b1ab4d0b88fe07c797d945b5d76))
+* attempt to instantiate the monorepo with yarn workspace ([71503a6](https://github.com/azot-dev/cortex/commit/71503a6221d145cc6614df5d599a481952ad27fd))
+* attempt to instantiate the monorepo with yarn workspace ([0ac4824](https://github.com/azot-dev/cortex/commit/0ac4824c82c9c861d0fb7758beb5173c84432bff))
+* modify docs ([f0360fd](https://github.com/azot-dev/cortex/commit/f0360fdb12486348671dfe846ef972a151a3d523))
+
+
+### Features
+
+* attempt to instantiate the monorepo with yarn workspace ([f0530df](https://github.com/azot-dev/cortex/commit/f0530dfb50fb77898484711afc99d2f0214d3dd7))
+
 ## [1.13.4](https://github.com/azot-dev/cortex/compare/v1.13.3...v1.13.4) (2023-12-13)
 
 
