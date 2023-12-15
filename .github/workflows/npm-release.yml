@@ -259,7 +259,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/react
+          cd packages/cortex-remote-debugger
           npm publish --access public
 
   release-react:

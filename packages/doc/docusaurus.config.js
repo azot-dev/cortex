@@ -90,7 +90,7 @@ const config = {
       footer: {
         style: 'dark',
         links: [],
-        copyright: `Copyright © ${new Date().getFullYear()} cortex documentation Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} cortex documentation`,
       },
       prism: {
         theme: lightCodeTheme,
