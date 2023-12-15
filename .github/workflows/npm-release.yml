@@ -247,7 +247,7 @@ jobs:
           git config user.name 'GitHub Actions Bot'
           git config user.email 'githubactions@example.com'
           git add -A
-          git diff-index --quiet HEAD || git commit -m "Update cortex websocket server"
+          git diff-index --quiet HEAD || git commit -m "Update cortex remote debugger server"
           git pull --rebase origin main
           git push
 
@@ -257,7 +257,7 @@ jobs:
       - name: Release chrome-extension/websocket-server
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/remote-debugger-server
           npm publish --access public
