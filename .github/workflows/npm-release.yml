@@ -196,9 +196,12 @@ jobs:
       - name: Update peer dependency and package version
         run: |
           CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/ package.temp.json packages/react/package.json
-          jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/ package.temp.json packages/react/package.json
-          jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json && mv packages/react/package.temp.json packages/ react/package.json
+          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
+          mv packages/react/package.temp.json packages/react/package.json
+          jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
+          mv packages/react/package.temp.json packages/react/package.json
+          jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
+          mv packages/react/package.temp.json packages/react/package.json
 
       - name: Update yarn.lock
         run: yarn workspace @azot-dev/react-cortex install
@@ -233,7 +236,7 @@ jobs:
       - name: Update peer dependency and package version
         run: |
           CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-          jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/websocket-server/package.json > packages/chrome-extension/websocket-server/package.temp.  json && mv packages/chrome-extension/websocket-server/package.temp.json packages/chrome-extension/websocket-server/package.json
+          jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/websocket-server/package.json > packages/chrome-extension/websocket-server/package.temp.json && mv packages/chrome-extension/websocket-server/package.temp.json packages/chrome-extension/websocket-server/package.json
 
       - name: Update yarn.lock
         run: yarn workspace @azot-dev/cortex-remote-debugger install
