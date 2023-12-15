@@ -258,7 +258,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/chrome-extension/websocket-server
+          cd packages/remote-debugger-server
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npm publish --access public
 
@@ -288,11 +288,9 @@ jobs:
       - name: Release react
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/react
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npm publish --access public
 
   deploy-doc:
