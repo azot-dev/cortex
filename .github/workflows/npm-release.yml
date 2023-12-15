@@ -259,7 +259,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/cortex-remote-debugger
+          cd packages/remote-debugger-server
           npm publish --access public
 
   release-react:
@@ -312,8 +312,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: yarn workspace doc install --frozen-lockfile --non-interactive
+      - name: Use Cached Dependencies
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Build
         run: yarn workspace doc build
