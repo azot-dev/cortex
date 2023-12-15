@@ -1,3 +1,10 @@
+## [1.14.8](https://github.com/azot-dev/cortex/compare/v1.14.7...v1.14.8) (2023-12-15)
+
+
+### Bug Fixes
+
+* attempt to instantiate the monorepo with yarn workspace ([c7ab6c6](https://github.com/azot-dev/cortex/commit/c7ab6c62f0d1e5fc3e7bff8afb0144847f5edc23))
+
 ## [1.14.7](https://github.com/azot-dev/cortex/compare/v1.14.6...v1.14.7) (2023-12-15)
 
 
