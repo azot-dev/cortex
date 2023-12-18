@@ -125,7 +125,7 @@ jobs:
 
   release-chrome-extension:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
-    needs: release-core
+    needs: release-react
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -214,7 +214,7 @@ jobs:
           git push
 
   update-chrome-devtools-server:
-    needs: release-core
+    needs: release-react
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
