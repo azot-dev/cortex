@@ -1,4 +1,11 @@
-import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  Context,
+  useState,
+  useEffect,
+} from 'react';
 import { useSelector as useLegendSelector } from '@legendapp/state/react';
 import { Observable } from '@legendapp/state';
 
@@ -16,8 +23,13 @@ interface ProviderProps {
 
 type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
 
-export const CortexProvider: React.FC<ProviderProps> = ({ children, coreInstance }) => (
-  <AppStateContext.Provider value={coreInstance}>{children}</AppStateContext.Provider>
+export const CortexProvider: React.FC<ProviderProps> = ({
+  children,
+  coreInstance,
+}) => (
+  <AppStateContext.Provider value={coreInstance}>
+    {children}
+  </AppStateContext.Provider>
 );
 
 export function useAppContext<T>(): T {
@@ -28,11 +40,17 @@ export function useAppContext<T>(): T {
   return context;
 }
 
-export function createCortexHooks<Services extends Record<string, abstract new (...args: any[]) => any>>() {
-  type HasStaticInitialState<T> = T extends { initialState: infer S } ? S : never;
+export function createCortexHooks<
+  Services extends Record<string, abstract new (...args: any[]) => any>
+>() {
+  type HasStaticInitialState<T> = T extends { initialState: infer S }
+    ? S
+    : never;
 
   type Store = {
-    [K in keyof Services as HasStaticInitialState<Services[K]> extends never ? never : K]: HasStaticInitialState<Services[K]>;
+    [K in keyof Services as HasStaticInitialState<Services[K]> extends never
+      ? never
+      : K]: HasStaticInitialState<Services[K]>;
   };
 
   /**
@@ -40,7 +58,9 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    *
    * @example const username = useAppSelector(state => state.user.name.get())
    */
-  function useAppSelector<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
+  function useAppSelector<ReturnType>(
+    selectorFunc: (state: Observable<Store>) => ReturnType
+  ): ReturnType {
     const instance = useAppContext<CoreInterface>();
     return useLegendSelector(() => selectorFunc(instance.store));
   }
@@ -51,7 +71,9 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * @example const userService = useService('user')
    * const changeName = userService.changeName
    */
-  function useService<T extends keyof Services>(service: T): InstanceType<Services[T]> {
+  function useService<T extends keyof Services>(
+    service: T
+  ): InstanceType<Services[T]> {
     const core = useAppContext<CoreInterface>();
     return core.getService(service as string) as InstanceType<Services[T]>;
   }
@@ -74,25 +96,30 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
 
    */
-  function useLazyMethod<Method extends () => Promise<any>>(serviceMethod: Method) {
-    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
+  function useLazyMethod<Method extends (args?: any[]) => Promise<any> | any>(
+    serviceMethod: Method
+  ) {
+    const [data, setData] = useState<
+      ExtractPromiseType<ReturnType<Method>> | undefined
+    >(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
     const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
     const [isCalled, setIsCalled] = useState<boolean>(false);
-    const [error, setError] = useState<unknown | undefined>(false);
+    const [error, setError] = useState<Error | null>(null);
 
     const call = async () => {
       setIsError(undefined);
       setIsSuccess(undefined);
-      setError(undefined);
+      setError(null);
       setData(undefined);
       setIsLoading(true);
       try {
         setData(await serviceMethod());
         setIsSuccess(true);
-      } catch (e) {
-        setError(e);
+        setIsError(false);
+      } catch (e: unknown) {
+        setError(e as Error);
         setIsError(true);
         setIsSuccess(false);
       } finally {

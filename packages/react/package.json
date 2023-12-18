@@ -19,7 +19,7 @@
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@azot-dev/cortex": "^1.14.8",
+    "@azot-dev/cortex": "*",
     "@legendapp/state": "^2.1.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
@@ -32,9 +32,12 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-test-renderer": "16.9.0",
+    "react-test-renderer": "^18.2.0",
     "semantic-release": "^22.0.5",
     "ts-jest": "^29.1.1",
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "react-test-renderer": "^18.2.0"
   }
 }

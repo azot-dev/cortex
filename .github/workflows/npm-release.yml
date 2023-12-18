@@ -198,8 +198,6 @@ jobs:
           CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
           jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
           mv packages/react/package.temp.json packages/react/package.json
-          jq '.devDependencies["@azot-dev/cortex"] = "^'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
-          mv packages/react/package.temp.json packages/react/package.json
           jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
           mv packages/react/package.temp.json packages/react/package.json
 
