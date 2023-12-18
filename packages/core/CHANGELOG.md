@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/azot-dev/cortex/compare/v1.14.8...v1.15.0) (2023-12-18)
+
+
+### Features
+
+* update react hooks tests ([212404b](https://github.com/azot-dev/cortex/commit/212404bbbb68fc1a7cbb3f1c0c9d0be607b515b4))
+
 ## [1.14.8](https://github.com/azot-dev/cortex/compare/v1.14.7...v1.14.8) (2023-12-15)
 
 
