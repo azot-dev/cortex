@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/azot-dev/cortex/compare/v1.15.0...v1.15.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* fix CI bug after adding some React tests ([d802178](https://github.com/azot-dev/cortex/commit/d802178cff3795aced6703e91e9dc3588a62a05d))
+
 # [1.15.0](https://github.com/azot-dev/cortex/compare/v1.14.8...v1.15.0) (2023-12-18)
 
 
