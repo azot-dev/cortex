@@ -8,8 +8,10 @@ A [Chrome extension](https://chrome.google.com/webstore/detail/cortex-devtools/f
 
 It is currently working with web projects but not working yet for distant devices (React Native), it should be released in the next weeks
 
-Add the flag debug `true` to the Cortex factory parameter
+Add the flag debug `true` to the core options
 
 ```ts
-export const Core = createCortexFactory({ debug: true })(services);
+export const Core = createCortexFactory()(services);
+
+const core = new Core({}, { debugger: true })
 ```

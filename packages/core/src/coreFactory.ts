@@ -1,25 +1,18 @@
 // lib/coreFactory.ts
 
-import { observable } from '@legendapp/state';
-import { ServiceRegistry } from './base';
-import { ServiceConstructor } from './types/service-constructor';
-import { cloneDeep } from 'lodash';
-import { CommunicationService } from './chrome-debugger/communication-service';
+import { observable } from "@legendapp/state";
+import { ServiceRegistry } from "./base";
+import { ServiceConstructor } from "./types/service-constructor";
+import { cloneDeep } from "lodash";
+import { CommunicationService } from "./chrome-debugger/communication-service";
 
-export function createCortexFactory<DependenciesType>(
-  {
-    debug,
-    host,
-    port,
-  }: {
-    debug?: boolean;
-    host?: string;
-    port?: number;
-  } = {
-    debug: false,
-    host: 'localhost',
-  }
-) {
+type Options = {
+  debug?: boolean;
+  host?: string;
+  port?: number;
+};
+
+export function createCortexFactory<DependenciesType>() {
   return <ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>>(serviceConstructors: ServiceConstructorsType) => {
     type ServiceInstances = {
       [K in keyof ServiceConstructorsType]: InstanceType<ServiceConstructorsType[K]>;
@@ -35,23 +28,23 @@ export function createCortexFactory<DependenciesType>(
 
     const rawStates: States = {} as States;
     for (const key in serviceConstructors) {
-      if ('initialState' in serviceConstructors[key]) {
+      if ("initialState" in serviceConstructors[key]) {
         // @ts-ignore
         rawStates[key] = serviceConstructors[key].initialState;
       }
     }
 
     const states = observable(cloneDeep(rawStates));
-    const devtools = new CommunicationService(debug, host, port);
 
     return class Core {
       #serviceRegistry: ServiceRegistry<ServiceInstances, States, DependenciesType>;
       public store: typeof states;
 
-      constructor(dependencies: Partial<DependenciesType> = {}) {
+      constructor(dependencies: Partial<DependenciesType> = {}, options: Options = { debug: false, host: "localhost" }) {
         this.#serviceRegistry = new ServiceRegistry();
         this.store = states;
 
+        const devtools = new CommunicationService(options.debug, options.host, options.port);
         for (const [key, ServiceConstructor] of Object.entries(serviceConstructors)) {
           devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
 
@@ -87,7 +80,7 @@ export function createCortexFactory<DependenciesType>(
 const bindAllMethods = (service: any) => {
   Object.getOwnPropertyNames(Object.getPrototypeOf(service)).forEach((methodName) => {
     const method = service[methodName];
-    if (typeof method === 'function') {
+    if (typeof method === "function") {
       service[methodName] = method.bind(service);
     }
   });
