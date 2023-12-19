@@ -1,3 +1,10 @@
+## [1.15.2](https://github.com/azot-dev/cortex/compare/v1.15.1...v1.15.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* compile in CommonJS ([47a7d32](https://github.com/azot-dev/cortex/commit/47a7d326a56175c28c8f1a242b7acb99c8e99dc1))
+
 ## [1.15.1](https://github.com/azot-dev/cortex/compare/v1.15.0...v1.15.1) (2023-12-18)
 
 
