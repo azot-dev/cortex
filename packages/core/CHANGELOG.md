@@ -1,3 +1,11 @@
+## [1.15.3](https://github.com/azot-dev/cortex/compare/v1.15.2...v1.15.3) (2023-12-19)
+
+
+### Bug Fixes
+
+* modify the debug flag level ([92cff82](https://github.com/azot-dev/cortex/commit/92cff820c2f58aabd1c8f978f3d2615f09f7863d))
+* re-instantiate core ([a8166dd](https://github.com/azot-dev/cortex/commit/a8166ddb2cc554b2a18dfadb6dbe9dc971ae384d))
+
 ## [1.15.2](https://github.com/azot-dev/cortex/compare/v1.15.1...v1.15.2) (2023-12-19)
 
 
