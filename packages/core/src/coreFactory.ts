@@ -26,24 +26,22 @@ export function createCortexFactory<DependenciesType>() {
       >;
     };
 
-    const rawStates: States = {} as States;
-    for (const key in serviceConstructors) {
-      if ("initialState" in serviceConstructors[key]) {
-        // @ts-ignore
-        rawStates[key] = serviceConstructors[key].initialState;
-      }
-    }
-
-    const states = observable(cloneDeep(rawStates));
-
     return class Core {
       #serviceRegistry: ServiceRegistry<ServiceInstances, States, DependenciesType>;
-      public store: typeof states;
+      public store;
 
       constructor(dependencies: Partial<DependenciesType> = {}, options: Options = { debug: false, host: "localhost" }) {
         this.#serviceRegistry = new ServiceRegistry();
-        this.store = states;
 
+        const rawStates: States = {} as States;
+        for (const key in serviceConstructors) {
+          if ("initialState" in serviceConstructors[key]) {
+            // @ts-ignore
+            rawStates[key] = serviceConstructors[key].initialState;
+          }
+        }
+
+        this.store = observable(cloneDeep(rawStates));
         const devtools = new CommunicationService(options.debug, options.host, options.port);
         for (const [key, ServiceConstructor] of Object.entries(serviceConstructors)) {
           devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
