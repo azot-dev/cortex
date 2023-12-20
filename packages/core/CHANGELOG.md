@@ -1,3 +1,10 @@
+## [1.15.4](https://github.com/azot-dev/cortex/compare/v1.15.3...v1.15.4) (2023-12-20)
+
+
+### Bug Fixes
+
+* add TDD documentation ([4aa4245](https://github.com/azot-dev/cortex/commit/4aa4245940d6af730ff89684e9f8a0f163946b4e))
+
 ## [1.15.3](https://github.com/azot-dev/cortex/compare/v1.15.2...v1.15.3) (2023-12-19)
 
 
