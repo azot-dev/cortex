@@ -11,8 +11,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@azot-dev/cortex": "^1.15.2",
-    "@azot-dev/react-cortex": "^1.15.2",
+    "@azot-dev/cortex": "^1.15.3",
+    "@azot-dev/react-cortex": "^1.15.3",
     "@babel/preset-env": "^7.23.6",
     "@legendapp/state": "^2.1.4",
     "babel-jest": "^29.7.0",

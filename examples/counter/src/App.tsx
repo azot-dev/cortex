@@ -5,12 +5,12 @@ import { useAppSelector, useService } from './cortex/utils/hooks';
 
 function App() {
   const { increment, decrement } = useService('counter');
-  const count = useAppSelector((store) => store.counter.count.get());
+  const count = useAppSelector((state) => state.counter.count.get());
   return (
     <Container>
-      <Button onClick={() => decrement()}>-</Button>
+      <Button onClick={decrement}>-</Button>
       <Counter>{count}</Counter>
-      <Button onClick={() => increment()}>+</Button>
+      <Button onClick={increment}>+</Button>
     </Container>
   );
 }

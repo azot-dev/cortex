@@ -14,6 +14,8 @@ export class CounterService extends Service<State> {
   }
 
   decrement() {
-    this.state.count.set((count) => count - 1);
+    if (this.state.count.get() !== 0) {
+      this.state.count.set((count) => count - 1);
+    }
   }
 }

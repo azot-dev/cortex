@@ -15,20 +15,20 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@azot-dev/cortex@^1.15.2":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.15.2.tgz#fb4b0d8464e774af359b4c9e36631195586f4782"
-  integrity sha512-XQ8AUTx7Z0pK9x5UqDkxomT/QTNZ+Na4Uy1Y2wUHEE5KlCn/gk+PWuaopLD2NmZPvPmRv0tTeIWYp4kxC6UCuQ==
+"@azot-dev/cortex@^1.15.3":
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@azot-dev/cortex/-/cortex-1.15.3.tgz#f3d867f17130637e6b8da971b42609833a7233d8"
+  integrity sha512-4PuyYuNanZvl0gbbjw0uaxp1x1JNlQekDHPGrFlbZOrluvCz5i+fucECb0fCBxQpvhcu3VH36XFcOxviL7cMdg==
   dependencies:
     lodash "^4.17.21"
     socket.io-client "^4.7.2"
     ws "^8.14.2"
     yargs "^17.7.2"
 
-"@azot-dev/react-cortex@^1.15.2":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@azot-dev/react-cortex/-/react-cortex-1.15.2.tgz#ce0881eba5b3c4a58658c226e080ae2bb4de261b"
-  integrity sha512-coUBX8S/Q6gkfIKjWm/SN0uMGAF83nu6LGf1YxY0rPhqrEgYobMWQTA1QomTe8Ll/qhITfTog5rzq3Wzg2gcoQ==
+"@azot-dev/react-cortex@^1.15.3":
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@azot-dev/react-cortex/-/react-cortex-1.15.3.tgz#3e8118eaaa3bda5411145b986cc799a49c331d54"
+  integrity sha512-RmJla6FYKjOz4uRqypITsGO40s0s/TZ+4qk1YTE+tJcncyPGp3oZs1s9UuDiDnqjRXczOg8ex5sOM3LsilVyeg==
   dependencies:
     react-test-renderer "^18.2.0"
 

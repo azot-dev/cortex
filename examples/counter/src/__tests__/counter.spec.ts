@@ -6,9 +6,6 @@ describe('counter', () => {
 
     expect(core.store.counter.count.get()).toBe(0);
     core.getService('counter').decrement();
-    core.getService('counter').decrement();
-    core.getService('counter').decrement();
-    core.getService('counter').decrement();
     expect(core.store.counter.count.get()).toBe(-1);
   });
 
