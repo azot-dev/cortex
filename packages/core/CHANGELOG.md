@@ -1,3 +1,10 @@
+## [1.15.6](https://github.com/azot-dev/cortex/compare/v1.15.5...v1.15.6) (2023-12-21)
+
+
+### Bug Fixes
+
+* add the codesandbox url to the tutorial ([8b7ab28](https://github.com/azot-dev/cortex/commit/8b7ab2818c106d36a23b5cc80ba2041063c874f2))
+
 ## [1.15.5](https://github.com/azot-dev/cortex/compare/v1.15.4...v1.15.5) (2023-12-21)
 
 
