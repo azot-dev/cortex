@@ -1,3 +1,10 @@
+## [1.15.5](https://github.com/azot-dev/cortex/compare/v1.15.4...v1.15.5) (2023-12-21)
+
+
+### Bug Fixes
+
+* modify counter tutorial ([2c2b4a9](https://github.com/azot-dev/cortex/commit/2c2b4a9958b950b1b35929d5deb26282a6ec1abc))
+
 ## [1.15.4](https://github.com/azot-dev/cortex/compare/v1.15.3...v1.15.4) (2023-12-20)
 
 
