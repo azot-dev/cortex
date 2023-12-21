@@ -14,13 +14,12 @@ interface HttpRequestConfig {
   timeout?: number;
 }
 
-type RequestInterceptor = (
-  config: HttpRequestConfig
-) => HttpRequestConfig | Promise<HttpRequestConfig>;
+type RequestInterceptor = (config: HttpRequestConfig) => HttpRequestConfig | Promise<HttpRequestConfig>;
 
 export type HttpResponsePromise<T> = Promise<HttpResponse<T>>;
 
 export interface HTTPGateway {
+  // interceptors: {request: [], response: []}
   setHeaders: () => void;
   getHeaders: () => Headers;
   get<T>(url: string, config?: HttpRequestConfig): HttpResponsePromise<T>;
@@ -29,7 +28,5 @@ export interface HTTPGateway {
   patch<T>(url: string, config?: HttpRequestConfig): HttpResponsePromise<T>;
   post<T>(url: string, config?: HttpRequestConfig): HttpResponsePromise<T>;
   addRequestInterceptor: (interceptor: RequestInterceptor) => void;
-  addResponseInterceptor: <T>(
-    response: HttpResponse<T>
-  ) => HttpResponse<T> | Promise<HttpResponse<T>>;
+  addResponseInterceptor: <T>(response: HttpResponse<T>) => HttpResponse<T> | Promise<HttpResponse<T>>;
 }

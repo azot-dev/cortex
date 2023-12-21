@@ -20,7 +20,7 @@ It requires a good architecture for testing the use cases and not the implementa
 This will be done with a simple counter to be more focused on test driven development.
 
 <iframe 
-    src="https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/counter?embed=1&view=preview&hidenavigation=1&runonclick=1"
+    src="https://t7w33f-5173.csb.app/"
     style={{ width: "100%", height: "500px", border: "0", borderRadius: "4px", overflow: "hidden" }}
     title="frosty-surf-4kp6v2"
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
