@@ -20,9 +20,11 @@ It requires a good architecture for testing the use cases and not the implementa
 This will be done with a simple counter to be more focused on test driven development.
 
 <iframe 
-    src="https://t7w33f-5173.csb.app/"
+    src="https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/counter?embed=1&view=preview&hidenavigation=1&runonclick=1"
     style={{ width: "100%", height: "500px", border: "0", borderRadius: "4px", overflow: "hidden" }}
     title="frosty-surf-4kp6v2"
+    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
 [![Edit frosty-surf-4kp6v2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/counter?embed=1&file=%2Fsrc%2Fcortex%2Fservices%2Fcounter.service.ts)
@@ -57,11 +59,11 @@ Look at your code and consider if it can be cleaned up. Refactoring is about mak
 import { Core } from '../cortex/_core';
 
 describe('counter', () => {
-  it('should be incremented', () => {
+  it('should be instantiate with 0', () => {
     const core = new Core();
 
     expect(core.store.counter.count.get()).toBe(0);
-  });
+  })
 });
 ```
 
@@ -90,7 +92,6 @@ export class CounterService extends Service<State> {
 
 After running the test, it should succeed
 
-
 #### Testing the increment
 
 We want to create a method that will increment the counter when called
@@ -118,7 +119,6 @@ describe('counter', () => {
   it('should be incremented', () => {
     const core = new Core();
 
-    expect(core.store.counter.count.get()).toBe(0);
     core.getService('counter').increment();
     expect(core.store.counter.count.get()).toBe(1);
   });

@@ -32,4 +32,4 @@ const core = new Core()
 const count = core.counter.count.get()
 ```
 
-For further technical information you car refer to the official [documentation](https://legendapp.com/open-source/state/)
+For further technical information you can refer to the official [documentation](https://legendapp.com/open-source/state/)
