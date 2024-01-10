@@ -1,4 +1,8 @@
-# Test Driven Development
+---
+sidebar_position: 1
+---
+
+# Counter
 
 Test Driven Development is a a concept quite easy to understand in theory but hard to practice, even more in front end development.
 It requires a good architecture for testing the use cases and not the implementations, otherwise we would change the tests each time we change the code and make the tests almost impossible to maintain
@@ -193,7 +197,7 @@ describe('counter', () => {
     const core = new Core();
 
     expect(core.store.counter.count.get()).toBe(0);
-    core.getService('counter').increment();
+    core.getService('counter').decrement();
     expect(core.store.counter.count.get()).toBe(-1);
   });
 });

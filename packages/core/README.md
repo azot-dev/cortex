@@ -127,30 +127,30 @@ describe('counter', () => {
   it('should be incremented', () => {
     expect(core.store.counter.get()).toBe(0)
 
-    core.services.counter.increment()
+    core.getService('counter').increment()
     expect(core.store.counter.get()).toBe(1)
 
-    core.services.counter.increment()
+    core.getService('counter').increment()
     expect(core.store.counter.get()).toBe(2)
   })
 
   it('should be decremented', () => {
-    core.services.counter.setValue(5)
+    core.getService('counter').setValue(5)
 
-    core.services.counter.decrement()
+    core.getService('counter').decrement()
     expect(core.store.counter.get()).toBe(4)
 
-    core.services.counter.decrement()
+    core.getService('counter').decrement()
     expect(core.store.counter.get()).toBe(3)
   })
 
   it('should not be decremented at a lower value than 0', () => {
-    core.services.counter.setValue(1)
+    core.getService('counter').setValue(1)
 
-    core.services.counter.decrement()
+    core.getService('counter').decrement()
     expect(core.store.counter.get()).toBe(0)
 
-    core.services.counter.decrement()
+    core.getService('counter').decrement()
     expect(core.store.counter.get()).toBe(0)
   })
 }) 

@@ -1,4 +1,6 @@
-import { createCortexFactory } from './coreFactory';
-import { BaseService } from './base';
+import { createCortexFactory } from "./coreFactory";
+import { BaseService } from "./base";
+import { Adapter, Gateway } from "./adapters";
 
-export { createCortexFactory, BaseService };
+export { createCortexFactory, BaseService, Adapter };
+export type { Gateway };

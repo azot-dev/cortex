@@ -1,5 +1,5 @@
-import { Observable } from '@legendapp/state';
-import { ConstructedServiceTypes, ServiceConstructor } from './types/service-constructor';
+import { Observable } from "@legendapp/state";
+import { ConstructedServiceTypes, ServiceConstructor } from "./types/service-constructor";
 
 export class ServiceRegistry<
   ServiceConstructorsType extends Record<string, ServiceConstructor<any, Observable<StoreType>, DependenciesType>>,
@@ -29,18 +29,13 @@ type InferStoreType<ServiceConstructorsType> = {
   [K in keyof ServiceConstructorsType]: ServiceConstructorsType[K] extends ServiceConstructor<any, infer I, any> ? I : never;
 };
 
-export interface BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
-  initialState?: State;
-  init?: () => void;
-}
-
 export class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
   constructor(
     protected state: Observable<State>,
     protected dependencies: DependenciesType,
     private serviceRegistry: ServiceRegistry<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>
   ) {
-    if ('initialState' in this && !('initialState' in this.constructor)) {
+    if ("initialState" in this && !("initialState" in this.constructor)) {
       throw new Error(`Service ${this.constructor.name}: initialState must be declared static (static initialState = { ... })`);
     }
   }

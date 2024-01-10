@@ -12,39 +12,42 @@ You can simply test your logic with Jest, pretty quickly and easily develop some
 // counter.spec.ts
 
 describe('counter', () => {
-  let core = new Core();
+  let core: InstanceType<typeof Core>;
+  let service: InstanceType<typeof CounterService>;
 
   beforeEach(() => {
-    core = new Core()
-  })
+    core = new Core();
+    service = core.getService('counter');
+  });
+
 
   it('should be incremented', () => {
     expect(core.store.counter.get()).toBe(0)
 
-    core.services.counter.increment()
+    service.increment()
     expect(core.store.counter.get()).toBe(1)
 
-    core.services.counter.increment()
+    service.increment()
     expect(core.store.counter.get()).toBe(2)
   })
 
   it('should be decremented', () => {
-    core.services.counter.setValue(5)
+    service.setValue(5)
 
-    core.services.counter.decrement()
+    service.decrement()
     expect(core.store.counter.get()).toBe(4)
 
-    core.services.counter.decrement()
+    service.decrement()
     expect(core.store.counter.get()).toBe(3)
   })
 
   it('should not be decremented at a lower value than 0', () => {
-    core.services.counter.setValue(1)
+    service.setValue(1)
 
-    core.services.counter.decrement()
+    service.decrement()
     expect(core.store.counter.get()).toBe(0)
 
-    core.services.counter.decrement()
+    service.decrement()
     expect(core.store.counter.get()).toBe(0)
   })
 }) 
