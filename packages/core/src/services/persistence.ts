@@ -45,3 +45,5 @@
 // // il ne connait pas les services, on peut lui injecter les types comme tout le monde ensuite?
 
 // // Pas de rehydratation en tant que fonction, elle va s'effectuer dans le persist, si le persist n'est plus appelé on ne chargera plus la data dans le store
+
+export {};
