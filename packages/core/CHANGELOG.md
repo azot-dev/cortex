@@ -1,3 +1,17 @@
+# [1.16.0](https://github.com/azot-dev/cortex/compare/v1.15.6...v1.16.0) (2024-01-16)
+
+
+### Bug Fixes
+
+* comment persistence.ts ([23082c9](https://github.com/azot-dev/cortex/commit/23082c9043eeba3a5d0b02fc1557e27c0ab11c47))
+* comment persistence.ts ([74eea39](https://github.com/azot-dev/cortex/commit/74eea397487a1f0da4f4f2775d488b7d2567ad28))
+* lazy load adapter dependencies ([b1f79fe](https://github.com/azot-dev/cortex/commit/b1f79fee541ecb8e90d180ba97ba37e92231cc26))
+
+
+### Features
+
+* add todo example ([9e06b5c](https://github.com/azot-dev/cortex/commit/9e06b5c1f54a24acf64fb4294e2d8926b381c963))
+
 ## [1.15.6](https://github.com/azot-dev/cortex/compare/v1.15.5...v1.15.6) (2023-12-21)
 
 
