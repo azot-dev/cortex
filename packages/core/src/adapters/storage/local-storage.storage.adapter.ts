@@ -1,9 +1,12 @@
-import { StorageGateway } from './storage.gateway';
+import { StorageGateway } from "./storage.gateway";
 
-if (!localStorage) {
-  throw new Error('localStorage cannot be used in this environment, make sure to use the right adapter');
-}
 export class LocalStorageStorageAdapter implements StorageGateway {
+  constructor() {
+    if (!localStorage) {
+      throw new Error("localStorage cannot be used in this environment, make sure to use the right adapter");
+    }
+  }
+
   async getItem(key: string) {
     return localStorage.getItem(key);
   }
