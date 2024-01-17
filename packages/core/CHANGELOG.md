@@ -1,3 +1,11 @@
+## [1.16.2](https://github.com/azot-dev/cortex/compare/v1.16.1...v1.16.2) (2024-01-17)
+
+
+### Bug Fixes
+
+* attempt to push new version ([0b0d579](https://github.com/azot-dev/cortex/commit/0b0d5796c40d372a14d4a95be2afe2143f4f0732))
+* attempt to push new version ([b99807d](https://github.com/azot-dev/cortex/commit/b99807d3b8a7dfa93a891d3ceb4040cad127e414))
+
 # [1.16.0](https://github.com/azot-dev/cortex/compare/v1.15.6...v1.16.0) (2024-01-17)
 
 
