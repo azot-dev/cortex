@@ -20,14 +20,14 @@ Let's continue with a simple example but a bit more complicated with more busine
 :::
 
 <iframe 
-    src="https://t7w33f-5173.csb.app/"
+    src="https://x4q8l4-5173.csb.app/"
     style={{ width: "100%", height: "500px", border: "0", borderRadius: "4px", overflow: "hidden" }}
     title="frosty-surf-4kp6v2"
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-[![Edit frosty-surf-4kp6v2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/counter?embed=1&file=%2Fsrc%2Fcortex%2Fservices%2Fcounter.service.ts)
+[![Edit todo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/todo?embed=1)
 
 ## Setup
 
