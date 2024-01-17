@@ -93,6 +93,8 @@ jobs:
   release-core:
     needs: [test-core, test-react]
     name: NPM release for core
+    env:
+      DEBUG: 'semantic-release:*'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
