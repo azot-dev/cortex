@@ -131,14 +131,16 @@ describe('todo service', () => {
     service = core.getService('todo');
   });
 
-  describe('add', () => { // highlight-start
+  describe('add', () => {
+    // highlight-start
     it('adds a todo to the todoList', () => {
       service.add('eat');
 
       expect(service.get().length).toBe(1);
       expect(service.get()[0].title).toBe('eat');
     });
-  }); // highlight-end
+  // highlight-end
+  }); 
 });
 ```
 

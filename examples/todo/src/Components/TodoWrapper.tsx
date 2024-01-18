@@ -11,7 +11,7 @@ export const TodoWrapper = () => {
     <div className="TodoWrapper">
       <h1>Get Things Done !</h1>
       <TodoForm />
-      {todos.map((todo) => (todo.isEditing ? <EditTodoForm todo={todo} /> : <Todo key={todo.id} todo={todo} />))}
+      {todos.map((todo) => (todo.isEditing ? <EditTodoForm todo={todo} key={`${todo.id}-edit`} /> : <Todo key={`${todo.id}-display`} todo={todo} />))}
     </div>
   );
 };

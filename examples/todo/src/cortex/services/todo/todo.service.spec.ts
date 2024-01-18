@@ -39,6 +39,14 @@ describe('todo service', () => {
       service.modify(idToModify, 'drink');
       expect(service.get()[0].title).toBe('drink');
     });
+
+    it('is no longer in editing mode', () => {
+      service.add('eat');
+      const idToModify = service.get().find((todo) => todo.title === 'eat')!.id;
+
+      service.modify(idToModify, 'drink');
+      expect(service.get()[0].isEditing).toBeFalsy();
+    });
   });
 
   describe('toggle done', () => {

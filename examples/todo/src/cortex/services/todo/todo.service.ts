@@ -18,6 +18,7 @@ export class TodoService extends Service<State> {
 
   modify(id: string, title: string) {
     this.state[id].title.set(title);
+    this.state[id].isEditing.set(false);
   }
 
   toggleDone(id: string) {
@@ -29,7 +30,7 @@ export class TodoService extends Service<State> {
   }
 
   get(): Todo[] {
-    const state = this.state.get(true);
+    const state = this.state.get();
     return Object.keys(state).map((id) => ({ id, ...state[id] }));
   }
 }
