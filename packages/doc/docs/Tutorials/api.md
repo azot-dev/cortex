@@ -2,10 +2,10 @@
 sidebar_position: 3
 ---
 
-# Test an API
+# Dog API
 
 The previous examples show how to test an app, but they were far from a production app.
-How can we mock an API data or any other external service (bluetooth, date, blockchain...)
+How can we mock an API data or any other external service (bluetooth, date, blockchain...).
 
 Let's have a brief introduction to clean architecture with a simple example every web developer deals with: consume a distant API.
 
@@ -23,14 +23,14 @@ Let's have a brief introduction to clean architecture with a simple example ever
 :::
 
 <iframe 
-    src="https://t7w33f-5173.csb.app/"
+    src="https://v7rx2c-5173.csb.app/"
     style={{ width: "100%", height: "500px", border: "0", borderRadius: "4px", overflow: "hidden" }}
     title="frosty-surf-4kp6v2"
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-[![Edit frosty-surf-4kp6v2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/counter?embed=1&file=%2Fsrc%2Fcortex%2Fservices%2Fcounter.service.ts)
+[![Edit dog-api](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/devbox/github/azot-dev/cortex/tree/main/examples/dog-api?embed=1)
 
 In this example, we will code an app that will list dogs and display random images of them
 We will use the pretty simple and well known [dog API](https://dog.ceo/dog-api/documentation/)
@@ -254,6 +254,8 @@ Pretty easy to write, we can inject this adapter in the provider so we will use 
     </CortexProvider>
 ```
 
+Here we just replaced `new FetchApiAdapter()` by `new AxiosApiAdapter()`
+
 ## The backend is not ready yet?
 
 Sometimes, a company needs to show something to the investors in order to raise funds or needs to iterate a lot at an early stage of development
@@ -297,4 +299,4 @@ Again we just have to inject it in our app to make it work:
     </CortexProvider>
 ```
 
-The behavior of `FakeApiAdapter` will be the same as `RealApiAdapter` but is using fake hardcoded data (Simpson images here), we don't use any backend here
+The behavior of `FakeApiAdapter` will be the same as `RealApiAdapter` but is using fake hardcoded data (Simpson images here), we don't use any backend here, when the backend routes are ready, we just have to plug the new adapter to our app.
