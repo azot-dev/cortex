@@ -321,7 +321,7 @@ export class TodoService extends Service<State> {
   }
 
   get(): Todo[] {
-    const state = this.state.get(true);
+    const state = this.state.get();
     return Object.keys(state).map((id) => ({ id, ...state[id] }));
   }
 }
