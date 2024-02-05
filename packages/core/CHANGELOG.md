@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/azot-dev/cortex/compare/v1.16.5...v1.17.0) (2024-02-05)
+
+
+### Features
+
+* add adapter example ([1b69a32](https://github.com/azot-dev/cortex/commit/1b69a32f109f140d5b93b2edfea3e4fa48c6fdc3))
+
 ## [1.16.5](https://github.com/azot-dev/cortex/compare/v1.16.4...v1.16.5) (2024-01-18)
 
 
