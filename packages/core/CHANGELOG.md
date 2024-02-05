@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/azot-dev/cortex/compare/v1.17.0...v1.17.1) (2024-02-05)
+
+
+### Bug Fixes
+
+* dog-api example doc ([29a713b](https://github.com/azot-dev/cortex/commit/29a713b2031c4a561cb4c92bf9007eb72bb17368))
+
 # [1.17.0](https://github.com/azot-dev/cortex/compare/v1.16.5...v1.17.0) (2024-02-05)
 
 
