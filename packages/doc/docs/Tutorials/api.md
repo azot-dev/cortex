@@ -139,9 +139,9 @@ export interface Dependencies {
 }
 ```
 
-## Code the use case
+## Code the use cases
 
-We can now use the interface methods in any of our services, the service will use the method without knowing its implementation:
+We can now use the interface methods in any of our services, the service will use the gateway methods without knowing their implementations:
 
 ```typescript title="src/cortex/services/dog.service.ts"
 import { Breed } from '../dependencies/api/api.gateway';
@@ -177,8 +177,45 @@ export class DogService extends Service<State> {
 }
 ```
 
-Inside the `loadBreeds` function, we use `this.dependencies.api.getBreeds()`, we know what type of data that we will get, but we don't know what adapter we use.
+Inside the `loadBreeds` function, we use `this.dependencies.api.getBreeds()`, we know what type of data that we will get, but we don't know what adapter we use (no adapter is coded yet)
 If the lib in the adapter changes, we don't have to change this code
+
+## Bind to the UI
+
+```tsx title="src/cortex/dependencies/api/fetch.api.adapter.ts"
+function App() {
+  const { loadBreeds, generateImage, selectBreed } = useService('dog');
+  const { isSuccess } = useMethod(loadBreeds); // Cortex hook to call a service method when the view re-renders
+
+  const breeds = useAppSelector((state) => state.dog.breeds.get());
+  const image = useAppSelector((state) => state.dog.currentImage.get());
+
+  if (!isSuccess) {
+    return;
+  }
+
+  return (
+    <>
+      <div>
+        <select onChange={(event) => selectBreed(event.target.value)} className="select">
+          {breeds.map((breedName) => (
+            <option value={breedName} key={breedName}>
+              {breedName}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="card">
+        <img src={image} className="image" alt="image" />
+      </div>
+      <button onClick={generateImage}>generate random image</button>
+    </>
+  );
+}
+```
+
+The UI part stays relatively simple, since all the logic is coded in the services
+
 
 ## Code the adapter
 
@@ -193,7 +230,7 @@ import { ApiGateway, Breed } from './api.gateway';
 
 export class FetchApiAdapter implements ApiGateway {
     async getBreeds() {
-      const response = await fetch('https://dog.ceo/api/breed/hound/images');
+      const response = await fetch('https://dog.ceo/api/breeds/list/all');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
