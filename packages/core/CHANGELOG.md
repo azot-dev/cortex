@@ -1,3 +1,10 @@
+## [1.17.4](https://github.com/azot-dev/cortex/compare/v1.17.3...v1.17.4) (2024-02-27)
+
+
+### Bug Fixes
+
+* modify documentation ([ee4a1bf](https://github.com/azot-dev/cortex/commit/ee4a1bfffe5a241b353294ab354e4610a7970693))
+
 ## [1.17.3](https://github.com/azot-dev/cortex/compare/v1.17.2...v1.17.3) (2024-02-27)
 
 
