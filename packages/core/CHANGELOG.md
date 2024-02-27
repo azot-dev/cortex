@@ -1,3 +1,10 @@
+## [1.17.3](https://github.com/azot-dev/cortex/compare/v1.17.2...v1.17.3) (2024-02-27)
+
+
+### Bug Fixes
+
+* delete axios dependency for new project ([c10b72e](https://github.com/azot-dev/cortex/commit/c10b72efb0061d3989a1ee2da788fd94fe8c65b5))
+
 ## [1.17.2](https://github.com/azot-dev/cortex/compare/v1.17.1...v1.17.2) (2024-02-06)
 
 
