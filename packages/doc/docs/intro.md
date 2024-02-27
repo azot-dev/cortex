@@ -21,18 +21,8 @@ With this you could:
 
 All of that using oriented object programming!
 
-## Why this library ?
-
-As a React Native developer, I struggled for a long time finding the right architecture, I had to deal with a lot of logic in my apps (bluetooth, offline mode)
-
-Trying to optimize my code, I used RTK Query, React Query, but I figured out that the API is not the only external dependency of an app and the cache can't be trusted as a store in many projects I worked on.
-
-So I tried clean architecture with Redux Toolkit, very nice but still hard to read for developers who don't master clean architecture principles and Redux.
-
-I ended up with the Cortex architecture, in order to help developers (and myself) to gain more readability over their code, help them test it easily, and not to be stopped by any architectural issue the could encounter.
-
-Cortex is easy to use, and can be setup at the architecture complexity you want.
-
 ## Technical choices
 
 It is built over [the legend app state lib](https://legendapp.com/open-source/state/), and add a strongly typed system of services and dependency injections
+
+

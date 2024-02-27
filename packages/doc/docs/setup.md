@@ -26,6 +26,11 @@ import TabItem from '@theme/TabItem';
     npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
 
   </TabItem>
+  <TabItem value="pnpm" label="pnpm" >
+
+    pnpm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+
+  </TabItem>
 </Tabs>
 
 ## Automatic installation of the template
