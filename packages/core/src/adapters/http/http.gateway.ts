@@ -20,6 +20,7 @@ export type HttpResponsePromise<T> = Promise<HttpResponse<T>>;
 
 export interface HTTPGateway {
   setHeaders: (headers: Headers) => void;
+  addToHeaders: (key: string, value: string) => void;
   getHeaders: () => Headers;
   get<Response>(url: string, config?: HttpRequestConfig<Request>): HttpResponsePromise<Response>;
   put<Response, Request>(url: string, config?: HttpRequestConfig<Request>): HttpResponsePromise<Response>;
@@ -28,4 +29,5 @@ export interface HTTPGateway {
   post<Response, Request>(url: string, config?: HttpRequestConfig<Request>): HttpResponsePromise<Response>;
   addRequestInterceptor: (interceptor: RequestInterceptor) => void;
   addResponseInterceptor(onFulfilled?: ((value: any) => any) | undefined, onRejected?: ((error: any) => any) | undefined): number;
+  setBaseUrl(baseURL: string): void;
 }

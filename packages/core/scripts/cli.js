@@ -1,8 +1,34 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs');
-const fs = require('fs');
-const path = require('path');
+const yargs = require("yargs");
+const fs = require("fs");
+const path = require("path");
+
+function displayCode() {
+  const RESET = "\x1b[0m";
+  const RED = "\x1b[31m";
+  const GREEN = "\x1b[32m";
+  const YELLOW = "\x1b[33m";
+  const BLUE = "\x1b[34m";
+
+  let code = `
+  <CortexProvider coreInstance={new Core()}>
+    <App />
+  </CortexProvider>
+  `;
+
+  code = code.replace(/CortexProvider/g, `${GREEN}CortexProvider${RESET}`);
+  code = code.replace(/App/g, `${GREEN}App${RESET}`);
+  code = code.replace(/Core/g, `${GREEN}Core${RESET}`);
+  code = code.replace(/coreInstance/g, `${BLUE}coreInstance${RESET}`);
+  code = code.replace(/\bnew\b/g, `${BLUE}new${RESET}`);
+  code = code.replace(/{/g, `${YELLOW}{${RESET}`);
+  code = code.replace(/}/g, `${YELLOW}}${RESET}`);
+  code = code.replace(/\(/g, `${RED}(${RESET}`);
+  code = code.replace(/\)/g, `${RED})${RESET}`);
+
+  console.info(code);
+}
 
 function copyRecursively(src, dest) {
   const exists = fs.existsSync(src);
@@ -14,10 +40,7 @@ function copyRecursively(src, dest) {
       fs.mkdirSync(dest);
     }
     fs.readdirSync(src).forEach((childItemName) => {
-      copyRecursively(
-        path.join(src, childItemName),
-        path.join(dest, childItemName)
-      );
+      copyRecursively(path.join(src, childItemName), path.join(dest, childItemName));
     });
   } else {
     fs.copyFileSync(src, dest);
@@ -26,12 +49,12 @@ function copyRecursively(src, dest) {
 
 yargs
   .command(
-    'init [library]',
-    'Initialize cortex with a specific library',
+    "init [library]",
+    "Initialize cortex with a specific library",
     (yargs) => {
-      yargs.positional('library', {
-        describe: 'The library to initialize (e.g., react)',
-        type: 'string',
+      yargs.positional("library", {
+        describe: "The library to initialize (e.g., react)",
+        type: "string",
       });
     },
     (argv) => {
@@ -39,16 +62,15 @@ yargs
         const sourceDirectory = path.join(__dirname, argv.library);
         const destinationDirectory = process.cwd();
 
+        console.info();
         if (fs.existsSync(sourceDirectory)) {
           copyRecursively(sourceDirectory, destinationDirectory);
-          console.log(`Initialization of ${argv.library} completed!`);
+          console.log(`Initialization of Cortex with ${argv.library} completed 👌`);
         } else {
           console.error(`The library "${argv.library}" is not recognized.`);
         }
-        console.info();
-        console.info(
-          'Package successfully installed, you need to wrap your app with the CortexProvider to use it with React'
-        );
+        console.info("You need to wrap your app with the CortexProvider to use it with React");
+        displayCode();
       }
     }
   )

@@ -1,23 +1,24 @@
 import { HTTPGateway } from "./http.gateway";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 
-let axios: any;
-
-try {
-  axios = require("axios");
-} catch (e) {
-  throw new Error("Axios must be installed within your project");
-}
-
 export class AxiosHTTPAdapter implements HTTPGateway {
   private axiosInstance: AxiosInstance;
 
   constructor(config?: AxiosRequestConfig) {
-    this.axiosInstance = axios.create(config);
+    try {
+      const axios = require("axios");
+      this.axiosInstance = axios.create(config);
+    } catch (e) {
+      throw new Error("Axios must be installed within your project");
+    }
   }
 
   setHeaders(headers: Record<string, string>): void {
-    this.axiosInstance.defaults.headers.common = { ...this.axiosInstance.defaults.headers.common, ...headers };
+    this.axiosInstance.defaults.headers.common = headers;
+  }
+
+  addToHeaders(key: string, value: string): void {
+    this.axiosInstance.defaults.headers.common[key] = value;
   }
 
   getHeaders(): Record<string, any> {
@@ -47,6 +48,10 @@ export class AxiosHTTPAdapter implements HTTPGateway {
   async patch<Response, Request>(url: string, data?: Request, config?: Record<string, unknown>): Promise<Response> {
     const response = await this.axiosInstance.patch<Response>(url, data, config);
     return response.data;
+  }
+
+  setBaseUrl(baseURL: string): void {
+    this.axiosInstance.defaults.baseURL = baseURL;
   }
 
   addRequestInterceptor(onFulfilled?: (value: any) => any, onRejected?: (error: any) => any): number {

@@ -1,4 +1,4 @@
-import { HTTPGateway } from './http.gateway';
+import { HTTPGateway } from "./http.gateway";
 
 export class StubHTTPAdapter implements HTTPGateway {
   private headers: Record<string, string> = {};
@@ -7,9 +7,15 @@ export class StubHTTPAdapter implements HTTPGateway {
     this.headers = headers;
   }
 
+  addToHeaders(key: string, value: string) {
+    this.headers[key] = value;
+  }
+
   getHeaders(): Record<string, string> {
     return this.headers;
   }
+
+  setBaseUrl(baseURL: string) {}
 
   async get<Response>(url: string, config?: Record<string, unknown>): Promise<Response> {
     return {} as Response;
@@ -40,10 +46,10 @@ export class StubHTTPAdapter implements HTTPGateway {
   }
 
   formatResponse<Response>(response: Response): ApiResponse<Response> {
-    return { data: response, headers: this.headers, status: 200, statusText: 'ok' };
+    return { data: response, headers: this.headers, status: 200, statusText: "ok" };
   }
 
-  formatError(status: number, statusText: string = 'An error occured'): ApiResponse<undefined> {
+  formatError(status: number, statusText: string = "An error occured"): ApiResponse<undefined> {
     return { data: undefined, headers: this.headers, status, statusText };
   }
 }
