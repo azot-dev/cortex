@@ -39,9 +39,20 @@ export class BaseService<State, ServiceConstructorsType extends Record<string, S
       throw new Error(`Service ${this.constructor.name}: initialState must be declared static (static initialState = { ... })`);
     }
   }
+
+  init() {}
+
   protected getService<K extends keyof ServiceConstructorsType>(
     name: K
   ): ConstructedServiceTypes<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>[K] {
     return this.serviceRegistry.get(name);
+  }
+
+  public getState(): State {
+    return this.state.get();
+  }
+
+  public setState(state: State | ((currentState: State) => State)) {
+    this.state.set(state);
   }
 }

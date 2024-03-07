@@ -1,43 +1,34 @@
+// import { StorageGateway } from "../adapters/storage/storage.gateway";
 // import { BaseService } from "../base";
 // import { ServiceConstructor } from "../types/service-constructor";
 
-// export abstract class Service extends BaseService<undefined, {}, {}> {
-//   constructor(...args: [any, any, any]) {
-//     super(...args);
-//   }
-// }
+// const PERSISTENCE_SERVICE_KEY = "@cortex-persistence-service";
 
-// export class PersistenceService<Store, Services extends Record<string, ServiceConstructor<any, any, Dependencies>>, Dependencies> extends BaseService<
-//   Store,
-//   Services,
-//   Dependencies
-// > {
-//   persist(services: (keyof Services)[]) {
-//     if (!this.dependencies.persistenceStorage) {
-//       throw new Error("You need to use a dependency as persistenceStorage to use the persistence service");
-//     }
-//     for (const serviceKey in services) {
-//       // d'abord on check que la clé existe dans le storage et on la charge
-//       const currentService = this.getService(serviceKey);
-//       console.log({ currentService });
-//       const state = currentService.state;
-//       console.log({ state });
-//       const lastStoredState = this.dependencies.persistenceStorage.getItem(`@cortex-persistence-service/${serviceKey}`);
-//       if (lastStoredState) {
-//         state.set(lastStoredState);
+// export const createPersistenceService = <Services>(persistenceStorage: StorageGateway) => {
+//   return class {
+//     persist(services: (keyof Services)[]) {
+//       if (!persistenceStorage) {
+//         throw new Error("You need to use a dependency as persistenceStorage to use the persistence service");
 //       }
-//       state.onChange((state: any) => {
-//         this.dependencies.persistenceStorage.setItem(`@cortex-persistence-service/${serviceKey}`, state);
-//       });
+//       for (const serviceKey in services) {
+//         // d'abord on check que la clé existe dans le storage et on la charge
+//         const currentService = this.getService(serviceKey);
+//         console.log({ currentService });
+//         const state = currentService.state;
+//         console.log({ state });
+//         const lastStoredState = persistenceStorage.getItem(`${PERSISTENCE_SERVICE_KEY}/${serviceKey}`);
+//         if (lastStoredState) {
+//           state.set(lastStoredState);
+//         }
+//         state.onChange((state: any) => {
+//           persistenceStorage.setItem(`${PERSISTENCE_SERVICE_KEY}/${serviceKey}`, state);
+//         });
+//       }
 //     }
-//   }
 
-//   clean() {}
-
-//   getClientName() {
-//     return this.store.client.name;
-//   }
-// }
+//     clean() {}
+//   };
+// };
 
 // // persist(['user', 'counter'])
 // // donc déjà autocompletion par rapport aux autres services
@@ -46,4 +37,4 @@
 
 // // Pas de rehydratation en tant que fonction, elle va s'effectuer dans le persist, si le persist n'est plus appelé on ne chargera plus la data dans le store
 
-export {};
+// // 2 possibilités: soit passer ça dans une dépendence, soit utiliser une factory, factory
