@@ -38,3 +38,5 @@
 // // Pas de rehydratation en tant que fonction, elle va s'effectuer dans le persist, si le persist n'est plus appelé on ne chargera plus la data dans le store
 
 // // 2 possibilités: soit passer ça dans une dépendence, soit utiliser une factory, factory
+
+export {};
