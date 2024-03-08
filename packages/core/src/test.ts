@@ -56,3 +56,5 @@
 // c.getService("counter").increment();
 // const u = c.getService("counter").getState();
 // c.getService("counter").setState((state) => ({ count: state.count }));
+
+export {};
