@@ -1,4 +1,24 @@
+<p align="center">
+  <a href="https://azot-dev.github.io/cortex/docs/intro" target="blank"><img src="https://raw.githubusercontent.com/azot-dev/cortex/main/logo/logo_128.png" width="120" alt="Cortex Logo" /></a>
+</p>
+
+<p align="center">A React framework for building efficient and scalable applications</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@azot-dev/cortex">
+    <img src="https://img.shields.io/npm/v/@azot-dev/cortex" alt="npm version">
+  </a>
+  <a href="https://github.com/azot-dev/cortex/actions">
+    <img src="https://github.com/azot-dev/cortex/actions/workflows/npm-release.yml/badge.svg?branch=main" alt="build state">
+  </a>
+  <a href="https://www.npmjs.com/package/@azot-dev/cortex">
+    <img src="https://img.shields.io/npm/dm/@azot-dev/cortex" alt="monthly downloads">
+  </a>
+</p>
+
 # Cortex
+
+The full documentation can be found [here](https://azot-dev.github.io/cortex/docs/intro)
 
 ## Overview
 
@@ -218,7 +238,7 @@ describe('counter', () => {
 Access to the store and return the processed value you want
 
 ```tsx
-  const counter = useAppSelector((store) => store.counter.get()) 
+const counter = useAppSelector((store) => store.counter.get()) 
 ```
 
 ### useStore
@@ -226,8 +246,8 @@ Access to the store and return the processed value you want
 Access to the store
 
 ```tsx
-  const store = useStore();
-  const counter = store.counter.get()
+const store = useStore();
+const counter = store.counter.get()
 ```
 
 ### useService
@@ -235,11 +255,11 @@ Access to the store
 Access to services
 
 ```tsx
-  const counterService = useService('counter')
+const counterService = useService('counter')
 
-  return (
-    <button onClick={() => counterService.increment()}>increment</button>
-  )
+return (
+  <button onClick={() => counterService.increment()}>increment</button>
+)
 ```
 
 ### useMethod
@@ -252,26 +272,26 @@ but since the complete async logic will be encapsulated in one service method, n
 
 ```tsx
 export const ShoesComponent = () => {
-const shoesService = useService('shoes')
-const {
-  isLoading,
-  isError,
-  isSuccess,
-  isCalled,
-  error,
-  call,
-  data,
-} = useMethod(shoesService.load)
+  const shoesService = useService('shoes')
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    isCalled,
+    error,
+    call,
+    data,
+  } = useMethod(shoesService.load)
 
-if (!isCalled || !isLoading) {
-  return <Loader>
-}
+  if (!isCalled || !isLoading) {
+    return <Loader>
+  }
 
-if (isError) {
-  return <span>An error occured</span>
-}
+  if (isError) {
+    return <span>An error occured</span>
+  }
 
-return <Shoes data={data}>
+  return <Shoes data={data}>
 }
 ```
 
@@ -281,22 +301,21 @@ Same behavior as useMethod excepts it is not called when the component first ren
 
 ```tsx
 export const LoginComponent = () => {
-const shoesService = useService('auth')
-const {
-  isLoading,
-  isError,
-  isSuccess,
-  isCalled,
-  error,
-  call: login,
-  data,
-} = useLazyMethod(authService.login)
+  const shoesService = useService('auth')
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    isCalled,
+    error,
+    call: login,
+    data,
+  } = useLazyMethod(authService.login)
 
-if (!isCalled || !isLoading) {
-  return <Loader>
-}
+  if (!isCalled || !isLoading) {
+    return <Loader>
+  }
 
-return <button onClick={login}>login</button>
+  return <button onClick={login}>login</button>
 }
 ```
-
