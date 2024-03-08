@@ -1,3 +1,10 @@
+## [1.17.6](https://github.com/azot-dev/cortex/compare/v1.17.5...v1.17.6) (2024-03-08)
+
+
+### Bug Fixes
+
+* tests ([564e804](https://github.com/azot-dev/cortex/commit/564e804b776bf6068b5ecb71662902f673e60f30))
+
 ## [1.17.5](https://github.com/azot-dev/cortex/compare/v1.17.4...v1.17.5) (2024-03-08)
 
 
