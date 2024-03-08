@@ -1,3 +1,13 @@
+## [1.17.5](https://github.com/azot-dev/cortex/compare/v1.17.4...v1.17.5) (2024-03-08)
+
+
+### Bug Fixes
+
+* add init autocompletion for services ([8164788](https://github.com/azot-dev/cortex/commit/81647889521cd09f3a13949f1c2d0bcbca9563d3))
+* ci ([e0fec5e](https://github.com/azot-dev/cortex/commit/e0fec5ebfbb9cc391570e226fc3f8ab53167cebb))
+* tests ([8fa26bc](https://github.com/azot-dev/cortex/commit/8fa26bc39596355aac24412c0eb14492c8a913c6))
+* tests ([c0399ae](https://github.com/azot-dev/cortex/commit/c0399ae011716efa76b1001899edad77eb5ab445))
+
 ## [1.17.4](https://github.com/azot-dev/cortex/compare/v1.17.3...v1.17.4) (2024-02-27)
 
 
