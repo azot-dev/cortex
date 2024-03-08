@@ -2,7 +2,18 @@ module.exports = {
   repositoryUrl: "https://github.com/azot-dev/cortex",
   branches: ["main"],
   plugins: [
-    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        releaseRules: [
+          { type: "doc", release: "patch" },
+          { type: "fix", release: "patch" },
+          { type: "ci", release: "patch" },
+          { type: "feat", release: "minor" },
+        ],
+        preset: "angular",
+      },
+    ],
     "@semantic-release/release-notes-generator",
     [
       "@semantic-release/changelog",
