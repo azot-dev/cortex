@@ -1,15 +1,11 @@
-import { BaseService, createCortexFactory } from '@azot-dev/cortex/src';
-import { CortexProvider, createCortexHooks } from '../src/provider';
-import React, { ReactNode } from 'react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { BaseService, createCortexFactory } from "@azot-dev/cortex/src";
+import { CortexProvider, createCortexHooks } from "../src/provider";
+import React, { ReactNode } from "react";
+import { act, renderHook } from "@testing-library/react-hooks";
 
 jest.useFakeTimers();
 
-export abstract class Service<T = undefined> extends BaseService<
-  T,
-  typeof services,
-  {}
-> {
+export abstract class Service<T = undefined> extends BaseService<T, typeof services, {}> {
   constructor(...args: [any, any, any]) {
     super(...args);
   }
@@ -33,7 +29,6 @@ class UserService extends Service<State> {
 type CountState = { count: number };
 class CounterService extends Service<CountState> {
   static initialState = { count: 0 };
-  init?: (() => void) | undefined;
   increment() {
     this.state.count.set((count) => count + 1);
   }
@@ -50,7 +45,7 @@ class CounterService extends Service<CountState> {
   rejectAfter5Seconds() {
     return new Promise<void>((_resolve, reject) => {
       setTimeout(() => {
-        reject(new Error('rejection'));
+        reject(new Error("rejection"));
       }, 5000);
     });
   }
@@ -58,7 +53,6 @@ class CounterService extends Service<CountState> {
   resolve2After5Seconds() {
     return new Promise<number>((resolve) => {
       setTimeout(() => {
-        this.increment();
         resolve(2);
       }, 5000);
     });
@@ -72,62 +66,46 @@ const services = {
 
 export const Core = createCortexFactory()(services);
 
-export const {
-  useAppSelector,
-  useLazyMethod,
-  useMethod,
-  useService,
-  useStore,
-} = createCortexHooks<typeof services>();
+export const { useAppSelector, useLazyMethod, useMethod, useService, useStore } = createCortexHooks<typeof services>();
 
-describe('Cortex hooks', () => {
+describe("Cortex hooks", () => {
   afterEach(() => {
     jest.clearAllMocks();
+    jest.clearAllTimers();
   });
 
-  describe('useStore', () => {
-    it('should be rendered', async () => {
+  describe("useStore", () => {
+    it("should be rendered", async () => {
       const core = new Core();
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <CortexProvider coreInstance={core}>{children}</CortexProvider>
-      );
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
       const { result, waitFor } = renderHook(() => useStore(), { wrapper });
 
       expect(result.current).not.toBeNull();
       expect(result.current).toBeDefined();
     });
 
-    it('should give access to the store', async () => {
+    it("should give access to the store", async () => {
       const core = new Core();
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <CortexProvider coreInstance={core}>{children}</CortexProvider>
-      );
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
       const { result } = renderHook(() => useStore(), { wrapper });
       expect(result.current.counter.count.get()).toBe(0);
     });
   });
 
-  describe('useAppSelector', () => {
-    it('should give access to the store parts', async () => {
+  describe("useAppSelector", () => {
+    it("should give access to the store parts", async () => {
       const core = new Core();
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <CortexProvider coreInstance={core}>{children}</CortexProvider>
-      );
-      const { result } = renderHook(
-        () => useAppSelector((state) => state.counter.count.get()),
-        { wrapper }
-      );
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+      const { result } = renderHook(() => useAppSelector((state) => state.counter.count.get()), { wrapper });
       expect(result.current).toBe(0);
     });
   });
 
-  describe('useService', () => {
-    it('should modify the store', async () => {
+  describe("useService", () => {
+    it("should modify the store", async () => {
       const core = new Core();
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <CortexProvider coreInstance={core}>{children}</CortexProvider>
-      );
-      const { result } = renderHook(() => useService('counter'), { wrapper });
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+      const { result } = renderHook(() => useService("counter"), { wrapper });
 
       act(() => {
         result.current.increment();
@@ -139,27 +117,17 @@ describe('Cortex hooks', () => {
 
   const getHookRender = (methodKey: CounterServiceMethodNames) => {
     const core = new Core();
-    const wrapper = ({ children }: { children: ReactNode }) => (
-      <CortexProvider coreInstance={core}>{children}</CortexProvider>
-    );
+    const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 
-    return renderHook(
-      () => useLazyMethod(core.getService('counter')[methodKey!]),
-      { wrapper }
-    );
+    return renderHook(() => useLazyMethod(core.getService("counter")[methodKey]), { wrapper });
   };
 
-  describe('useMethod', () => {
-    it('should be called when the component renders', async () => {
+  describe("useMethod", () => {
+    it("should be called when the component renders", async () => {
       const core = new Core();
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <CortexProvider coreInstance={core}>{children}</CortexProvider>
-      );
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 
-      const { result, waitFor } = renderHook(
-        () => useMethod(core.getService('counter').resolve2After5Seconds),
-        { wrapper }
-      );
+      const { result, waitFor } = renderHook(() => useMethod(core.getService("counter").resolve2After5Seconds), { wrapper });
 
       act(() => {
         jest.advanceTimersByTime(5000);
@@ -173,9 +141,9 @@ describe('Cortex hooks', () => {
     });
   });
 
-  describe('useLazyMethod', () => {
-    it('should not be called when the component renders, without calling call()', async () => {
-      const { result, waitFor } = getHookRender('resolve2After5Seconds');
+  describe("useLazyMethod", () => {
+    it("should not be called when the component renders, without calling call()", async () => {
+      const { result, waitFor } = getHookRender("resolve2After5Seconds");
 
       act(() => {
         jest.advanceTimersByTime(5000);
@@ -184,14 +152,14 @@ describe('Cortex hooks', () => {
       expect(result.current.isCalled).toBe(false);
     });
 
-    describe('data', () => {
-      it('should be undefined before the method to be called', () => {
-        const { result } = getHookRender('resolve2After5Seconds');
+    describe("data", () => {
+      it("should be undefined before the method to be called", () => {
+        const { result } = getHookRender("resolve2After5Seconds");
         expect(result.current.data).toBeUndefined();
       });
 
-      it('should still be undefined if there is an error', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+      it("should still be undefined if there is an error", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
 
         act(() => {
           result.current.call();
@@ -205,14 +173,14 @@ describe('Cortex hooks', () => {
         expect(result.current.data).toBeUndefined();
       });
 
-      it('should be the result if there is no error', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+      it("should be the result if there is no error", async () => {
+        const { result, waitFor } = getHookRender("resolve2After5Seconds");
 
         act(() => {
           result.current.call();
+          jest.advanceTimersByTime(5000);
+          jest.runOnlyPendingTimers();
         });
-        jest.advanceTimersByTime(5000);
-        jest.runAllTimers();
 
         await waitFor(() => {
           return result.current.data === 2;
@@ -221,14 +189,14 @@ describe('Cortex hooks', () => {
       });
     });
 
-    describe('loading state', () => {
-      it('should be falsy before the call is done', () => {
-        const { result } = getHookRender('resolve2After5Seconds');
+    describe("loading state", () => {
+      it("should be falsy before the call is done", () => {
+        const { result } = getHookRender("resolve2After5Seconds");
         expect(result.current.isLoading).toBeFalsy();
       });
 
-      it('should be truthy while the data is resolving', () => {
-        const { result } = getHookRender('resolve2After5Seconds');
+      it("should be truthy while the data is resolving", () => {
+        const { result } = getHookRender("resolve2After5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(2000);
@@ -236,8 +204,8 @@ describe('Cortex hooks', () => {
         expect(result.current.isLoading).toBeTruthy();
       });
 
-      it('should be falsy after the promise is resolved', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+      it("should be falsy after the promise is resolved", async () => {
+        const { result, waitFor } = getHookRender("resolve2After5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -250,8 +218,8 @@ describe('Cortex hooks', () => {
         expect(result.current.isLoading).toBeFalsy();
       });
 
-      it('should be falsy after the promise is rejected', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+      it("should be falsy after the promise is rejected", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -266,9 +234,9 @@ describe('Cortex hooks', () => {
       });
     });
 
-    describe('error', () => {
-      it('should update with the error message', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+    describe("error", () => {
+      it("should update with the error message", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -280,11 +248,11 @@ describe('Cortex hooks', () => {
         });
 
         expect(result.current.error).toBeDefined();
-        expect(result.current.error?.message).toBe('rejection');
+        expect(result.current.error?.message).toBe("rejection");
       });
 
-      it('should not update if the promise is resolved', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+      it("should not update if the promise is resolved", async () => {
+        const { result, waitFor } = getHookRender("resolve2After5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -298,9 +266,9 @@ describe('Cortex hooks', () => {
         expect(result.current.error).toBe(null);
       });
     });
-    describe('isError', () => {
-      it('should be false if the promise is resolved', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+    describe("isError", () => {
+      it("should be false if the promise is resolved", async () => {
+        const { result, waitFor } = getHookRender("resolve2After5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -314,8 +282,8 @@ describe('Cortex hooks', () => {
         expect(result.current.isError).toBeFalsy();
       });
 
-      it('should be true if the promise is rejected', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+      it("should be true if the promise is rejected", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -329,9 +297,9 @@ describe('Cortex hooks', () => {
         expect(result.current.isError).toBeTruthy();
       });
     });
-    describe('isSuccess', () => {
-      it('should be true if the promise is resolved', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+    describe("isSuccess", () => {
+      it("should be true if the promise is resolved", async () => {
+        const { result, waitFor } = getHookRender("resolve2After5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -345,8 +313,8 @@ describe('Cortex hooks', () => {
         expect(result.current.isSuccess).toBeTruthy();
       });
 
-      it('should be false if the promise is rejected', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+      it("should be false if the promise is rejected", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -361,15 +329,15 @@ describe('Cortex hooks', () => {
       });
     });
 
-    describe('isCalled', () => {
-      it('should be false before the call', async () => {
-        const { result } = getHookRender('resolve2After5Seconds');
+    describe("isCalled", () => {
+      it("should be false before the call", async () => {
+        const { result } = getHookRender("resolve2After5Seconds");
 
         expect(result.current.isCalled).toBeFalsy();
       });
 
-      it('should be true after the call', async () => {
-        const { result, waitFor } = getHookRender('rejectAfter5Seconds');
+      it("should be true after the call", async () => {
+        const { result, waitFor } = getHookRender("rejectAfter5Seconds");
         act(() => {
           result.current.call();
           jest.advanceTimersByTime(5000);
@@ -390,7 +358,6 @@ type FunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
 }[keyof T];
 
-type MethodNamesOfClass<T extends abstract new (...args: any) => any> =
-  FunctionPropertyNames<InstanceType<T>>;
+type MethodNamesOfClass<T extends abstract new (...args: any) => any> = FunctionPropertyNames<InstanceType<T>>;
 
 type CounterServiceMethodNames = MethodNamesOfClass<typeof CounterService>;
