@@ -91,6 +91,7 @@ jobs:
         run: yarn workspace @azot-dev/react-cortex test
 
   release-core:
+    if: github.ref == 'refs/heads/main'
     needs: [test-core, test-react]
     name: NPM release for core
     env:
@@ -126,7 +127,7 @@ jobs:
           npx semantic-release
 
   release-chrome-extension:
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true' && github.ref == 'refs/heads/main'
     needs: release-react
     runs-on: ubuntu-latest
     steps:
@@ -178,6 +179,7 @@ jobs:
           CLIENT_ID=${{ secrets.CHROME_CLIENT_ID }} CLIENT_SECRET=${{ secrets.CHROME_CLIENT_SECRET }} REFRESH_TOKEN=${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }} chrome-webstore-upload publish --extension-id fpiekoekdbcomggnffgallmgbcmllhgh
 
   update-react-dep:
+    if: github.ref == 'refs/heads/main'
     needs: release-core
     runs-on: ubuntu-latest
     steps:
@@ -216,6 +218,7 @@ jobs:
           git push
 
   update-chrome-devtools-server:
+    if: github.ref == 'refs/heads/main'
     needs: release-react
     runs-on: ubuntu-latest
     steps:
@@ -263,6 +266,7 @@ jobs:
           npm publish --access public
 
   release-react:
+    if: github.ref == 'refs/heads/main'
     needs: update-react-dep
     runs-on: ubuntu-latest
     steps:
@@ -295,6 +299,7 @@ jobs:
           npm publish --access public
 
   deploy-doc:
+    if: github.ref == 'refs/heads/main'
     needs: [release-react]
     permissions:
       id-token: write

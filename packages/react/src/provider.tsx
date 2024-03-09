@@ -51,10 +51,23 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * @example const userService = useService('user')
    * const changeName = userService.changeName
    */
-  function useService<T extends keyof Services>(service: T): InstanceType<Services[T]> {
+  type ExcludedMethods = "init" | "getState" | "setState";
+
+  function useService<T extends keyof Services>(service: T): Omit<InstanceType<Services[T]>, ExcludedMethods> {
     const core = useAppContext<CoreInterface>();
-    return core.getService(service as string) as InstanceType<Services[T]>;
+    const instance = core.getService(service as string) as InstanceType<Services[T]>;
+
+    const filteredInstance: Partial<InstanceType<Services[T]>> = {};
+
+    for (const key in instance) {
+      if (instance.hasOwnProperty(key) && !["init", "getState", "setState"].includes(key as ExcludedMethods)) {
+        filteredInstance[key as keyof InstanceType<Services[T]>] = instance[key as keyof InstanceType<Services[T]>];
+      }
+    }
+
+    return filteredInstance as Omit<InstanceType<Services[T]>, ExcludedMethods>;
   }
+
   /**
    * Hook to access to the store
    *

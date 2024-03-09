@@ -113,6 +113,16 @@ describe("Cortex hooks", () => {
 
       expect(core.store.counter.count.get()).toBe(1);
     });
+
+    it("should not access to getState, setState and init", async () => {
+      const core = new Core();
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+      const { result } = renderHook(() => useService("counter"), { wrapper });
+
+      expect((result.current as any).getState).toBeUndefined();
+      expect((result.current as any).setState).toBeUndefined();
+      expect((result.current as any).init).toBeUndefined();
+    });
   });
 
   const getHookRender = (methodKey: CounterServiceMethodNames) => {
