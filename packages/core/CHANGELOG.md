@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/azot-dev/cortex/compare/v1.17.8...v1.18.0) (2024-03-09)
+
+
+### Features
+
+* add an upgrade github bot ([d49dbc3](https://github.com/azot-dev/cortex/commit/d49dbc3537e6cd09c050d38d08f37a1cf1b57c60))
+
 ## [1.17.8](https://github.com/azot-dev/cortex/compare/v1.17.7...v1.17.8) (2024-03-08)
 
 ## [1.17.7](https://github.com/azot-dev/cortex/compare/v1.17.6...v1.17.7) (2024-03-08)
