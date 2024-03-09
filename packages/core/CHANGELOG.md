@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/azot-dev/cortex/compare/v1.18.0...v1.18.1) (2024-03-09)
+
+
+### Bug Fixes
+
+* remove init getState and setState from useService hook ([28f7c22](https://github.com/azot-dev/cortex/commit/28f7c2280b3cc7025ac88af634fd649542841375))
+
 # [1.18.0](https://github.com/azot-dev/cortex/compare/v1.17.8...v1.18.0) (2024-03-09)
 
 
