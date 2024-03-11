@@ -16,8 +16,10 @@
     "check-mdx": "docusaurus-mdx-checker"
   },
   "dependencies": {
-    "@docusaurus/core": "3.0.0",
-    "@docusaurus/preset-classic": "3.0.0",
+    "@docusaurus/core": "^3.1.1",
+    "@docusaurus/module-type-aliases": "^3.1.1",
+    "@docusaurus/preset-classic": "^3.1.1",
+    "@docusaurus/types": "^3.1.1",
     "@mdx-js/react": "^3.0.1",
     "clsx": "^1.2.1",
     "prism-react-renderer": "2.1.0",
@@ -25,8 +27,8 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.0.0",
-    "@docusaurus/types": "3.0.0",
+    "@docusaurus/module-type-aliases": "^3.1.1",
+    "@docusaurus/types": "^3.1.1",
     "@tsconfig/docusaurus": "^1.0.5",
     "docusaurus-mdx-checker": "^3.0.0",
     "npx": "^10.2.2",
