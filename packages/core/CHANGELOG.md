@@ -1,3 +1,10 @@
+## [1.18.4](https://github.com/azot-dev/cortex/compare/v1.18.3...v1.18.4) (2024-03-11)
+
+
+### Bug Fixes
+
+* update docusaurus v2 -> v3 ([91d9e2d](https://github.com/azot-dev/cortex/commit/91d9e2d8951168c0ccd1f9b2c24f2ff6d16c5d9a))
+
 ## [1.18.3](https://github.com/azot-dev/cortex/compare/v1.18.2...v1.18.3) (2024-03-11)
 
 
