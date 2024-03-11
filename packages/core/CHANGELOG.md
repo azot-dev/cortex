@@ -1,3 +1,10 @@
+## [1.18.3](https://github.com/azot-dev/cortex/compare/v1.18.2...v1.18.3) (2024-03-11)
+
+
+### Bug Fixes
+
+* delete dependabot labels + create PR checks ([8a8371e](https://github.com/azot-dev/cortex/commit/8a8371e50538578e4f47660e953cecd6772e8fce))
+
 ## [1.18.2](https://github.com/azot-dev/cortex/compare/v1.18.1...v1.18.2) (2024-03-11)
 
 
