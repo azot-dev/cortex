@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/packages/react'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: '[React Workspace]'
+    labels:
+      - 'dependencies'
+      - 'react'
+
+  - package-ecosystem: 'npm'
+    directory: '/packages/core'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: '[Core Workspace]'
+    labels:
+      - 'dependencies'
+      - 'core'
+
+  - package-ecosystem: 'npm'
+    directory: '/packages/remote-debugger-server'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: '[Remote Debugger Server Workspace]'
+    labels:
+      - 'dependencies'
+      - 'remote-debugger-server'
+
+  - package-ecosystem: 'npm'
+    directory: '/packages/doc'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: '[Doc Workspace]'
+    labels:
+      - 'dependencies'
+      - 'doc'
