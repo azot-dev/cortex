@@ -6,9 +6,6 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '[React Workspace]'
-    labels:
-      - 'dependencies'
-      - 'react'
 
   - package-ecosystem: 'npm'
     directory: '/packages/core'
@@ -16,9 +13,6 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '[Core Workspace]'
-    labels:
-      - 'dependencies'
-      - 'core'
 
   - package-ecosystem: 'npm'
     directory: '/packages/remote-debugger-server'
@@ -26,9 +20,6 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '[Remote Debugger Server Workspace]'
-    labels:
-      - 'dependencies'
-      - 'remote-debugger-server'
 
   - package-ecosystem: 'npm'
     directory: '/packages/doc'
@@ -36,6 +27,3 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '[Doc Workspace]'
-    labels:
-      - 'dependencies'
-      - 'doc'
