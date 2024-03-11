@@ -2,13 +2,12 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require("prism-react-renderer/themes/vsDark");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 const organizationName = "azot-dev";
 const projectName = "cortex";
 
 const url = `https://${organizationName}.github.io`;
-const baseUrl = `/${projectName}/`;
+const baseUrl = process.env.NETLIFY ? "/" : `/${projectName}/`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
