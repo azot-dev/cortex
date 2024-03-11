@@ -33,7 +33,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.1.0",
-    "@types/chrome": "^0.0.248",
+    "@types/chrome": "^0.0.263",
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.14.200",
     "@types/ws": "^8.5.10",
