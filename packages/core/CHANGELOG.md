@@ -1,3 +1,10 @@
+## [1.18.6](https://github.com/azot-dev/cortex/compare/v1.18.5...v1.18.6) (2024-03-11)
+
+
+### Bug Fixes
+
+* update every docusaurus dependencies ([b9947fa](https://github.com/azot-dev/cortex/commit/b9947fad02776d24bd64e861256f727363a8ba39))
+
 ## [1.18.5](https://github.com/azot-dev/cortex/compare/v1.18.4...v1.18.5) (2024-03-11)
 
 ## [1.18.4](https://github.com/azot-dev/cortex/compare/v1.18.3...v1.18.4) (2024-03-11)
