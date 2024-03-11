@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/vsDark");
+const { themes } = require("prism-react-renderer");
 
 const organizationName = "azot-dev";
 const projectName = "cortex";
@@ -97,7 +97,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} cortex documentation`,
       },
       prism: {
-        theme: lightCodeTheme,
+        theme: themes.vsDark,
       },
     }),
 };
