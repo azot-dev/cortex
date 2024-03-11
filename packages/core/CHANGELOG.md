@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/azot-dev/cortex/compare/v1.18.1...v1.18.2) (2024-03-11)
+
+
+### Bug Fixes
+
+* delete dependabot from workflow folder ([e1f833a](https://github.com/azot-dev/cortex/commit/e1f833a41d90cda23f8dfe22bbc022b0fb2f1219))
+
 ## [1.18.1](https://github.com/azot-dev/cortex/compare/v1.18.0...v1.18.1) (2024-03-09)
 
 
