@@ -1,3 +1,5 @@
+## [1.18.5](https://github.com/azot-dev/cortex/compare/v1.18.4...v1.18.5) (2024-03-11)
+
 ## [1.18.4](https://github.com/azot-dev/cortex/compare/v1.18.3...v1.18.4) (2024-03-11)
 
 
