@@ -1,3 +1,10 @@
+## [1.18.7](https://github.com/azot-dev/cortex/compare/v1.18.6...v1.18.7) (2024-03-12)
+
+
+### Bug Fixes
+
+* attempt to delete the warn log from the adapters not used ([d4dcd0c](https://github.com/azot-dev/cortex/commit/d4dcd0c856659cd7d03dadea7424033b2514ef8d))
+
 ## [1.18.6](https://github.com/azot-dev/cortex/compare/v1.18.5...v1.18.6) (2024-03-11)
 
 
