@@ -2,15 +2,16 @@ import { HTTPGateway } from "./http.gateway";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export class AxiosHTTPAdapter implements HTTPGateway {
-  private axiosInstance: AxiosInstance;
+  private axiosInstance!: AxiosInstance;
 
   constructor(config?: AxiosRequestConfig) {
-    try {
-      const axios = require("axios");
-      this.axiosInstance = axios.create(config);
-    } catch (e) {
-      throw new Error("Axios must be installed within your project");
-    }
+    import("axios")
+      .then((value) => {
+        this.axiosInstance = value.default.create(config);
+      })
+      .catch(() => {
+        throw new Error("Axios must be installed within your project");
+      });
   }
 
   setHeaders(headers: Record<string, string>): void {

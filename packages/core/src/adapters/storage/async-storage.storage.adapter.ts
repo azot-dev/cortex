@@ -1,14 +1,17 @@
 import { StorageGateway } from "./storage.gateway";
+import type { AsyncStorageStatic } from "@react-native-async-storage/async-storage";
 
 export class AsyncStorageStorageAdapter implements StorageGateway {
-  private AsyncStorage: any;
+  private AsyncStorage!: AsyncStorageStatic;
 
   constructor() {
-    try {
-      this.AsyncStorage = require("@react-native-async-storage/async-storage");
-    } catch (e) {
-      throw new Error("@react-native-async-storage/async-storage must be installed within your project");
-    }
+    import("@react-native-async-storage/async-storage")
+      .then((value) => {
+        this.AsyncStorage = value.default;
+      })
+      .catch(() => {
+        throw new Error("@react-native-async-storage/async-storage must be installed within your project");
+      });
   }
 
   async clear() {
