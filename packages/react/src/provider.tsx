@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from "react";
 import { useSelector as useLegendSelector } from "@legendapp/state/react";
-import { Observable } from "@legendapp/state";
+import {observable, Observable} from "@legendapp/state";
 
 interface CoreInterface {
   store: any;
@@ -145,5 +145,27 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return lazyMethod;
   }
 
-  return { useAppSelector, useService, useStore, useMethod, useLazyMethod };
+  /**
+   * Hook to get and set a state based on a store observable,
+   * it is automatically triggered when the component mounts
+   *
+   * @example
+   * const store = useStore()
+   * const [username, setUsername] = useAppState(store.user.name)
+   *
+   * @example const [username, setUsername] = useAppState(state => state.user.name)
+   */
+  function useAppState<T>(selectorFunc: ((state: Observable<Store>) => Observable<T>)): [T, Observable<T>['set']] {
+    const instance = useAppContext<CoreInterface>();
+    const observable = selectorFunc(instance.store)
+    const observedObservable = useLegendSelector<T>(observable)
+    return [observedObservable, observable.set]
+  }
+
+  function useAppSele<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
+    const instance = useAppContext<CoreInterface>();
+    return useLegendSelector(() => selectorFunc(instance.store));
+  }
+
+  return { useAppSelector, useService, useStore, useMethod, useLazyMethod, useAppState };
 }
