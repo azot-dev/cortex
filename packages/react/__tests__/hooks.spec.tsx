@@ -2,6 +2,7 @@ import { BaseService, createCortexFactory } from "@azot-dev/cortex/src";
 import { CortexProvider, createCortexHooks } from "../src/provider";
 import React, { ReactNode } from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
+import {observable} from "@legendapp/state";
 
 jest.useFakeTimers();
 
@@ -66,7 +67,7 @@ const services = {
 
 export const Core = createCortexFactory()(services);
 
-export const { useAppSelector, useLazyMethod, useMethod, useService, useStore } = createCortexHooks<typeof services>();
+export const { useAppSelector, useLazyMethod, useMethod, useService, useStore, useAppState } = createCortexHooks<typeof services>();
 
 describe("Cortex hooks", () => {
   afterEach(() => {
@@ -98,6 +99,21 @@ describe("Cortex hooks", () => {
       const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
       const { result } = renderHook(() => useAppSelector((state) => state.counter.count.get()), { wrapper });
       expect(result.current).toBe(0);
+    });
+  });
+
+  describe("useAppState", () => {
+    it("should access and modify a state if it is a callback", async () => {
+      const core = new Core();
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+      const { result } = renderHook(() => useAppState((state) => state.counter.count), { wrapper });
+      expect(result.current[0]).toBe(0);
+
+      act(() => {
+        result.current[1](3);
+      });
+
+      expect(result.current[0]).toBe(3)
     });
   });
 
