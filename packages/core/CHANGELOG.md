@@ -1,3 +1,12 @@
+## [1.19.1](https://github.com/azot-dev/cortex/compare/v1.19.0...v1.19.1) (2024-03-22)
+
+# [1.19.0](https://github.com/azot-dev/cortex/compare/v1.18.7...v1.19.0) (2024-03-22)
+
+
+### Features
+
+* add useAppState hook ([2c3f808](https://github.com/azot-dev/cortex/commit/2c3f8089e7833e4424c90eb6ff42716124e8e9cd))
+
 ## [1.18.7](https://github.com/azot-dev/cortex/compare/v1.18.6...v1.18.7) (2024-03-12)
 
 
