@@ -87,44 +87,40 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
 
    */
-  function useLazyMethod<Method extends (...args: any[]) => Promise<any> | any>(serviceMethod: Method) {
-    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isError, setIsError] = useState<boolean | undefined>(undefined);
-    const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
-    const [isCalled, setIsCalled] = useState<boolean>(false);
-    const [error, setError] = useState<Error | null>(null);
 
-    const call = async () => {
-      setIsError(undefined);
-      setIsSuccess(undefined);
-      setError(null);
-      setData(undefined);
+  type ServiceMethodReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+
+  function useLazyMethod<T extends (...args: any[]) => any>(serviceMethod: T) {
+    const [data, setData] = useState<ReturnType<T> | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<Error | null>(null);
+    const [isCalled, setIsCalled] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+    const call = async (...args: Parameters<T>): Promise<ReturnType<T>> => {
       setIsLoading(true);
+      setIsCalled(false);
+      setIsError(false);
+      setIsSuccess(false);
+      setError(null);
+
       try {
-        const returnedData = await serviceMethod();
-        setData(returnedData);
+        const result = await serviceMethod(...args);
+        setData(result);
         setIsSuccess(true);
-        setIsError(false);
-      } catch (e: unknown) {
-        setError(e as Error);
+        return result;
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('An error occurred'));
         setIsError(true);
-        setIsSuccess(false);
+        throw err;
       } finally {
         setIsCalled(true);
         setIsLoading(false);
       }
     };
 
-    return {
-      isLoading,
-      isError,
-      isSuccess,
-      isCalled,
-      error,
-      call,
-      data,
-    };
+    return { data, call, error, isCalled, isError, isLoading, isSuccess };
   }
 
   /** 
@@ -134,13 +130,12 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * @example const userService = useService('articles')
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
 
-   */
-  function useMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method) {
+   */function useMethod(serviceMethod: () => Promise<any>) {
     const lazyMethod = useLazyMethod(serviceMethod);
 
     useEffect(() => {
       lazyMethod.call();
-    }, []);
+    }, [lazyMethod.call]);
 
     return lazyMethod;
   }
