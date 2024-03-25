@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/azot-dev/cortex/compare/v1.19.1...v1.19.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* make useMethod call return a value ([2250cee](https://github.com/azot-dev/cortex/commit/2250cee2d194c8af79fe559c7a7fec5eb9dc9c10))
+
 ## [1.19.1](https://github.com/azot-dev/cortex/compare/v1.19.0...v1.19.1) (2024-03-22)
 
 # [1.19.0](https://github.com/azot-dev/cortex/compare/v1.18.7...v1.19.0) (2024-03-22)
