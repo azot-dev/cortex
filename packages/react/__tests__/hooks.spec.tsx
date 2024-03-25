@@ -145,6 +145,7 @@ describe("Cortex hooks", () => {
     const core = new Core();
     const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 
+    // @ts-ignore
     return renderHook(() => useLazyMethod(core.getService("counter")[methodKey]), { wrapper });
   };
 
@@ -176,6 +177,31 @@ describe("Cortex hooks", () => {
       });
 
       expect(result.current.isCalled).toBe(false);
+    });
+
+    describe("call", () => {
+      it('should return the data if the promise is resolved', async () => {
+        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+
+        // Wrap the operation in a function that returns the promise immediately.
+        const initiateAsyncOperation = (): Promise<number> => {
+          return result.current.call(); // Assuming this returns a Promise<number>.
+        };
+
+        let resolvedValue: number | undefined;
+
+        await act(async () => {
+          // Initiate the async operation and advance timers within the act.
+          const asyncOperation = initiateAsyncOperation();
+          jest.advanceTimersByTime(5000);
+
+          // Await the resolution of the promise.
+          resolvedValue = await asyncOperation;
+        });
+
+        // Assert the expected resolved value.
+        expect(resolvedValue).toBe(2);
+      });
     });
 
     describe("data", () => {

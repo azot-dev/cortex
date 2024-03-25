@@ -87,7 +87,11 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
 
    */
-  function useLazyMethod<Method extends (...args: any[]) => Promise<any> | any>(serviceMethod: Method) {
+  type ExtractPromiseType<T> = T extends Promise<infer U> ? U : never;
+
+  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(
+      serviceMethod: Method,
+  ) {
     const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
@@ -95,17 +99,19 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     const [isCalled, setIsCalled] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const call = async () => {
+    const call = async (): Promise<ExtractPromiseType<ReturnType<Method>> | undefined> => {
       setIsError(undefined);
       setIsSuccess(undefined);
       setError(null);
       setData(undefined);
       setIsLoading(true);
+
       try {
         const returnedData = await serviceMethod();
         setData(returnedData);
         setIsSuccess(true);
         setIsError(false);
+        return returnedData;
       } catch (e: unknown) {
         setError(e as Error);
         setIsError(true);
@@ -114,6 +120,8 @@ export function createCortexHooks<Services extends Record<string, abstract new (
         setIsCalled(true);
         setIsLoading(false);
       }
+
+      return undefined;
     };
 
     return {
@@ -127,6 +135,7 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     };
   }
 
+
   /** 
    * Hook to get the states of an async method of a service,
    * it is automatically triggered when the component mounts
@@ -139,7 +148,7 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     const lazyMethod = useLazyMethod(serviceMethod);
 
     useEffect(() => {
-      lazyMethod.call();
+      lazyMethod.call().then();
     }, []);
 
     return lazyMethod;
