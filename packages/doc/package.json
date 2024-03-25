@@ -32,7 +32,7 @@
     "@tsconfig/docusaurus": "^1.0.5",
     "docusaurus-mdx-checker": "^3.0.0",
     "npx": "^10.2.2",
-    "typescript": "^4.7.4"
+    "typescript": "^5.4.3"
   },
   "browserslist": {
     "production": [
