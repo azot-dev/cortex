@@ -1,6 +1,6 @@
 // lib/coreFactory.ts
 
-import { observable } from "@legendapp/state";
+import {Observable, observable} from "@legendapp/state";
 import { ServiceRegistry } from "./base";
 import { ServiceConstructor } from "./types/service-constructor";
 import { cloneDeep } from "lodash";
@@ -36,8 +36,7 @@ export function createCortexFactory<DependenciesType>() {
         const rawStates: States = {} as States;
         for (const key in serviceConstructors) {
           if ("initialState" in serviceConstructors[key]) {
-            // @ts-ignore
-            rawStates[key] = serviceConstructors[key].initialState;
+            rawStates[key as unknown as keyof States] = serviceConstructors[key].initialState;
           }
         }
 
@@ -47,8 +46,7 @@ export function createCortexFactory<DependenciesType>() {
           devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
 
           const instance = new ServiceConstructor(
-            // @ts-ignore
-            this.store[key],
+            this.store[key as unknown as keyof Observable<States>],
             dependencies as DependenciesType,
             this.#serviceRegistry
           );

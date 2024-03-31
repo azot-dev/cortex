@@ -53,7 +53,6 @@ export class BaseService<State, ServiceConstructorsType extends Record<string, S
   }
 
   public setState(state: State | ((currentState: State) => State)) {
-    // (this.state as { set: ((state: State | ((currentState: State) => State)) => void) }).set(state);
     // @ts-ignore
     this.state.set(state);
   }
