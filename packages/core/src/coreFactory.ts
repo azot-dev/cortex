@@ -46,6 +46,8 @@ export function createCortexFactory<DependenciesType>() {
           devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
 
           const instance = new ServiceConstructor(
+              // @ts-ignore
+              this.store,
             this.store[key as unknown as keyof Observable<States>],
             dependencies as DependenciesType,
             this.#serviceRegistry

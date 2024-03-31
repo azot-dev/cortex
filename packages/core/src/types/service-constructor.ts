@@ -19,6 +19,7 @@ export type ConstructedServiceTypes<
 export type ServiceConstructor<ServiceType, StateType, DependenciesType> = {
   initialState?: StateType;
   new (
+      store: Observable,
     state: Observable<StateType>,
     dependencies: DependenciesType,
     serviceRegistry: ServiceRegistry<

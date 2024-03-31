@@ -29,8 +29,13 @@ type InferStoreType<ServiceConstructorsType> = {
   [K in keyof ServiceConstructorsType]: ServiceConstructorsType[K] extends ServiceConstructor<any, infer I, any> ? I : never;
 };
 
+type GetStore<Services extends Record<string, ServiceConstructor<any, any, any>>> = {
+  [K in keyof Services]: Services[K]["initialState"];
+};
+
 export class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
   constructor(
+      protected store: Observable<GetStore<ServiceConstructorsType>>,
     protected state: Observable<State>,
     protected dependencies: DependenciesType,
     private serviceRegistry: ServiceRegistry<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>
