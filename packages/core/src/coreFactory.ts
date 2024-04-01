@@ -1,8 +1,8 @@
 // lib/coreFactory.ts
 
-import {Observable, observable} from "@legendapp/state";
+import { Observable, observable } from "@legendapp/state";
 import { ServiceRegistry } from "./base";
-import { ServiceConstructor } from "./types/service-constructor";
+import { GetStore, ServiceConstructor } from "./types/service-constructor";
 import { cloneDeep } from "lodash";
 import { CommunicationService } from "./chrome-debugger/communication-service";
 
@@ -13,24 +13,24 @@ type Options = {
 };
 
 export function createCortexFactory<DependenciesType>() {
-  return <ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>>(serviceConstructors: ServiceConstructorsType) => {
+  return <ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, States extends GetStore<ServiceConstructorsType>>(
+    serviceConstructors: ServiceConstructorsType
+  ) => {
     type ServiceInstances = {
       [K in keyof ServiceConstructorsType]: InstanceType<ServiceConstructorsType[K]>;
     };
 
-    type HasStaticInitialState<T> = T extends { initialState: infer S } ? S : never;
-
-    type States = {
-      [K in keyof ServiceConstructorsType as HasStaticInitialState<ServiceConstructorsType[K]> extends never ? never : K]: HasStaticInitialState<
-        ServiceConstructorsType[K]
-      >;
-    };
-
     return class Core {
+      public store: Observable<States>;
       #serviceRegistry: ServiceRegistry<ServiceInstances, States, DependenciesType>;
-      public store;
 
-      constructor(dependencies: Partial<DependenciesType> = {}, options: Options = { debug: false, host: "localhost" }) {
+      constructor(
+        dependencies: Partial<DependenciesType> = {},
+        options: Options = {
+          debug: false,
+          host: "localhost",
+        }
+      ) {
         this.#serviceRegistry = new ServiceRegistry();
 
         const rawStates: States = {} as States;
@@ -46,8 +46,8 @@ export function createCortexFactory<DependenciesType>() {
           devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
 
           const instance = new ServiceConstructor(
-              // @ts-ignore
-              this.store,
+            // @ts-ignore
+            this.store,
             this.store[key as unknown as keyof Observable<States>],
             dependencies as DependenciesType,
             this.#serviceRegistry

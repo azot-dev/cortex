@@ -16,10 +16,14 @@ export type ConstructedServiceTypes<
   >;
 };
 
+export type GetStore<Services extends Record<string, ServiceConstructor<any, any, any>>> = {
+  [K in keyof Services]: Services[K]["initialState"];
+};
+
 export type ServiceConstructor<ServiceType, StateType, DependenciesType> = {
   initialState?: StateType;
   new (
-      store: Observable,
+      store: Observable<GetStore<any>>,
     state: Observable<StateType>,
     dependencies: DependenciesType,
     serviceRegistry: ServiceRegistry<

@@ -1,5 +1,5 @@
 import { Observable } from "@legendapp/state";
-import { ConstructedServiceTypes, ServiceConstructor } from "./types/service-constructor";
+import { ConstructedServiceTypes, GetStore, ServiceConstructor } from "./types/service-constructor";
 
 export class ServiceRegistry<
   ServiceConstructorsType extends Record<string, ServiceConstructor<any, Observable<StoreType>, DependenciesType>>,
@@ -13,6 +13,10 @@ export class ServiceRegistry<
     instance: ConstructedServiceTypes<ServiceConstructorsType, StoreType, DependenciesType>[K]
   ) {
     this.instances[name] = instance;
+  }
+
+  getNames(): (keyof ConstructedServiceTypes<ServiceConstructorsType, StoreType, DependenciesType>)[] {
+    return Object.keys(this.instances);
   }
 
   get<K extends keyof ConstructedServiceTypes<ServiceConstructorsType, StoreType, DependenciesType>>(
@@ -29,13 +33,9 @@ type InferStoreType<ServiceConstructorsType> = {
   [K in keyof ServiceConstructorsType]: ServiceConstructorsType[K] extends ServiceConstructor<any, infer I, any> ? I : never;
 };
 
-type GetStore<Services extends Record<string, ServiceConstructor<any, any, any>>> = {
-  [K in keyof Services]: Services[K]["initialState"];
-};
-
 export class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
   constructor(
-      protected store: Observable<GetStore<ServiceConstructorsType>>,
+    protected store: Observable<GetStore<ServiceConstructorsType>>,
     protected state: Observable<State>,
     protected dependencies: DependenciesType,
     private serviceRegistry: ServiceRegistry<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>
@@ -47,12 +47,6 @@ export class BaseService<State, ServiceConstructorsType extends Record<string, S
 
   init() {}
 
-  protected getService<K extends keyof ServiceConstructorsType>(
-    name: K
-  ): ConstructedServiceTypes<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>[K] {
-    return this.serviceRegistry.get(name);
-  }
-
   public getState(): State {
     return this.state.peek();
   }
@@ -60,5 +54,36 @@ export class BaseService<State, ServiceConstructorsType extends Record<string, S
   public setState(state: State | ((currentState: State) => State)) {
     // @ts-ignore
     this.state.set(state);
+  }
+
+  protected getService<K extends keyof ServiceConstructorsType>(
+    name: K
+  ): ConstructedServiceTypes<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>[K] {
+    return this.serviceRegistry.get(name);
+  }
+
+  protected decorateAllMethods<
+    ServiceKey extends ReturnType<typeof this.serviceRegistry.getNames>[number],
+    MethodName extends keyof ReturnType<typeof this.serviceRegistry.get>[ServiceKey]
+  >(callbackStart: (serviceKey: ServiceKey, methodName: MethodName) => void, callbackEnd?: (serviceKey: ServiceKey, methodName: MethodName) => void) {
+    const serviceKeys = this.serviceRegistry.getNames();
+
+    serviceKeys.forEach((serviceKey) => {
+      const service = this.serviceRegistry.get(serviceKey);
+
+      Object.getOwnPropertyNames(Object.getPrototypeOf(service))
+        .filter((prop) => typeof service[prop] === "function" && prop !== "constructor")
+        .forEach((methodName) => {
+          const originalMethod = service[methodName];
+          service[methodName] = function (...args: any) {
+            // @ts-ignore
+            callbackStart(serviceKey, methodName);
+            const result = originalMethod.apply(this, args);
+            // @ts-ignore
+            callbackEnd?.(serviceKey, methodName);
+            return result;
+          };
+        });
+    });
   }
 }
