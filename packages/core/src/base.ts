@@ -1,5 +1,5 @@
 import { Observable } from "@legendapp/state";
-import { ConstructedServiceTypes, GetStore, ServiceConstructor } from "./types/service-constructor";
+import { ConstructedServiceTypes, GetStore, InferStoreType, ServiceConstructor } from "./types/service-constructor";
 
 export class ServiceRegistry<
   ServiceConstructorsType extends Record<string, ServiceConstructor<any, Observable<StoreType>, DependenciesType>>,
@@ -29,11 +29,7 @@ export class ServiceRegistry<
   }
 }
 
-type InferStoreType<ServiceConstructorsType> = {
-  [K in keyof ServiceConstructorsType]: ServiceConstructorsType[K] extends ServiceConstructor<any, infer I, any> ? I : never;
-};
-
-export class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
+export abstract class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
   constructor(
     protected store: Observable<GetStore<ServiceConstructorsType>>,
     protected state: Observable<State>,
