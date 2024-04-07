@@ -13,16 +13,25 @@ type Options = {
 };
 
 export function createCortexFactory<DependenciesType>() {
-  return <ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, States extends GetStore<ServiceConstructorsType>>(
-    serviceConstructors: ServiceConstructorsType
+  return <
+    ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>,
+    CoreServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>,
+    States extends GetStore<ServiceConstructorsType>
+  >(
+    serviceConstructors: ServiceConstructorsType,
+    coreServices?: CoreServiceConstructorsType
   ) => {
     type ServiceInstances = {
       [K in keyof ServiceConstructorsType]: InstanceType<ServiceConstructorsType[K]>;
     };
 
+    type CoreServiceInstances = {
+      [K in keyof CoreServiceConstructorsType]: InstanceType<CoreServiceConstructorsType[K]>;
+    };
+
     return class Core {
       public store: Observable<States>;
-      #serviceRegistry: ServiceRegistry<ServiceInstances, States, DependenciesType>;
+      #serviceRegistry: ServiceRegistry<ServiceInstances & CoreServiceInstances, States, DependenciesType>;
 
       constructor(
         dependencies: Partial<DependenciesType> = {},
@@ -55,8 +64,8 @@ export function createCortexFactory<DependenciesType>() {
           this.#serviceRegistry.setInstance(key as keyof ServiceInstances, instance);
         }
 
-        Object.keys(serviceConstructors).forEach((serviceName) => {
-          const serviceInstance = this.#serviceRegistry.get(serviceName as keyof typeof serviceConstructors);
+        Object.keys({ ...serviceConstructors, ...coreServices }).forEach((serviceName) => {
+          const serviceInstance = this.#serviceRegistry.get(serviceName as keyof typeof serviceConstructors & keyof typeof coreServices);
           if (serviceInstance) {
             bindAllMethods(serviceInstance);
           }

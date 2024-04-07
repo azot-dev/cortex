@@ -1,5 +1,6 @@
-import { Observable, observable } from "@legendapp/state";
+import { Observable } from "@legendapp/state";
 import _ from "lodash";
+import { GetStore, ServiceConstructor } from "../types/service-constructor";
 
 export interface Storage {
   getItem(key: string): Promise<any>;
@@ -7,24 +8,6 @@ export interface Storage {
   removeItem(key: string): Promise<void>;
   clear(): Promise<void>;
   getAllKeys(): Promise<string[]>;
-}
-
-export class FakeStorage implements Storage {
-  getItem(key: string): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-  setItem(key: string, value: any): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  removeItem(key: string): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  clear(): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-  getAllKeys(): Promise<string[]> {
-    throw new Error("Method not implemented.");
-  }
 }
 
 type PathImpl<T, K extends keyof T> = K extends string
@@ -41,15 +24,25 @@ type KeysMatching<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T
 
 type ExtractObservableType<O> = O extends Observable<infer T> ? T : never;
 
-export const createPersistenceService = <K extends Record<string, any>>(key: KeysMatching<K, Storage>, storageKey: string = "@cortex-persist") => {
+export const createPersistenceService = <K extends Record<string, any>, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, any>>>(
+  key: KeysMatching<K, Storage>,
+  storageKey: string = "@cortex-persist"
+) => {
+  type Store = Observable<GetStore<ServiceConstructorsType>>;
+
   let storage: Storage; // no class with private or protected member can be exported in a Typescript function
-  let store: Observable<Record<string, any>>;
+  let store: Store;
 
   const getAllKeys = async () => (await storage.getAllKeys()).filter((key) => key.startsWith(storageKey));
 
-  return class PersistenceService<Store extends Observable<Record<string, any>>> {
-    constructor(injectedStore: Store, _state: any, dependencies: { [P in KeysMatching<K, Storage>]: Storage } & Record<string, any>, _serviceRegistry: any) {
-      store = injectedStore;
+  return class PersistenceService {
+    constructor(
+      injectedStore: Observable<GetStore<any>>,
+      _state: any,
+      dependencies: { [P in KeysMatching<K, Storage>]: Storage } & Record<string, any>,
+      _serviceRegistry: any
+    ) {
+      store = injectedStore as Observable<GetStore<ServiceConstructorsType>>;
       storage = dependencies[key];
     }
 
@@ -85,13 +78,3 @@ export const createPersistenceService = <K extends Record<string, any>>(key: Key
     }
   };
 };
-
-const T = createPersistenceService("hello");
-
-const t = new T(observable({ hello: "salut", res: { yes: "", no: "" } }), {}, { hello: new FakeStorage() }, {});
-
-t.persist("res.no");
-
-// faire vieille implem console.logs pour storage
-// L'intégrer en typescript au Service
-// tests
