@@ -35,7 +35,7 @@
     "react-test-renderer": "^18.2.0",
     "semantic-release": "^22.0.5",
     "ts-jest": "^29.1.1",
-    "typescript": "^4.5.4"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
     "react-test-renderer": "^18.2.0"
