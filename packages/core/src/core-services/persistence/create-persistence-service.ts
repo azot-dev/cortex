@@ -1,6 +1,6 @@
 import { Observable } from "@legendapp/state";
 import _ from "lodash";
-import { GetStore, ServiceConstructor } from "../types/service-constructor";
+import { GetStore, ServiceConstructor } from "../../types/service-constructor";
 
 export interface Storage {
   getItem(key: string): Promise<any>;
