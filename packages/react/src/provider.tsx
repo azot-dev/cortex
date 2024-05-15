@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from "react";
 import { useSelector as useLegendSelector } from "@legendapp/state/react";
-import {observable, Observable} from "@legendapp/state";
+import { observable, Observable } from "@legendapp/state";
 
 interface CoreInterface {
   store: any;
@@ -13,8 +13,6 @@ interface ProviderProps {
   children: ReactNode;
   coreInstance: CoreInterface;
 }
-
-type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
 
 export const CortexProvider: React.FC<ProviderProps> = ({ children, coreInstance }) => (
   <AppStateContext.Provider value={coreInstance}>{children}</AppStateContext.Provider>
@@ -87,11 +85,10 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
 
    */
-  type ExtractPromiseType<T> = T extends Promise<infer U> ? U : never;
 
-  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(
-      serviceMethod: Method,
-  ) {
+  type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
+
+  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method) {
     const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
@@ -99,7 +96,7 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     const [isCalled, setIsCalled] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const call = async (): Promise<ExtractPromiseType<ReturnType<Method>> | undefined> => {
+    const call = async (...args: Parameters<Method>): Promise<ExtractPromiseType<ReturnType<Method>> | undefined> => {
       setIsError(undefined);
       setIsSuccess(undefined);
       setError(null);
@@ -107,7 +104,7 @@ export function createCortexHooks<Services extends Record<string, abstract new (
       setIsLoading(true);
 
       try {
-        const returnedData = await serviceMethod();
+        const returnedData = await serviceMethod(...args);
         setData(returnedData);
         setIsSuccess(true);
         setIsError(false);
@@ -135,21 +132,19 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     };
   }
 
-
-  /** 
+  /**
    * Hook to get the states of an async method of a service,
    * it is automatically triggered when the component mounts
    *
    * @example const userService = useService('articles')
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
-
    */
-  function useMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method) {
+  function useMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method, ...initialArgs: Parameters<Method>) {
     const lazyMethod = useLazyMethod(serviceMethod);
 
     useEffect(() => {
-      lazyMethod.call().then();
-    }, []);
+      lazyMethod.call(...initialArgs).then();
+    }, [initialArgs]);
 
     return lazyMethod;
   }
@@ -164,11 +159,11 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    *
    * @example const [username, setUsername] = useAppState(state => state.user.name)
    */
-  function useAppState<T>(selectorFunc: ((state: Observable<Store>) => Observable<T>)): [T, Observable<T>['set']] {
+  function useAppState<T>(selectorFunc: (state: Observable<Store>) => Observable<T>): [T, Observable<T>["set"]] {
     const instance = useAppContext<CoreInterface>();
-    const observable = selectorFunc(instance.store)
-    const observedObservable = useLegendSelector<T>(observable)
-    return [observedObservable, observable.set]
+    const observable = selectorFunc(instance.store);
+    const observedObservable = useLegendSelector<T>(observable);
+    return [observedObservable, observable.set];
   }
 
   function useAppSele<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
