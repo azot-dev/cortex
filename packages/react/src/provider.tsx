@@ -77,15 +77,6 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return store;
   }
 
-  /**
-   * Hook to get the states of an async method of a service,
-   * it has to be triggered by calling call()
-   *
-   * @example const userService = useService('user')
-   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
-
-   */
-
   type NonVoid<T> = T extends void ? never : T;
 
   type ExtractPromiseType<T> = T extends Promise<infer R> ? NonVoid<R> : never;
@@ -132,6 +123,16 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return method;
   }
 
+  /**
+   * Hook to get the states of an async method of a service,
+   * it has to be triggered by calling call()
+   * 
+   * @example const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod('user.getUser');
+   *
+   * @example const userService = useService('user')
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(userService.getUser);
+
+   */
   function useLazyMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(serviceMethod: Method | StringMethod) {
     const core = useAppContext<CoreInterface>();
     const [data, setData] = useState<ReturnTypeFromMethod | undefined>(undefined);
@@ -189,8 +190,10 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * Hook to get the states of an async method of a service,
    * it is automatically triggered when the component mounts
    *
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod('articles.getArticles');
+   *
    * @example const userService = useService('articles')
-   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(articlesService.getArticles);
    */
   function useMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(
     serviceMethod: Method | StringMethod,
