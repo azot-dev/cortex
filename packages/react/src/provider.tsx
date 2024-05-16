@@ -86,17 +86,70 @@ export function createCortexHooks<Services extends Record<string, abstract new (
 
    */
 
-  type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
+  type NonVoid<T> = T extends void ? never : T;
 
-  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method) {
-    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
+  type ExtractPromiseType<T> = T extends Promise<infer R> ? NonVoid<R> : never;
+
+  type MethodNames<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
+  }[keyof T];
+
+  type ServiceMethods<T> = {
+    [K in keyof T]: T[K] extends new (...args: any) => infer R ? `${K & string}.${Exclude<MethodNames<R & {}>, ExcludedMethods> & string}` : never;
+  }[keyof T];
+
+  type GetMethodReturnType<S, M extends string> = M extends `${infer ServiceName}.${infer MethodName}`
+    ? ServiceName extends keyof S
+      ? S[ServiceName] extends abstract new (...args: any) => any
+        ? MethodName extends keyof InstanceType<S[ServiceName]>
+          ? InstanceType<S[ServiceName]>[MethodName] extends (...args: any[]) => infer R
+            ? R
+            : never
+          : never
+        : never
+      : never
+    : never;
+
+  type GetMethodParameters<S, M extends string> = M extends `${infer ServiceName}.${infer MethodName}`
+    ? ServiceName extends keyof S
+      ? S[ServiceName] extends abstract new (...args: any) => any
+        ? MethodName extends keyof InstanceType<S[ServiceName]>
+          ? InstanceType<S[ServiceName]>[MethodName] extends (...args: infer P) => any
+            ? P
+            : never
+          : never
+        : never
+      : never
+    : never;
+
+  function getMethodFromString(serviceMethod: string, core: CoreInterface) {
+    const [serviceName, methodName] = serviceMethod.split(".");
+    const service = core.getService(serviceName) as InstanceType<Services[typeof serviceName]>;
+    const method = service[methodName];
+    if (typeof method !== "function") {
+      throw new Error(`Method ${methodName} not found on service ${serviceName}`);
+    }
+    return method;
+  }
+
+  function useLazyMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(serviceMethod: Method | StringMethod) {
+    const core = useAppContext<CoreInterface>();
+    const [data, setData] = useState<ReturnTypeFromMethod | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
     const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
     const [isCalled, setIsCalled] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const call = async (...args: Parameters<Method>): Promise<ExtractPromiseType<ReturnType<Method>> | undefined> => {
+    type ReturnTypeFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? ExtractPromiseType<GetMethodReturnType<Services, StringMethod>>
+      : ExtractPromiseType<ReturnType<Method>>;
+
+    type ParametersFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? GetMethodParameters<Services, StringMethod>
+      : Parameters<Method>;
+
+    const call = async (...args: ParametersFromMethod): Promise<ReturnTypeFromMethod | undefined> => {
       setIsError(undefined);
       setIsSuccess(undefined);
       setError(null);
@@ -104,7 +157,9 @@ export function createCortexHooks<Services extends Record<string, abstract new (
       setIsLoading(true);
 
       try {
-        const returnedData = await serviceMethod(...args);
+        const actualMethod: (...args: any[]) => Promise<any> = typeof serviceMethod === "string" ? getMethodFromString(serviceMethod, core) : serviceMethod;
+
+        const returnedData = await actualMethod(...args);
         setData(returnedData);
         setIsSuccess(true);
         setIsError(false);
@@ -117,8 +172,6 @@ export function createCortexHooks<Services extends Record<string, abstract new (
         setIsCalled(true);
         setIsLoading(false);
       }
-
-      return undefined;
     };
 
     return {
@@ -139,7 +192,10 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * @example const userService = useService('articles')
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
    */
-  function useMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method, ...initialArgs: Parameters<Method>) {
+  function useMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(
+    serviceMethod: Method | StringMethod,
+    ...initialArgs: StringMethod extends `${infer ServiceName}.${infer MethodName}` ? GetMethodParameters<Services, StringMethod> : Parameters<Method>
+  ) {
     const lazyMethod = useLazyMethod(serviceMethod);
 
     useEffect(() => {

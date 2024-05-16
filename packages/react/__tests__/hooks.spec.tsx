@@ -2,7 +2,7 @@ import { BaseService, createCortexFactory } from "@azot-dev/cortex/src";
 import { CortexProvider, createCortexHooks } from "../src/provider";
 import React, { ReactNode } from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import {observable} from "@legendapp/state";
+import { observable } from "@legendapp/state";
 
 jest.useFakeTimers();
 
@@ -79,7 +79,7 @@ describe("Cortex hooks", () => {
     it("should be rendered", async () => {
       const core = new Core();
       const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
-      const { result, waitFor } = renderHook(() => useStore(), { wrapper });
+      const { result } = renderHook(() => useStore(), { wrapper });
 
       expect(result.current).not.toBeNull();
       expect(result.current).toBeDefined();
@@ -113,7 +113,7 @@ describe("Cortex hooks", () => {
         result.current[1](3);
       });
 
-      expect(result.current[0]).toBe(3)
+      expect(result.current[0]).toBe(3);
     });
   });
 
@@ -169,8 +169,27 @@ describe("Cortex hooks", () => {
   });
 
   describe("useLazyMethod", () => {
+    it.only("should be executed with a string parameter", async () => {
+      const core = new Core();
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+
+      const { result, waitFor } = renderHook(() => useLazyMethod("counter.resolve2After5Seconds"), { wrapper });
+
+      act(() => {
+        result.current.call();
+        jest.advanceTimersByTime(5000);
+      });
+
+      await waitFor(() => {
+        return result.current.isCalled === true;
+      });
+
+      expect(result.current.isCalled).toBeTruthy();
+      expect(result.current.isSuccess).toBeTruthy();
+      expect(result.current.data).toBe(2);
+    });
     it("should not be called when the component renders, without calling call()", async () => {
-      const { result, waitFor } = getHookRender("resolve2After5Seconds");
+      const { result } = getHookRender("resolve2After5Seconds");
 
       act(() => {
         jest.advanceTimersByTime(5000);
@@ -180,26 +199,25 @@ describe("Cortex hooks", () => {
     });
 
     describe("call", () => {
-      it('should return the data if the promise is resolved', async () => {
-        const { result, waitFor } = getHookRender('resolve2After5Seconds');
+      it("should return the data if the promise is resolved", async () => {
+        const core = new Core();
+        const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 
-        // Wrap the operation in a function that returns the promise immediately.
-        const initiateAsyncOperation = (): Promise<number> => {
-          return result.current.call(); // Assuming this returns a Promise<number>.
+        const { result } = renderHook(() => useLazyMethod(core.getService("counter").resolve2After5Seconds), { wrapper });
+
+        const initiateAsyncOperation = () => {
+          return result.current.call();
         };
 
         let resolvedValue: number | undefined;
 
         await act(async () => {
-          // Initiate the async operation and advance timers within the act.
           const asyncOperation = initiateAsyncOperation();
           jest.advanceTimersByTime(5000);
 
-          // Await the resolution of the promise.
           resolvedValue = await asyncOperation;
         });
 
-        // Assert the expected resolved value.
         expect(resolvedValue).toBe(2);
       });
     });
