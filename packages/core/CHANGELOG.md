@@ -1,3 +1,17 @@
+# [1.20.0](https://github.com/azot-dev/cortex/compare/v1.19.3...v1.20.0) (2024-05-16)
+
+
+### Bug Fixes
+
+* delete useless hook ([330350b](https://github.com/azot-dev/cortex/commit/330350bb36b4ecb019f21b703473e7177b798d18))
+
+
+### Features
+
+* add parameters and return types to useMethod and useLazyMethod ([b8661a7](https://github.com/azot-dev/cortex/commit/b8661a7085c2657cfe769a37870eee6bc70d40fc))
+* add string parameter for useMethod and useLazyMethod ([b792b7a](https://github.com/azot-dev/cortex/commit/b792b7a0f1dc4d2c3f44bf53a62fb6683ddb89db))
+* update docs ([fcd912d](https://github.com/azot-dev/cortex/commit/fcd912da4e3b216b33bd2a76766c3829de68f9a4))
+
 ## [1.19.3](https://github.com/azot-dev/cortex/compare/v1.19.2...v1.19.3) (2024-05-16)
 
 
