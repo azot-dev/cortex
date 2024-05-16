@@ -1,3 +1,10 @@
+## [1.19.3](https://github.com/azot-dev/cortex/compare/v1.19.2...v1.19.3) (2024-05-16)
+
+
+### Bug Fixes
+
+* remove adapters to delete warnings ([50525c4](https://github.com/azot-dev/cortex/commit/50525c49da1d2658b964ba88d26db749886a2b5f))
+
 ## [1.19.2](https://github.com/azot-dev/cortex/compare/v1.19.1...v1.19.2) (2024-03-25)
 
 
