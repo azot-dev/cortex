@@ -225,10 +225,5 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return [observedObservable, observable.set];
   }
 
-  function useAppSele<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
-    const instance = useAppContext<CoreInterface>();
-    return useLegendSelector(() => selectorFunc(instance.store));
-  }
-
   return { useAppSelector, useService, useStore, useMethod, useLazyMethod, useAppState };
 }
