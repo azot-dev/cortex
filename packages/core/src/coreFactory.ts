@@ -1,16 +1,7 @@
-// lib/coreFactory.ts
-
 import { Observable, observable } from "@legendapp/state";
 import { ServiceRegistry } from "./base";
 import { GetStore, ServiceConstructor } from "./types/service-constructor";
 import { cloneDeep } from "lodash";
-import { CommunicationService } from "./chrome-debugger/communication-service";
-
-type Options = {
-  debug?: boolean;
-  host?: string;
-  port?: number;
-};
 
 export function createCortexFactory<DependenciesType>() {
   return <
@@ -33,13 +24,7 @@ export function createCortexFactory<DependenciesType>() {
       public store: Observable<States>;
       #serviceRegistry: ServiceRegistry<ServiceInstances & CoreServiceInstances, States, DependenciesType>;
 
-      constructor(
-        dependencies: Partial<DependenciesType> = {},
-        options: Options = {
-          debug: false,
-          host: "localhost",
-        }
-      ) {
+      constructor(dependencies: Partial<DependenciesType> = {}) {
         this.#serviceRegistry = new ServiceRegistry();
 
         const rawStates: States = {} as States;
@@ -50,10 +35,18 @@ export function createCortexFactory<DependenciesType>() {
         }
 
         this.store = observable(cloneDeep(rawStates));
-        const devtools = new CommunicationService(options.debug, options.host, options.port);
         for (const [key, ServiceConstructor] of Object.entries(serviceConstructors)) {
-          devtools.decorateAllMethodsWithChromeLogger(key, ServiceConstructor);
+          const instance = new ServiceConstructor(
+            // @ts-ignore
+            this.store,
+            this.store[key as unknown as keyof Observable<States>],
+            dependencies as DependenciesType,
+            this.#serviceRegistry
+          );
+          this.#serviceRegistry.setInstance(key as keyof ServiceInstances, instance);
+        }
 
+        for (const [key, ServiceConstructor] of Object.entries(coreServices || {})) {
           const instance = new ServiceConstructor(
             // @ts-ignore
             this.store,
@@ -74,7 +67,6 @@ export function createCortexFactory<DependenciesType>() {
         Object.keys(serviceConstructors).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
-        devtools.enableChromeDebugger(this, Object.keys(serviceConstructors));
       }
 
       getService<K extends keyof ServiceInstances>(name: K): ServiceInstances[K] {

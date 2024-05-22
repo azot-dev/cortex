@@ -7,7 +7,7 @@ import { observable } from "@legendapp/state";
 jest.useFakeTimers();
 
 export abstract class Service<T = undefined> extends BaseService<T, typeof services, {}> {
-  constructor(...args: [any, any, any]) {
+  constructor(...args: [any, any, any, any]) {
     super(...args);
   }
 }

@@ -1,5 +1,5 @@
 import { Observable } from "@legendapp/state";
-import { legacy_createStore as createStore, applyMiddleware, compose } from "redux";
+import { legacy_createStore as createStore, applyMiddleware, compose } from "../../../../../node_modules/redux";
 import { GetStore } from "../../types/service-constructor";
 
 declare global {
@@ -34,7 +34,7 @@ type Params = {
   port?: number;
 };
 
-export const createPersistenceService = ({ hostname, port }: Params) => {
+export const createDebuggerService = ({ hostname, port }: Params) => {
   type Store = Observable<GetStore<any>>;
 
   let composeEnhancers = compose;
@@ -58,6 +58,9 @@ export const createPersistenceService = ({ hostname, port }: Params) => {
     }
     if (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
+      reduxStore = createStore(rootReducer, composeEnhancers(applyMiddleware()));
+
       return;
     }
     const composeWithDevTools = require("remote-redux-devtools").composeWithDevTools;
@@ -69,18 +72,17 @@ export const createPersistenceService = ({ hostname, port }: Params) => {
     });
 
     reduxStore = createStore(rootReducer, composeEnhancers(applyMiddleware()));
+    console.log({ reduxStore });
   };
 
-  return class PersistenceService {
-    constructor(injectedStore: Observable<GetStore<any>>, _state: any, dependencies: Record<string, any>, _serviceRegistry: any) {
+  return class DebuggerService {
+    constructor(injectedStore: Observable<GetStore<any>>, _state: any, _dependencies: Record<string, any>, _serviceRegistry: any) {
       store = injectedStore as Observable<GetStore<any>>;
       initDebugger();
       reduxStore.dispatch(initStore(store.get()));
       store.onChange((newStore) => {
         reduxStore.dispatch(changeStore(newStore.value));
       });
-
-      reduxStore.dispatch(() => ({type: '[userService] rename'}))
     }
   };
 };
