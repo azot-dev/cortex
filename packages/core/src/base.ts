@@ -31,7 +31,7 @@ export class ServiceRegistry<
 
 export abstract class BaseService<State, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, DependenciesType>>, DependenciesType> {
   constructor(
-    protected store: Observable<GetStore<ServiceConstructorsType>>,
+    _store: Observable<GetStore<ServiceConstructorsType>>,
     protected state: Observable<State>,
     protected dependencies: DependenciesType,
     private serviceRegistry: ServiceRegistry<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>
