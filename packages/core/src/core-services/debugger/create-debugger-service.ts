@@ -1,6 +1,6 @@
 import { Observable } from "@legendapp/state";
-import { legacy_createStore as createStore, applyMiddleware, compose } from "../../../../../node_modules/redux";
-import { GetStore } from "../../types/service-constructor";
+import { legacy_createStore as createStore, applyMiddleware, compose } from "redux";
+import type { GetStore } from "../../types/service-constructor";
 
 declare global {
   interface Window {
@@ -26,6 +26,12 @@ const changeStore = (store: any) => {
   return {
     type: ACTIONS.STORE_CHANGED,
     payload: store,
+  };
+};
+
+const methodCalled = (serviceName: string, methodName: string) => {
+  return {
+    type: `[${serviceName}] ${methodName}`,
   };
 };
 
@@ -75,10 +81,39 @@ export const createDebuggerService = ({ hostname, port }: Params) => {
     console.log({ reduxStore });
   };
 
+  const decorateAllMethods = (serviceName: string, instance: any) => {
+    const prototype = Object.getPrototypeOf(instance);
+
+    Object.getOwnPropertyNames(prototype).forEach((methodName) => {
+      if (methodName === "constructor") return;
+
+      const descriptor = Object.getOwnPropertyDescriptor(prototype, methodName);
+      if (descriptor && typeof descriptor.value === "function") {
+        Object.defineProperty(instance, methodName, reduxDecorator(serviceName, methodName, descriptor));
+      }
+    });
+  };
+  const reduxDecorator = (serviceName: string, methodName: string, descriptor: PropertyDescriptor) => {
+    const originalMethod = descriptor.value;
+
+    descriptor.value = function (...args: any[]) {
+      reduxStore.dispatch(methodCalled(serviceName, methodName));
+      return originalMethod.apply(this, args);
+    };
+
+    return descriptor;
+  };
+
   return class DebuggerService {
-    constructor(injectedStore: Observable<GetStore<any>>, _state: any, _dependencies: Record<string, any>, _serviceRegistry: any) {
+    constructor(injectedStore: Observable<GetStore<any>>, _state: any, _dependencies: Record<string, any>, serviceRegistry: any) {
       store = injectedStore as Observable<GetStore<any>>;
       initDebugger();
+
+      const serviceNames: string[] = serviceRegistry.getNames();
+      serviceNames.forEach((serviceName) => {
+        const service = serviceRegistry.get(serviceName);
+        decorateAllMethods(serviceName, service);
+      });
       reduxStore.dispatch(initStore(store.get()));
       store.onChange((newStore) => {
         reduxStore.dispatch(changeStore(newStore.value));
