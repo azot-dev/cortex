@@ -57,29 +57,4 @@ export abstract class BaseService<State, ServiceConstructorsType extends Record<
   ): ConstructedServiceTypes<ServiceConstructorsType, InferStoreType<ServiceConstructorsType>, DependenciesType>[K] {
     return this.serviceRegistry.get(name);
   }
-
-  protected decorateAllMethods<
-    ServiceKey extends ReturnType<typeof this.serviceRegistry.getNames>[number],
-    MethodName extends keyof ReturnType<typeof this.serviceRegistry.get>[ServiceKey]
-  >(callbackStart: (serviceKey: ServiceKey, methodName: MethodName) => void, callbackEnd?: (serviceKey: ServiceKey, methodName: MethodName) => void) {
-    const serviceKeys = this.serviceRegistry.getNames();
-
-    serviceKeys.forEach((serviceKey) => {
-      const service = this.serviceRegistry.get(serviceKey);
-
-      Object.getOwnPropertyNames(Object.getPrototypeOf(service))
-        .filter((prop) => typeof service[prop] === "function" && prop !== "constructor")
-        .forEach((methodName) => {
-          const originalMethod = service[methodName];
-          service[methodName] = function (...args: any) {
-            // @ts-ignore
-            callbackStart(serviceKey, methodName);
-            const result = originalMethod.apply(this, args);
-            // @ts-ignore
-            callbackEnd?.(serviceKey, methodName);
-            return result;
-          };
-        });
-    });
-  }
 }

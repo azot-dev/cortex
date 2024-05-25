@@ -2,6 +2,7 @@ import { Observable } from "@legendapp/state";
 import _ from "lodash";
 import { GetStore, ServiceConstructor } from "../../types/service-constructor";
 
+export const STORAGE_KEY = "@cortex-persist";
 export interface Storage {
   getItem(key: string): Promise<any>;
   setItem(key: string, value: any): Promise<void>;
@@ -26,16 +27,23 @@ type ExtractObservableType<O> = O extends Observable<infer T> ? T : never;
 
 export const createPersistenceService = <K extends Record<string, any>, ServiceConstructorsType extends Record<string, ServiceConstructor<any, any, any>>>(
   key: KeysMatching<K, Storage>,
-  storageKey: string = "@cortex-persist"
+  storageKey: string = STORAGE_KEY
 ) => {
   type Store = Observable<GetStore<ServiceConstructorsType>>;
 
   let storage: Storage; // no class with private or protected member can be exported in a Typescript function
   let store: Store;
 
-  const getAllKeys = async () => (await storage.getAllKeys()).filter((key) => key.startsWith(storageKey));
+  const getAllKeys = async () => {
+    const allKeys = await storage.getAllKeys();
+    return allKeys.filter((key) => key.startsWith(storageKey));
+  };
 
   return class PersistenceService {
+    static initialState = {
+      hydrated: false,
+    };
+
     constructor(
       injectedStore: Observable<GetStore<any>>,
       _state: any,
@@ -66,7 +74,7 @@ export const createPersistenceService = <K extends Record<string, any>, ServiceC
       const matchingPath = _.get(store, key);
 
       matchingPath.onChange((data: any) => {
-        storage.setItem(`${storageKey}/${String(key)}`, data);
+        storage.setItem(`${storageKey}/${String(key)}`, data.value);
       });
     }
 

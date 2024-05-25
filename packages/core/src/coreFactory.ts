@@ -10,7 +10,7 @@ export function createCortexFactory<DependenciesType>() {
     States extends GetStore<ServiceConstructorsType>
   >(
     serviceConstructors: ServiceConstructorsType,
-    coreServices?: CoreServiceConstructorsType
+    coreServices: CoreServiceConstructorsType
   ) => {
     type ServiceInstances = {
       [K in keyof ServiceConstructorsType]: InstanceType<ServiceConstructorsType[K]>;
@@ -65,6 +65,10 @@ export function createCortexFactory<DependenciesType>() {
         });
 
         Object.keys(serviceConstructors).forEach((service) => {
+          this.#serviceRegistry.get(service).init?.();
+        });
+
+        Object.keys(coreServices || {}).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
       }
