@@ -36,11 +36,11 @@ const methodCalled = (serviceName: string, methodName: string) => {
 };
 
 type Params = {
-  hostname?: string;
+  host?: string;
   port?: number;
 };
 
-export const createDebuggerService = ({ hostname, port }: Params) => {
+export const createDebuggerService = ({ host, port }: Params) => {
   type Store = Observable<GetStore<any>>;
 
   let composeEnhancers = compose;
@@ -74,7 +74,7 @@ export const createDebuggerService = ({ hostname, port }: Params) => {
       name: "Cortex Debugger",
       realtime: true,
       port: port ?? 8000,
-      hostname: hostname ?? "192.168.1.1",
+      host: host ?? "192.168.1.1",
     });
 
     reduxStore = createStore(rootReducer, composeEnhancers(applyMiddleware()));

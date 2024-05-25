@@ -115,5 +115,3 @@ type Dependencies = {
 };
 
 const Core = createCortexFactory<Dependencies>()(services, coreServices);
-// tests
-// docs
