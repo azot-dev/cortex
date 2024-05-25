@@ -25,7 +25,7 @@ describe("createPersistenceService", () => {
     expect(await storageService.getItem("user.age")).toBeUndefined();
   });
 
-  it.only("should instantiate a new core with the persisted value", async () => {
+  it("should instantiate a new core with the persisted value", async () => {
     core.getService("user").changeName("Xavier");
 
     const newCore = new Core({ storage: storageService });

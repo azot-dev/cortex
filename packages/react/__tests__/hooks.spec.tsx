@@ -65,7 +65,7 @@ const services = {
   counter: CounterService,
 };
 
-export const Core = createCortexFactory()(services);
+export const Core = createCortexFactory()(services, {});
 
 export const { useAppSelector, useLazyMethod, useMethod, useService, useStore, useAppState } = createCortexHooks<typeof services>();
 
@@ -169,7 +169,7 @@ describe("Cortex hooks", () => {
   });
 
   describe("useLazyMethod", () => {
-    it.only("should be executed with a string parameter", async () => {
+    it("should be executed with a string parameter", async () => {
       const core = new Core();
       const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 
