@@ -10,7 +10,7 @@ export function createCortexFactory<DependenciesType>() {
     States extends GetStore<ServiceConstructorsType>
   >(
     serviceConstructors: ServiceConstructorsType,
-    coreServices: CoreServiceConstructorsType
+    coreServices?: CoreServiceConstructorsType
   ) => {
     type ServiceInstances = {
       [K in keyof ServiceConstructorsType]: InstanceType<ServiceConstructorsType[K]>;
