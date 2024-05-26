@@ -1,0 +1,66 @@
+---
+sidebar_position: 8
+---
+
+# Persistence
+
+It is possible to persist the store with the adapter you want, it can be `LocalStorage`, `AsyncStorage`, `SecureStorage` or whatever.
+
+To do so, an adapter must be created before, and being injected in the core.
+
+Example with AsyncStorage
+
+```ts
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
+
+export class AsyncStorageAdapter implements Storage {
+  async getItem(key: string) {
+    return AsyncStorage.getItem(key);
+  }
+
+  async setItem(key: string, value: any) {
+    AsyncStorage.setItem(key, value);
+  }
+
+  async clear() {
+    AsyncStorage.clear();
+  }
+
+  async removeItem(key: string) {
+    AsyncStorage.removeItem(key);
+  }
+
+  async getAllKeys() {
+    const keys = await AsyncStorage.getAllKeys();
+    return [...keys];
+  }
+}
+```
+
+Then create the `PersistenceService` and the core:
+
+```ts
+type Dependencies = {
+  storage: Storage;
+};
+
+const PersistenceService = createPersistenceService<Dependencies, typeof services>("storage");
+
+const Core = createCortexFactory<Dependencies>()(services, { persistence: PersistenceService });
+```
+
+In any service it can be used this way:
+
+```ts
+type State = { count: number };
+
+export class CounterService extends Service<State> {
+  static initialState: State = { count: 0 };
+
+  init() {
+    this.dependencies.persistence.persist("counter.count");
+    // or for the whole service
+    this.dependencies.persistence.persist("counter");
+  }
+}
+```
