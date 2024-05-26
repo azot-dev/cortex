@@ -125,58 +125,6 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           npx semantic-release
 
-  release-chrome-extension:
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_release_chrome_extension == 'true'
-    needs: release-react
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Pull changes
-        run: git pull --rebase origin main
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Update package version
-        run: |
-          CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-          jq '.version = "'"$CORTEX_VERSION"'"' packages/chrome-extension/manifest.json > packages/chrome-extension/manifest.temp.json && mv packages/chrome-extension/manifest.temp.json packages/chrome-extension/manifest.json
-
-      - name: Use Cached Dependencies
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install Dependencies for Chrome Extension
-        run: yarn workspace chrome-extension install --frozen-lockfile
-
-      - name: Build Chrome Extension
-        run: yarn workspace chrome-extension build
-
-      - name: Zip Build Files
-        run: |
-          cd packages/chrome-extension
-          zip -r build.zip dist/
-
-      - name: Install webstore cli
-        run: npm install -g chrome-webstore-upload-cli
-
-      - name: Upload zipped build
-        run: |
-          chrome-webstore-upload upload --source packages/chrome-extension/build.zip --extension-id fpiekoekdbcomggnffgallmgbcmllhgh --client-id ${{ secrets.CHROME_CLIENT_ID }} --client-secret ${{ secrets.CHROME_CLIENT_SECRET }} --refresh-token ${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }}
-
-      - name: Publish
-        run: |
-          CLIENT_ID=${{ secrets.CHROME_CLIENT_ID }} CLIENT_SECRET=${{ secrets.CHROME_CLIENT_SECRET }} REFRESH_TOKEN=${{ secrets.CHROME_CLIENT_REFRESH_TOKEN }} chrome-webstore-upload publish --extension-id fpiekoekdbcomggnffgallmgbcmllhgh
-
   update-react-dep:
     needs: release-core
     runs-on: ubuntu-latest
@@ -214,53 +162,6 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
           git pull --rebase origin main
           git push
-
-  update-chrome-devtools-server:
-    needs: release-react
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Pull changes
-        run: git pull --rebase origin main
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Update peer dependency and package version
-        run: |
-          CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-          jq '.version = "'"$CORTEX_VERSION"'"' packages/remote-debugger-server/package.json > packages/remote-debugger-server/package.temp.json && mv packages/remote-debugger-server/package.temp.json packages/remote-debugger-server/package.json
-
-      - name: Update yarn.lock
-        run: yarn workspace @azot-dev/cortex-remote-debugger install
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name 'GitHub Actions Bot'
-          git config user.email 'githubactions@example.com'
-          git add -A
-          git diff-index --quiet HEAD || git commit -m "Update cortex remote debugger server"
-          git pull --rebase origin main
-          git push
-
-      - name: Build
-        run: yarn workspace @azot-dev/cortex-remote-debugger build
-
-      - name: Release chrome-extension/websocket-server
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          cd packages/remote-debugger-server
-          npm publish --access public
 
   release-react:
     needs: update-react-dep

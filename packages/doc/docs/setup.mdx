@@ -2,8 +2,8 @@
 sidebar_position: 2
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 # Setup
 
@@ -18,17 +18,23 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="yarn" label="yarn" default>
 
-    yarn add @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```bash
+  yarn add @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```
 
   </TabItem>
   <TabItem value="npm" label="npm" >
 
-    npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```bash
+  npm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```
 
   </TabItem>
   <TabItem value="pnpm" label="pnpm" >
 
-    pnpm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```bash
+  pnpm i @azot-dev/cortex @azot-dev/react-cortex @legendapp/state
+```
 
   </TabItem>
 </Tabs>
@@ -79,8 +85,8 @@ If you don't want to use the basic template and want to start the project from s
 A simple object where all the services will be registered
 
 ```ts
-import { CounterService } from './counter.service';
-import { LoginService } from './login.service';
+import { CounterService } from "./counter.service";
+import { LoginService } from "./login.service";
 
 export const services = {
   counter: CounterService,
@@ -105,11 +111,7 @@ export const Core = createCortexFactory<Dependencies>()(services);
 Each service has to extend from this typed class, it provides a very strong types for the services
 
 ```ts
-export abstract class Service<T = any> extends BaseService<
-  T,
-  typeof services,
-  Dependencies
-> {
+export abstract class Service<T = any> extends BaseService<T, typeof services, Dependencies> {
   constructor(...args: [any, any, any]) {
     super(...args);
   }
@@ -119,13 +121,7 @@ export abstract class Service<T = any> extends BaseService<
 ### Typed hooks
 
 ```ts
-import { createCortexHooks } from '@azot-dev/react-cortex';
+import { createCortexHooks } from "@azot-dev/react-cortex";
 
-export const {
-  useAppSelector,
-  useLazyMethod,
-  useMethod,
-  useService,
-  useStore,
-} = createCortexHooks<typeof services>();
+export const { useAppSelector, useLazyMethod, useMethod, useService, useStore, useAppService } = createCortexHooks<typeof services>();
 ```

@@ -4,14 +4,16 @@ sidebar_position: 7
 
 # Cortex devtools
 
-A [Chrome extension](https://chrome.google.com/webstore/detail/cortex-devtools/fpiekoekdbcomggnffgallmgbcmllhgh) to debug the code
+Cortex is compatible with [Redux Devtools](https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=fr,)
 
-It is currently working with web projects but not working yet for distant devices (React Native), it should be released in the next weeks
-
-Add the flag debug `true` to the core options
+To activate it:
 
 ```ts
-export const Core = createCortexFactory()(services);
+export const Core = createCortexFactory()(services, { debugger: createDebuggerService() });
+```
 
-const core = new Core({}, { debugger: true })
+To use remotely, so it can be used with React Native Debugger:
+
+```ts
+export const Core = createCortexFactory()(services, { debugger: createDebuggerService({ host: "192.168.1.1", port: 8081 }) });
 ```
