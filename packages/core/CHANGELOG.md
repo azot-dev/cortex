@@ -1,3 +1,10 @@
+## [1.21.3](https://github.com/azot-dev/cortex/compare/v1.21.2...v1.21.3) (2024-05-26)
+
+
+### Bug Fixes
+
+* attempt to fix bind problem with debugger service ([1e788a9](https://github.com/azot-dev/cortex/commit/1e788a9dce9f6019a2523e22f15cf517c150ec5f))
+
 ## [1.21.2](https://github.com/azot-dev/cortex/compare/v1.21.1...v1.21.2) (2024-05-26)
 
 ## [1.21.1](https://github.com/azot-dev/cortex/compare/v1.21.0...v1.21.1) (2024-05-26)
