@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from "react";
 import { useSelector as useLegendSelector } from "@legendapp/state/react";
-import {observable, Observable} from "@legendapp/state";
+import { observable, Observable } from "@legendapp/state";
 
 interface CoreInterface {
   store: any;
@@ -13,8 +13,6 @@ interface ProviderProps {
   children: ReactNode;
   coreInstance: CoreInterface;
 }
-
-type ExtractPromiseType<T> = T extends Promise<infer R> ? R : never;
 
 export const CortexProvider: React.FC<ProviderProps> = ({ children, coreInstance }) => (
   <AppStateContext.Provider value={coreInstance}>{children}</AppStateContext.Provider>
@@ -79,27 +77,80 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return store;
   }
 
+  type NonVoid<T> = T extends void ? never : T;
+
+  type ExtractPromiseType<T> = T extends Promise<infer R> ? NonVoid<R> : never;
+
+  type MethodNames<T> = {
+    [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
+  }[keyof T];
+
+  type ServiceMethods<T> = {
+    [K in keyof T]: T[K] extends new (...args: any) => infer R ? `${K & string}.${Exclude<MethodNames<R & {}>, ExcludedMethods> & string}` : never;
+  }[keyof T];
+
+  type GetMethodReturnType<S, M extends string> = M extends `${infer ServiceName}.${infer MethodName}`
+    ? ServiceName extends keyof S
+      ? S[ServiceName] extends abstract new (...args: any) => any
+        ? MethodName extends keyof InstanceType<S[ServiceName]>
+          ? InstanceType<S[ServiceName]>[MethodName] extends (...args: any[]) => infer R
+            ? R
+            : never
+          : never
+        : never
+      : never
+    : never;
+
+  type GetMethodParameters<S, M extends string> = M extends `${infer ServiceName}.${infer MethodName}`
+    ? ServiceName extends keyof S
+      ? S[ServiceName] extends abstract new (...args: any) => any
+        ? MethodName extends keyof InstanceType<S[ServiceName]>
+          ? InstanceType<S[ServiceName]>[MethodName] extends (...args: infer P) => any
+            ? P
+            : never
+          : never
+        : never
+      : never
+    : never;
+
+  function getMethodFromString(serviceMethod: string, core: CoreInterface) {
+    const [serviceName, methodName] = serviceMethod.split(".");
+    const service = core.getService(serviceName) as InstanceType<Services[typeof serviceName]>;
+    const method = service[methodName];
+    if (typeof method !== "function") {
+      throw new Error(`Method ${methodName} not found on service ${serviceName}`);
+    }
+    return method;
+  }
+
   /**
    * Hook to get the states of an async method of a service,
    * it has to be triggered by calling call()
+   * 
+   * @example const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod('user.getUser');
    *
    * @example const userService = useService('user')
-   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(() => userService.getUser());
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(userService.getUser);
 
    */
-  type ExtractPromiseType<T> = T extends Promise<infer U> ? U : never;
-
-  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(
-      serviceMethod: Method,
-  ) {
-    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
+  function useLazyMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(serviceMethod: Method | StringMethod) {
+    const core = useAppContext<CoreInterface>();
+    const [data, setData] = useState<ReturnTypeFromMethod | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
     const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
     const [isCalled, setIsCalled] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const call = async (): Promise<ExtractPromiseType<ReturnType<Method>> | undefined> => {
+    type ReturnTypeFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? ExtractPromiseType<GetMethodReturnType<Services, StringMethod>>
+      : ExtractPromiseType<ReturnType<Method>>;
+
+    type ParametersFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? GetMethodParameters<Services, StringMethod>
+      : Parameters<Method>;
+
+    const call = async (...args: ParametersFromMethod): Promise<ReturnTypeFromMethod | undefined> => {
       setIsError(undefined);
       setIsSuccess(undefined);
       setError(null);
@@ -107,7 +158,9 @@ export function createCortexHooks<Services extends Record<string, abstract new (
       setIsLoading(true);
 
       try {
-        const returnedData = await serviceMethod();
+        const actualMethod: (...args: any[]) => Promise<any> = typeof serviceMethod === "string" ? getMethodFromString(serviceMethod, core) : serviceMethod;
+
+        const returnedData = await actualMethod(...args);
         setData(returnedData);
         setIsSuccess(true);
         setIsError(false);
@@ -120,8 +173,6 @@ export function createCortexHooks<Services extends Record<string, abstract new (
         setIsCalled(true);
         setIsLoading(false);
       }
-
-      return undefined;
     };
 
     return {
@@ -135,21 +186,24 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     };
   }
 
-
-  /** 
+  /**
    * Hook to get the states of an async method of a service,
    * it is automatically triggered when the component mounts
    *
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod('articles.getArticles');
+   *
    * @example const userService = useService('articles')
-   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(() => articlesService.getArticles());
-
+   * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(articlesService.getArticles);
    */
-  function useMethod<Method extends (...args: any[]) => Promise<any>>(serviceMethod: Method) {
+  function useMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(
+    serviceMethod: Method | StringMethod,
+    ...initialArgs: StringMethod extends `${infer ServiceName}.${infer MethodName}` ? GetMethodParameters<Services, StringMethod> : Parameters<Method>
+  ) {
     const lazyMethod = useLazyMethod(serviceMethod);
 
     useEffect(() => {
-      lazyMethod.call().then();
-    }, []);
+      lazyMethod.call(...initialArgs).then();
+    }, [initialArgs]);
 
     return lazyMethod;
   }
@@ -164,16 +218,11 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    *
    * @example const [username, setUsername] = useAppState(state => state.user.name)
    */
-  function useAppState<T>(selectorFunc: ((state: Observable<Store>) => Observable<T>)): [T, Observable<T>['set']] {
+  function useAppState<T>(selectorFunc: (state: Observable<Store>) => Observable<T>): [T, Observable<T>["set"]] {
     const instance = useAppContext<CoreInterface>();
-    const observable = selectorFunc(instance.store)
-    const observedObservable = useLegendSelector<T>(observable)
-    return [observedObservable, observable.set]
-  }
-
-  function useAppSele<ReturnType>(selectorFunc: (state: Observable<Store>) => ReturnType): ReturnType {
-    const instance = useAppContext<CoreInterface>();
-    return useLegendSelector(() => selectorFunc(instance.store));
+    const observable = selectorFunc(instance.store);
+    const observedObservable = useLegendSelector<T>(observable);
+    return [observedObservable, observable.set];
   }
 
   return { useAppSelector, useService, useStore, useMethod, useLazyMethod, useAppState };

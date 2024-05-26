@@ -1,6 +1,7 @@
 import { createCortexFactory } from "./coreFactory";
 import { BaseService } from "./base";
-import { Adapter, Gateway } from "./adapters/adapters";
+import { createDebuggerService } from "./core-services/debugger/create-debugger-service";
+import { createPersistenceService, Storage } from "./core-services/persistence/create-persistence-service";
 
-export { createCortexFactory, BaseService, Adapter };
-export type { Gateway };
+export { createCortexFactory, BaseService, createDebuggerService, createPersistenceService };
+export type { Storage };
