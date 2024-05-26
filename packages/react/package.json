@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/react-cortex",
-  "version": "1.19.2",
+  "version": "1.21.1",
   "license": "MIT",
   "description": "A React Provider to use Cortex",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "@azot-dev/cortex": "1.19.2",
+    "@azot-dev/cortex": "1.21.1",
     "react": ">=16.8.0"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^9.1.0",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^15.0.7",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.5",
     "@types/react-dom": "^18.2.14",
