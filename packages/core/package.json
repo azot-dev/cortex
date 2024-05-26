@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/cortex",
-  "version": "1.20.0",
+  "version": "1.21.1",
   "license": "MIT",
   "private": false,
   "description": "A lib to make TDD and clean architecture easy to use with React",

@@ -19,11 +19,11 @@ export class CounterService extends Service<State> {
   static initialState: State = { count: 0 };
 
   async decrement() {
-    const value = this.state.count.get()
+    const value = this.state.count.get();
     if (value === 0) {
-      return
+      return;
     }
-    this.state.count.set(value - 1)
+    this.state.count.set(value - 1);
   }
 }
 ```
@@ -33,22 +33,22 @@ export class CounterService extends Service<State> {
 For exemple we have a todoList form, it should append the form values to a todoList,
 then the form resets.
 
-The `submit` method of  `TodoFormService` calls the method `append` of `TodoListService`
+The `submit` method of `TodoFormService` calls the method `append` of `TodoListService`
 
 ```ts
 type Form = { name: string };
 
 type TodoFormState = Form;
 export class TodoFormService extends Service<TodoFormState> {
-  static initialState: TodoFormState = { name: '' };
+  static initialState: TodoFormState = { name: "" };
 
   submit() {
     // highlight-next-line
-    const todoListService = this.services.get('todoList');
+    const todoListService = this.services.get("todoList");
     // highlight-next-line
     todoListService.append(this.state.get());
 
-    this.state.name.set('');
+    this.state.name.set("");
   }
 }
 ```
@@ -63,11 +63,11 @@ It is the perfect place to listen to some parts of the store that have been chan
 ```ts
 export class MessageService extends Service {
   init() {
-    this.dependencies.notifications.onReceive(this.onReceive)
+    this.dependencies.notifications.onReceive(this.onReceive);
   }
 
-  onReceive(notificationReceived: string) {
-    this.store.messages.push(notificationReceived)
+  onReceive(receivedNotification: string) {
+    this.store.messages.push(receivedNotification);
   }
 }
 ```
@@ -78,12 +78,12 @@ If your app is in clean architecture and uses the port-adapter pattern, you can 
 
 ```ts
 interface ShoesApiGateway {
-  get(): Promise<Shoe[]>
+  get(): Promise<Shoe[]>;
 }
 
 type Dependencies = {
-  shoesApi: ShoesApiGateway,
-}
+  shoesApi: ShoesApiGateway;
+};
 
 export const Core = createCortexFactory<Dependencies>()(services);
 ```
@@ -96,8 +96,8 @@ export class CounterService extends Service<State> {
 
   async loadShoes() {
     // highlight-next-line
-    const shoes = await this.dependencies.shoesApi.get()
-    this.state.set(shoes)
+    const shoes = await this.dependencies.shoesApi.get();
+    this.state.set(shoes);
   }
 }
 ```
@@ -105,12 +105,11 @@ export class CounterService extends Service<State> {
 The dependencies can then be injected in the core
 
 ```ts
-
 class RealShoesApiAdapter implements ShoesApiGateway {
   async get() {
-    return axios.get<Shoe[]>('https://my-api/shoes/get')
+    return axios.get<Shoe[]>("https://my-api/shoes/get");
   }
 }
 
-const core = new Core({ shoesApi: RealShoesApiAdapter })
+const core = new Core({ shoesApi: RealShoesApiAdapter });
 ```
