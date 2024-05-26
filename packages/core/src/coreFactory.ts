@@ -71,6 +71,13 @@ export function createCortexFactory<DependenciesType>() {
         Object.keys(coreServices || {}).forEach((service) => {
           this.#serviceRegistry.get(service).init?.();
         });
+
+        Object.keys({ ...serviceConstructors, ...coreServices }).forEach((serviceName) => {
+          const serviceInstance = this.#serviceRegistry.get(serviceName as keyof typeof serviceConstructors & keyof typeof coreServices);
+          if (serviceInstance) {
+            bindAllMethods(serviceInstance);
+          }
+        });
       }
 
       getService<K extends keyof ServiceInstances>(name: K): ServiceInstances[K] {
