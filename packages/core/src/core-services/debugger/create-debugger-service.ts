@@ -100,7 +100,7 @@ export const createDebuggerService = ({ host, port }: Params) => {
       reduxStore.dispatch(methodCalled(serviceName, methodName));
       return originalMethod.apply(this, args);
     };
-
+    descriptor.value = descriptor.value.bind(descriptor);
     return descriptor;
   };
 
