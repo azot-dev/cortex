@@ -1,3 +1,48 @@
+## [1.21.1](https://github.com/azot-dev/cortex/compare/v1.21.0...v1.21.1) (2024-05-26)
+
+# [1.21.0](https://github.com/azot-dev/cortex/compare/v1.20.0...v1.21.0) (2024-05-26)
+
+
+### Bug Fixes
+
+* fix and test persistence ([472a605](https://github.com/azot-dev/cortex/commit/472a60501310a111b49d010e424c8a983ba9560c))
+* fix core tests ([970d399](https://github.com/azot-dev/cortex/commit/970d399c90a34eb1eb69fea73c16fc30d3328b0e))
+* fix react tests ([058c301](https://github.com/azot-dev/cortex/commit/058c30167648db65c116d4fb9af9c39d6ebcfc00))
+* fix some types ([6a7d364](https://github.com/azot-dev/cortex/commit/6a7d3643e3e403ee578bb1be314f9b9aedc948d2))
+* remove store to be accessible by services ([ce2fa7b](https://github.com/azot-dev/cortex/commit/ce2fa7b7118c43bafc5cd8c691ecbdd628d1274d))
+
+
+### Features
+
+* add persistence ([eb72941](https://github.com/azot-dev/cortex/commit/eb72941c36425e543d251ddedca45dc2890fa278))
+* add services log to redux debugger ([20fb1ac](https://github.com/azot-dev/cortex/commit/20fb1ac1047c15967225aa67d48a5dc94bd9d948))
+* add tests + decorateAllMethods ([3c0f3a1](https://github.com/azot-dev/cortex/commit/3c0f3a1d7180440ecb6c00928bd2d7fe80a20435))
+* complete the createPersistenceService ([3a3f9d9](https://github.com/azot-dev/cortex/commit/3a3f9d908dffbf8d92dd650204dcfa50a8345ec7))
+* display store changes on Redux ([80cc0b4](https://github.com/azot-dev/cortex/commit/80cc0b4a248ea859c2403407d84ac8f98615c8d9))
+* inject store in every service ([2fe1adf](https://github.com/azot-dev/cortex/commit/2fe1adf7bdca14fdb49abc5fb7f17a365f9f9221))
+* remove Cortex debugger ([ba4d95f](https://github.com/azot-dev/cortex/commit/ba4d95f704bf5a970801a56d93e101ad64f7160c))
+
+# [1.20.0](https://github.com/azot-dev/cortex/compare/v1.19.3...v1.20.0) (2024-05-16)
+
+
+### Bug Fixes
+
+* delete useless hook ([330350b](https://github.com/azot-dev/cortex/commit/330350bb36b4ecb019f21b703473e7177b798d18))
+
+
+### Features
+
+* add parameters and return types to useMethod and useLazyMethod ([b8661a7](https://github.com/azot-dev/cortex/commit/b8661a7085c2657cfe769a37870eee6bc70d40fc))
+* add string parameter for useMethod and useLazyMethod ([b792b7a](https://github.com/azot-dev/cortex/commit/b792b7a0f1dc4d2c3f44bf53a62fb6683ddb89db))
+* update docs ([fcd912d](https://github.com/azot-dev/cortex/commit/fcd912da4e3b216b33bd2a76766c3829de68f9a4))
+
+## [1.19.3](https://github.com/azot-dev/cortex/compare/v1.19.2...v1.19.3) (2024-05-16)
+
+
+### Bug Fixes
+
+* remove adapters to delete warnings ([50525c4](https://github.com/azot-dev/cortex/commit/50525c49da1d2658b964ba88d26db749886a2b5f))
+
 ## [1.19.2](https://github.com/azot-dev/cortex/compare/v1.19.1...v1.19.2) (2024-03-25)
 
 
