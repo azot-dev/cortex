@@ -89,19 +89,15 @@ export const createDebuggerService = ({ host, port }: Params) => {
 
       const descriptor = Object.getOwnPropertyDescriptor(prototype, methodName);
       if (descriptor && typeof descriptor.value === "function") {
-        Object.defineProperty(instance, methodName, reduxDecorator(serviceName, methodName, descriptor));
+        const originalMethod = descriptor.value;
+
+        instance[methodName] = function (...args: any[]) {
+          reduxStore.dispatch(methodCalled(serviceName, methodName));
+          // @ts-ignore
+          return originalMethod.apply(this, args);
+        }.bind(instance);
       }
     });
-  };
-  const reduxDecorator = (serviceName: string, methodName: string, descriptor: PropertyDescriptor) => {
-    const originalMethod = descriptor.value;
-
-    descriptor.value = function (...args: any[]) {
-      reduxStore.dispatch(methodCalled(serviceName, methodName));
-      return originalMethod.apply(this, args);
-    };
-
-    return descriptor;
   };
 
   return class DebuggerService {
