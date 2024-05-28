@@ -61,6 +61,9 @@ jobs:
       - name: Run Core tests
         run: yarn workspace @azot-dev/cortex test
 
+      - name: Test Types
+        run: yarn workspace @azot-dev/cortex build
+
   test-react:
     name: Run React tests
     needs: install-dependencies
@@ -83,6 +86,9 @@ jobs:
 
       - name: Run React tests
         run: yarn workspace @azot-dev/react-cortex test
+
+      - name: Run React tests
+        run: yarn workspace @azot-dev/react-cortex build
 
   build-doc:
     runs-on: ubuntu-latest

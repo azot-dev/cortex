@@ -78,7 +78,6 @@ export const createDebuggerService = ({ host, port }: Params) => {
     });
 
     reduxStore = createStore(rootReducer, composeEnhancers(applyMiddleware()));
-    console.log({ reduxStore });
   };
 
   const decorateAllMethods = (serviceName: string, instance: any) => {
