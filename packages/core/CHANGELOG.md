@@ -1,3 +1,10 @@
+## [1.21.9](https://github.com/azot-dev/cortex/compare/v1.21.8...v1.21.9) (2024-08-02)
+
+
+### Bug Fixes
+
+* fix debugger service ([75394ab](https://github.com/azot-dev/cortex/commit/75394abc13eef200154dc742e80000c3ad6b158a))
+
 ## [1.21.8](https://github.com/azot-dev/cortex/compare/v1.21.7...v1.21.8) (2024-08-02)
 
 
