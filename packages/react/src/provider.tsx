@@ -133,25 +133,42 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useLazyMethod(userService.getUser);
 
    */
+
+  function useLazyMethod<Method extends (...args: any[]) => Promise<any>>(
+    serviceMethod: Method
+  ): {
+    isLoading: boolean;
+    isError: boolean | undefined;
+    isSuccess: boolean | undefined;
+    isCalled: boolean;
+    error: Error | null;
+    call: (...args: Parameters<Method>) => Promise<ExtractPromiseType<ReturnType<Method>> | undefined>;
+    data: ExtractPromiseType<ReturnType<Method>> | undefined;
+  };
+
+  function useLazyMethod<StringMethod extends ServiceMethods<Services>>(
+    serviceMethod: StringMethod
+  ): {
+    isLoading: boolean;
+    isError: boolean | undefined;
+    isSuccess: boolean | undefined;
+    isCalled: boolean;
+    error: Error | null;
+    call: (...args: GetMethodParameters<Services, StringMethod>) => Promise<ExtractPromiseType<GetMethodReturnType<Services, StringMethod>> | undefined>;
+    data: ExtractPromiseType<GetMethodReturnType<Services, StringMethod>> | undefined;
+  };
+
   function useLazyMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(serviceMethod: Method | StringMethod) {
     const core = useAppContext<CoreInterface>();
-    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
+    const [data, setData] = useState<any>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
     const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
     const [isCalled, setIsCalled] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
 
-    type ReturnTypeFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
-      ? ExtractPromiseType<GetMethodReturnType<Services, StringMethod>>
-      : ExtractPromiseType<ReturnType<Method>>;
-
-    type ParametersFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
-      ? GetMethodParameters<Services, StringMethod>
-      : Parameters<Method>;
-
     const call = useCallback(
-      async (...args: ParametersFromMethod): Promise<ReturnTypeFromMethod | undefined> => {
+      async (...args: any[]): Promise<any | undefined> => {
         setIsError(undefined);
         setIsSuccess(undefined);
         setError(null);
@@ -188,7 +205,6 @@ export function createCortexHooks<Services extends Record<string, abstract new (
       data,
     };
   }
-
   /**
    * Hook to get the states of an async method of a service,
    * it is automatically triggered when the component mounts
@@ -198,25 +214,88 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    * @example const userService = useService('articles')
    * const { data, call, error, isCalled, isError, isLoading, isSuccess } = useMethod(articlesService.getArticles);
    */
+
+  function useMethod<Method extends (...args: any[]) => Promise<any>>(
+    serviceMethod: Method,
+    ...initialArgs: Parameters<Method>
+  ): {
+    isLoading: boolean;
+    isError: boolean | undefined;
+    isSuccess: boolean | undefined;
+    isCalled: boolean;
+    error: Error | null;
+    call: (...args: Parameters<Method>) => Promise<ExtractPromiseType<ReturnType<Method>> | undefined>;
+    data: ExtractPromiseType<ReturnType<Method>> | undefined;
+  };
+
+  function useMethod<StringMethod extends ServiceMethods<Services>>(
+    serviceMethod: StringMethod,
+    ...initialArgs: GetMethodParameters<Services, StringMethod>
+  ): {
+    isLoading: boolean;
+    isError: boolean | undefined;
+    isSuccess: boolean | undefined;
+    isCalled: boolean;
+    error: Error | null;
+    call: (...args: GetMethodParameters<Services, StringMethod>) => Promise<ExtractPromiseType<GetMethodReturnType<Services, StringMethod>> | undefined>;
+    data: ExtractPromiseType<GetMethodReturnType<Services, StringMethod>> | undefined;
+  };
+
   function useMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(
     serviceMethod: Method | StringMethod,
     ...initialArgs: StringMethod extends `${infer ServiceName}.${infer MethodName}` ? GetMethodParameters<Services, StringMethod> : Parameters<Method>
   ) {
-    type ReturnTypeFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
-      ? ExtractPromiseType<GetMethodReturnType<Services, StringMethod>>
-      : ExtractPromiseType<ReturnType<Method>>;
-
-    type ParametersFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
-      ? GetMethodParameters<Services, StringMethod>
-      : Parameters<Method>;
-
-    const lazyMethod = useLazyMethod<Method, StringMethod>(serviceMethod);
+    const core = useAppContext<CoreInterface>();
+    const [data, setData] = useState<any>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean | undefined>(undefined);
+    const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
+    const [isCalled, setIsCalled] = useState<boolean>(false);
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-      lazyMethod.call(...initialArgs).then();
-    }, [lazyMethod, ...initialArgs]);
+      if (!isCalled) {
+        call(...initialArgs).then();
+      }
+    }, [...initialArgs]);
 
-    return lazyMethod;
+    const call = useCallback(
+      async (...args: any[]): Promise<any | undefined> => {
+        setIsError(undefined);
+        setIsSuccess(undefined);
+        setError(null);
+        setData(undefined);
+        setIsLoading(true);
+
+        try {
+          const actualMethod: (...args: any[]) => Promise<any> = typeof serviceMethod === "string" ? getMethodFromString(serviceMethod, core) : serviceMethod;
+
+          const returnedData = await actualMethod(...args);
+          setData(returnedData);
+          setIsSuccess(true);
+          setIsError(false);
+          return returnedData;
+        } catch (e: unknown) {
+          setError(e as Error);
+          setIsError(true);
+          setIsSuccess(false);
+        } finally {
+          setIsCalled(true);
+          setIsLoading(false);
+        }
+      },
+      [serviceMethod, core]
+    );
+
+    return {
+      isLoading,
+      isError,
+      isSuccess,
+      isCalled,
+      error,
+      call,
+      data,
+    };
   }
 
   /**
