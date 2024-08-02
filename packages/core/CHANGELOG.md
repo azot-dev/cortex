@@ -1,3 +1,10 @@
+## [1.21.8](https://github.com/azot-dev/cortex/compare/v1.21.7...v1.21.8) (2024-08-02)
+
+
+### Bug Fixes
+
+* fix useMethod and useLazyMethod ([3902c3f](https://github.com/azot-dev/cortex/commit/3902c3f9c081d39f8d7760ae3eadca9578479440))
+
 ## [1.21.7](https://github.com/azot-dev/cortex/compare/v1.21.6...v1.21.7) (2024-08-02)
 
 
