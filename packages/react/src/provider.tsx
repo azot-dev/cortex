@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, Context, useState, useEffect } from "react";
+import React, { createContext, useContext, ReactNode, Context, useState, useEffect, useCallback } from "react";
 import { useSelector as useLegendSelector } from "@legendapp/state/react";
 import { observable, Observable } from "@legendapp/state";
 
@@ -135,7 +135,7 @@ export function createCortexHooks<Services extends Record<string, abstract new (
    */
   function useLazyMethod<Method extends (...args: any[]) => Promise<any>, StringMethod extends ServiceMethods<Services>>(serviceMethod: Method | StringMethod) {
     const core = useAppContext<CoreInterface>();
-    const [data, setData] = useState<ReturnTypeFromMethod | undefined>(undefined);
+    const [data, setData] = useState<ExtractPromiseType<ReturnType<Method>> | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean | undefined>(undefined);
     const [isSuccess, setIsSuccess] = useState<boolean | undefined>(undefined);
@@ -150,30 +150,33 @@ export function createCortexHooks<Services extends Record<string, abstract new (
       ? GetMethodParameters<Services, StringMethod>
       : Parameters<Method>;
 
-    const call = async (...args: ParametersFromMethod): Promise<ReturnTypeFromMethod | undefined> => {
-      setIsError(undefined);
-      setIsSuccess(undefined);
-      setError(null);
-      setData(undefined);
-      setIsLoading(true);
+    const call = useCallback(
+      async (...args: ParametersFromMethod): Promise<ReturnTypeFromMethod | undefined> => {
+        setIsError(undefined);
+        setIsSuccess(undefined);
+        setError(null);
+        setData(undefined);
+        setIsLoading(true);
 
-      try {
-        const actualMethod: (...args: any[]) => Promise<any> = typeof serviceMethod === "string" ? getMethodFromString(serviceMethod, core) : serviceMethod;
+        try {
+          const actualMethod: (...args: any[]) => Promise<any> = typeof serviceMethod === "string" ? getMethodFromString(serviceMethod, core) : serviceMethod;
 
-        const returnedData = await actualMethod(...args);
-        setData(returnedData);
-        setIsSuccess(true);
-        setIsError(false);
-        return returnedData;
-      } catch (e: unknown) {
-        setError(e as Error);
-        setIsError(true);
-        setIsSuccess(false);
-      } finally {
-        setIsCalled(true);
-        setIsLoading(false);
-      }
-    };
+          const returnedData = await actualMethod(...args);
+          setData(returnedData);
+          setIsSuccess(true);
+          setIsError(false);
+          return returnedData;
+        } catch (e: unknown) {
+          setError(e as Error);
+          setIsError(true);
+          setIsSuccess(false);
+        } finally {
+          setIsCalled(true);
+          setIsLoading(false);
+        }
+      },
+      [serviceMethod, core]
+    );
 
     return {
       isLoading,
@@ -199,11 +202,19 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     serviceMethod: Method | StringMethod,
     ...initialArgs: StringMethod extends `${infer ServiceName}.${infer MethodName}` ? GetMethodParameters<Services, StringMethod> : Parameters<Method>
   ) {
-    const lazyMethod = useLazyMethod(serviceMethod);
+    type ReturnTypeFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? ExtractPromiseType<GetMethodReturnType<Services, StringMethod>>
+      : ExtractPromiseType<ReturnType<Method>>;
+
+    type ParametersFromMethod = StringMethod extends `${infer ServiceName}.${infer MethodName}`
+      ? GetMethodParameters<Services, StringMethod>
+      : Parameters<Method>;
+
+    const lazyMethod = useLazyMethod<Method, StringMethod>(serviceMethod);
 
     useEffect(() => {
       lazyMethod.call(...initialArgs).then();
-    }, [initialArgs]);
+    }, [lazyMethod, ...initialArgs]);
 
     return lazyMethod;
   }
