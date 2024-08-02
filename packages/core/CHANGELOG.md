@@ -1,3 +1,10 @@
+## [1.21.7](https://github.com/azot-dev/cortex/compare/v1.21.6...v1.21.7) (2024-08-02)
+
+
+### Bug Fixes
+
+* modify useMethod infer typing ([28d508c](https://github.com/azot-dev/cortex/commit/28d508cce82e7b9408ae5be19e7da84d20706301))
+
 ## [1.21.6](https://github.com/azot-dev/cortex/compare/v1.21.5...v1.21.6) (2024-06-01)
 
 ## [1.21.5](https://github.com/azot-dev/cortex/compare/v1.21.4...v1.21.5) (2024-05-26)
