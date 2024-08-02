@@ -36,11 +36,15 @@ const methodCalled = (serviceName: string, methodName: string) => {
 };
 
 type Params = {
+  active?: boolean;
   host?: string;
   port?: number;
 };
 
-export const createDebuggerService = ({ host, port }: Params) => {
+export const createDebuggerService = ({ host, port, active }: Params) => {
+  if (!active) {
+    return class DebuggerService {};
+  }
   type Store = Observable<GetStore<any>>;
 
   let composeEnhancers = compose;
@@ -59,9 +63,6 @@ export const createDebuggerService = ({ host, port }: Params) => {
   };
 
   const initDebugger = () => {
-    if (process.env.NODE_ENV !== "development") {
-      return;
-    }
     if (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
@@ -91,7 +92,7 @@ export const createDebuggerService = ({ host, port }: Params) => {
         const originalMethod = descriptor.value;
 
         instance[methodName] = function (...args: any[]) {
-          reduxStore.dispatch(methodCalled(serviceName, methodName));
+          reduxStore?.dispatch(methodCalled(serviceName, methodName));
           // @ts-ignore
           return originalMethod.apply(this, args);
         }.bind(instance);
@@ -109,9 +110,9 @@ export const createDebuggerService = ({ host, port }: Params) => {
         const service = serviceRegistry.get(serviceName);
         decorateAllMethods(serviceName, service);
       });
-      reduxStore.dispatch(initStore(store.get()));
+      reduxStore?.dispatch(initStore(store.get()));
       store.onChange((newStore) => {
-        reduxStore.dispatch(changeStore(newStore.value));
+        reduxStore?.dispatch(changeStore(newStore.value));
       });
     }
   };
