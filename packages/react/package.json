@@ -1,6 +1,6 @@
 {
   "name": "@azot-dev/react-cortex",
-  "version": "1.21.9",
+  "version": "1.22.0",
   "license": "MIT",
   "description": "A React Provider to use Cortex",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
     "build": "tsc"
   },
   "peerDependencies": {
-    "@azot-dev/cortex": "1.21.9",
+    "@azot-dev/cortex": "1.22.0",
     "react": ">=16.8.0"
   },
   "devDependencies": {
@@ -33,9 +33,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0",
-    "semantic-release": "^22.0.5",
+    "semantic-release": "^24.1.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^4.5.4"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "react-test-renderer": "^18.2.0"
