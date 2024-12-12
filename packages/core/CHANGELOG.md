@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/azot-dev/cortex/compare/v1.21.9...v1.22.0) (2024-12-12)
+
+
+### Features
+
+* add useAppState in installation script ([2c39725](https://github.com/azot-dev/cortex/commit/2c39725ab6fdc8a014515ea90ac15a59f7e121a3))
+
 ## [1.21.9](https://github.com/azot-dev/cortex/compare/v1.21.8...v1.21.9) (2024-08-02)
 
 
