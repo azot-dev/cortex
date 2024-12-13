@@ -1,3 +1,13 @@
+## [1.22.1](https://github.com/azot-dev/cortex/compare/v1.22.0...v1.22.1) (2024-12-13)
+
+
+### Bug Fixes
+
+* fix continuous deployment ([eed401c](https://github.com/azot-dev/cortex/commit/eed401ca6ecbe876cd3dc7a8a76e3221172299df))
+* fix continuous deployment ([b4f95c7](https://github.com/azot-dev/cortex/commit/b4f95c715c22d66dba28b5bf40dcb0d70c14f91c))
+* fix continuous deployment ([db81d0b](https://github.com/azot-dev/cortex/commit/db81d0b320a3247226f4a63ac9e8cdef7f6dbf33))
+* fix continuous deployment ([d401d71](https://github.com/azot-dev/cortex/commit/d401d715368aabf6a4aa7e48fc3a61d7dd06af7e))
+
 # [1.22.0](https://github.com/azot-dev/cortex/compare/v1.21.9...v1.22.0) (2024-12-12)
 
 
