@@ -92,7 +92,7 @@ jobs:
 
   release-core:
     needs: [test-core, test-react]
-    name: NPM release for core
+    name: NPM Release cortex
     env:
       DEBUG: 'semantic-release:*'
     runs-on: ubuntu-latest
@@ -121,11 +121,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/core
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          npx semantic-release
+          yarn workspace @azot-dev/cortex semantic-release
 
   update-react-dep:
+    name: Update react-cortex package.json version
     needs: release-core
     runs-on: ubuntu-latest
     steps:
@@ -164,6 +164,7 @@ jobs:
           git push
 
   release-react:
+    name: NPM Release react-cortex
     needs: update-react-dep
     runs-on: ubuntu-latest
     steps:
@@ -192,10 +193,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/react
-          npm publish --access public
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          yarn workspace @azot-dev/react-cortex publish --access public
 
   deploy-doc:
+    name: Deploy Docusaurus documentation
     needs: [release-react]
     permissions:
       id-token: write
