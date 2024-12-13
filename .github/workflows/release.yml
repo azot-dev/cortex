@@ -197,7 +197,7 @@ jobs:
           yarn workspace @azot-dev/react-cortex publish --access public
 
   deploy-doc:
-    name: Deploy Docusaurus documentation
+    name: Deploy documentation
     needs: [release-react]
     permissions:
       id-token: write

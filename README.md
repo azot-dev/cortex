@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/npm/v/@azot-dev/cortex" alt="npm version">
   </a>
   <a href="https://github.com/azot-dev/cortex/actions">
-    <img src="https://github.com/azot-dev/cortex/actions/workflows/npm-release.yml/badge.svg?branch=main" alt="build state">
+    <img src="https://img.shields.io/github/actions/workflow/status/azot-dev/cortex/release.yml" alt="build state">
   </a>
   <a href="https://www.npmjs.com/package/@azot-dev/cortex">
     <img src="https://img.shields.io/npm/dm/@azot-dev/cortex" alt="monthly downloads">
@@ -97,11 +97,11 @@ export class CounterService extends Service<State> {
   static initialState: State = { count: 0 };
 
   async decrement() {
-    const value = this.state.count.get()
+    const value = this.state.count.get();
     if (value === 0) {
-      return
+      return;
     }
-    this.state.count.set(value - 1)
+    this.state.count.set(value - 1);
   }
 }
 ```
@@ -111,7 +111,7 @@ export class CounterService extends Service<State> {
 For example we have a todoList form, it should append the form values to a todoList,
 then the form resets.
 
-The `submit` method of  `TodoFormService` calls the method `append` of `TodoListService`
+The `submit` method of `TodoFormService` calls the method `append` of `TodoListService`
 
 ```ts
 type Form = { name: string };
@@ -141,11 +141,11 @@ It is the perfect place to listen to some parts of the store that have been chan
 ```ts
 export class MessageService extends Service {
   init() {
-    this.dependencies.notifications.onReceive(this.onReceive)
+    this.dependencies.notifications.onReceive(this.onReceive);
   }
 
   onReceive(notificationReceived: string) {
-    this.store.messages.push(notificationReceived)
+    this.store.messages.push(notificationReceived);
   }
 }
 ```
@@ -164,20 +164,20 @@ type State = { count: number };
 export class CounterService extends Service<State> {
   static initialState: State = { count: 0 };
 
-// highlight-start
+  // highlight-start
   increment() {
     this.state.count.set((count) => count + 1);
   }
- // highlight-end
+  // highlight-end
 }
 ```
 
 The global store is accessible using the instantiated Cortex object
 
 ```ts
-const core = new Core()
+const core = new Core();
 
-const count = core.counter.count.get()
+const count = core.counter.count.get();
 ```
 
 ## Testing
@@ -198,37 +198,36 @@ describe('counter', () => {
     service = core.getService('counter');
   });
 
-
   it('should be incremented', () => {
-    expect(core.store.counter.get()).toBe(0)
+    expect(core.store.counter.get()).toBe(0);
 
-    service.increment()
-    expect(core.store.counter.get()).toBe(1)
+    service.increment();
+    expect(core.store.counter.get()).toBe(1);
 
-    service.increment()
-    expect(core.store.counter.get()).toBe(2)
-  })
+    service.increment();
+    expect(core.store.counter.get()).toBe(2);
+  });
 
   it('should be decremented', () => {
-    service.setValue(5)
+    service.setValue(5);
 
-    service.decrement()
-    expect(core.store.counter.get()).toBe(4)
+    service.decrement();
+    expect(core.store.counter.get()).toBe(4);
 
-    service.decrement()
-    expect(core.store.counter.get()).toBe(3)
-  })
+    service.decrement();
+    expect(core.store.counter.get()).toBe(3);
+  });
 
   it('should not be decremented at a lower value than 0', () => {
-    service.setValue(1)
+    service.setValue(1);
 
-    service.decrement()
-    expect(core.store.counter.get()).toBe(0)
+    service.decrement();
+    expect(core.store.counter.get()).toBe(0);
 
-    service.decrement()
-    expect(core.store.counter.get()).toBe(0)
-  })
-}) 
+    service.decrement();
+    expect(core.store.counter.get()).toBe(0);
+  });
+});
 ```
 
 ## Hooks
@@ -238,7 +237,7 @@ describe('counter', () => {
 Access to the store and return the processed value you want
 
 ```tsx
-const counter = useAppSelector((store) => store.counter.get()) 
+const counter = useAppSelector((store) => store.counter.get());
 ```
 
 ### useStore
@@ -247,7 +246,7 @@ Access to the store
 
 ```tsx
 const store = useStore();
-const counter = store.counter.get()
+const counter = store.counter.get();
 ```
 
 ### useService
@@ -255,11 +254,9 @@ const counter = store.counter.get()
 Access to services
 
 ```tsx
-const counterService = useService('counter')
+const counterService = useService('counter');
 
-return (
-  <button onClick={() => counterService.increment()}>increment</button>
-)
+return <button onClick={() => counterService.increment()}>increment</button>;
 ```
 
 ### useMethod
