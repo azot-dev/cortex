@@ -9,7 +9,7 @@
     <img src="https://img.shields.io/npm/v/@azot-dev/cortex" alt="npm version">
   </a>
   <a href="https://github.com/azot-dev/cortex/actions">
-    <img src="https://github.com/azot-dev/cortex/actions/workflows/npm-release.yml/badge.svg?branch=main" alt="build state">
+    <img src="https://img.shields.io/github/actions/workflow/status/azot-dev/cortex/release.yml" alt="build state" >
   </a>
   <a href="https://www.npmjs.com/package/@azot-dev/cortex">
     <img src="https://img.shields.io/npm/dm/@azot-dev/cortex" alt="monthly downloads">
