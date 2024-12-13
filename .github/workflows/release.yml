@@ -45,7 +45,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
   test-core:
-    name: Run Core tests
+    name: Test cortex
     needs: install-dependencies
     runs-on: ubuntu-latest
 
@@ -68,7 +68,7 @@ jobs:
         run: yarn workspace @azot-dev/cortex test
 
   test-react:
-    name: Run React tests
+    name: Test react-cortex
     needs: install-dependencies
     runs-on: ubuntu-latest
 
@@ -125,7 +125,7 @@ jobs:
           yarn workspace @azot-dev/cortex semantic-release
 
   update-react-dep:
-    name: Update react-cortex package.json version
+    name: Update react-cortex version
     needs: release-core
     runs-on: ubuntu-latest
     steps:
