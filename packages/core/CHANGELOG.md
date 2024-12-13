@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/azot-dev/cortex/compare/v1.23.0...v1.23.1) (2024-12-13)
+
+
+### Bug Fixes
+
+* fix build state image in npm ([f64f755](https://github.com/azot-dev/cortex/commit/f64f755f097562fb842acbc6f64842e86ca891b4))
+
 # [1.23.0](https://github.com/azot-dev/cortex/compare/v1.22.0...v1.23.0) (2024-12-13)
 
 
