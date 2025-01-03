@@ -1,5 +1,5 @@
 import { Observable, observable } from "@legendapp/state";
-import { ServiceRegistry } from "./base";
+import { ServiceRegistry } from "./service-registry";
 import { GetStore, ServiceConstructor } from "./types/service-constructor";
 import { cloneDeep } from "lodash";
 

@@ -1,7 +1,7 @@
 // lib/types/service-constructor.ts
 
 import { Observable } from "@legendapp/state";
-import { ServiceRegistry } from "../base";
+import { ServiceRegistry } from "../service-registry";
 
 export type ConstructedServiceTypes<
   ServiceConstructorsType extends Record<string, ServiceConstructor<any, Observable<StateType>, DependenciesType>>,

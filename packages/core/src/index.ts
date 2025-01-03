@@ -1,5 +1,5 @@
-import { createCortexFactory } from "./coreFactory";
-import { BaseService } from "./base";
+import { createCortexFactory } from "./create-cortex-factory";
+import { BaseService } from "./base-service";
 import { createDebuggerService } from "./core-services/debugger/create-debugger-service";
 import { createPersistenceService, Storage } from "./core-services/persistence/create-persistence-service";
 
