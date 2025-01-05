@@ -4,7 +4,7 @@ class UserService extends BaseService<any, any, any> {
   static initialState = { name: "John", age: 28 };
 
   changeName(newName: string) {
-    this.state.name.set(newName);
+    this.state.name = newName;
   }
 }
 
@@ -17,19 +17,19 @@ describe("core", () => {
   });
 
   it("should access to the store", () => {
-    const userName = core.store.user.name.get();
+    const userName = core.store.user.name;
     expect(userName).toBe("John");
   });
 
   it("should modify the store", () => {
-    core.store.user.name.set("David");
-    const userName = core.store.user.name.get();
+    core.store.user.name = "David";
+    const userName = core.store.user.name;
     expect(userName).toBe("David");
   });
 
   it("should call the services methods", () => {
     core.getService("user").changeName("Max");
-    const userName = core.store.user.name.get();
+    const userName = core.store.user.name;
     expect(userName).toBe("Max");
   });
 
