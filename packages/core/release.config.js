@@ -9,6 +9,8 @@ module.exports = {
           { type: "doc", release: "patch" },
           { type: "fix", release: "patch" },
           { type: "ci", release: "patch" },
+          { type: "refactor", release: "patch" },
+          { type: "bump", release: "patch" },
           { type: "feat", release: "minor" },
         ],
         preset: "angular",

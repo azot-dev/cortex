@@ -5,25 +5,18 @@ updates:
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: '[React Workspace]'
+      prefix: 'bump(react-cortex)'
 
   - package-ecosystem: 'npm'
     directory: '/packages/core'
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: '[Core Workspace]'
-
-  - package-ecosystem: 'npm'
-    directory: '/packages/remote-debugger-server'
-    schedule:
-      interval: 'weekly'
-    commit-message:
-      prefix: '[Remote Debugger Server Workspace]'
+      prefix: 'bump(cortex)'
 
   - package-ecosystem: 'npm'
     directory: '/packages/doc'
     schedule:
       interval: 'weekly'
     commit-message:
-      prefix: '[Doc Workspace]'
+      prefix: 'bump(doc)'
