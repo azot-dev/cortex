@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/azot-dev/cortex/compare/v1.23.2...v1.24.0) (2025-01-05)
+
+
+### Features
+
+* add possibility to use hooks in the services ([47dff7d](https://github.com/azot-dev/cortex/commit/47dff7d03af75a34bbe1741c218d8b0f6025ab74))
+
 ## [1.23.2](https://github.com/azot-dev/cortex/compare/v1.23.1...v1.23.2) (2025-01-05)
 
 
