@@ -1,8 +1,7 @@
 import { BaseService, createCortexFactory } from "@azot-dev/cortex/src";
 import { CortexProvider, createCortexHooks } from "../src/provider";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import { observable } from "@legendapp/state";
 
 jest.useFakeTimers();
 
@@ -32,6 +31,12 @@ class CounterService extends Service<CountState> {
   static initialState = { count: 0 };
   increment() {
     this.state.count.set((count) => count + 1);
+  }
+
+  useIncrementAfter5Seconds() {
+    useEffect(() => {
+      this.incrementAfter5Seconds();
+    }, []);
   }
 
   incrementAfter5Seconds() {
@@ -90,6 +95,20 @@ describe("Cortex hooks", () => {
       const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
       const { result } = renderHook(() => useStore(), { wrapper });
       expect(result.current.counter.count.get()).toBe(0);
+    });
+  });
+
+  describe("hooks", () => {
+    it("should execute a hook written in a service", () => {
+      const core = new Core();
+      const wrapper = ({ children }: { children: ReactNode }) => <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+      const { result } = renderHook(() => core.getService("counter").useIncrementAfter5Seconds(), { wrapper });
+
+      act(() => {
+        jest.advanceTimersByTime(5000);
+      });
+
+      expect(core.store.counter.count.get()).toBe(1);
     });
   });
 

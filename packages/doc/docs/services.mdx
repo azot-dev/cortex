@@ -4,9 +4,33 @@ sidebar_position: 4
 
 # Services
 
-A service can access to:
+A service contain methods, it can be simple methods or event hooks
 
-## State
+```ts
+type State = { count: number };
+
+export class CounterService extends Service<State> {
+  static initialState: State = { count: 0 };
+
+  async decrement() {
+    const value = this.state.count.get();
+    if (value === 0) {
+      return;
+    }
+    this.state.count.set(value - 1);
+  }
+
+  useDecrementOnFirstRender() {
+    useEffect(() => {
+      this.decrement();
+    }, []);
+  }
+}
+```
+
+The methods of a service can:
+
+## Access to the state
 
 You can access the local state by reading and writing on it
 
