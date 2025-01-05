@@ -1,8 +1,8 @@
 import { Observable } from "@legendapp/state";
-import { BaseService } from "../../base";
-import { createCortexFactory } from "../../coreFactory";
 import { GetStore, ServiceConstructor } from "../../types/service-constructor";
 import { STORAGE_KEY, createPersistenceService } from "./create-persistence-service";
+import { BaseService } from "../../base-service";
+import { createCortexFactory } from "../../create-cortex-factory";
 
 describe("createPersistenceService", () => {
   let storageService: StorageService;
