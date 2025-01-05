@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/azot-dev/cortex/compare/v1.24.0...v1.24.1) (2025-01-05)
+
+
+### Bug Fixes
+
+* modify dependabot commit prefix ([4afd51c](https://github.com/azot-dev/cortex/commit/4afd51c098ce35f26b0d7e68a590db7527342f61))
+
 # [1.24.0](https://github.com/azot-dev/cortex/compare/v1.23.2...v1.24.0) (2025-01-05)
 
 
