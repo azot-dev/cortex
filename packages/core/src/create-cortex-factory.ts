@@ -1,7 +1,7 @@
-import { Observable, observable } from "@legendapp/state";
 import { ServiceRegistry } from "./service-registry";
 import { GetStore, ServiceConstructor } from "./types/service-constructor";
 import { cloneDeep } from "lodash";
+import { proxy } from "valtio";
 
 export function createCortexFactory<DependenciesType>() {
   return <
@@ -21,7 +21,8 @@ export function createCortexFactory<DependenciesType>() {
     };
 
     return class Core {
-      public store: Observable<States>;
+      public store: States;
+      // public store: Observable<States>;
       #serviceRegistry: ServiceRegistry<ServiceInstances & CoreServiceInstances, States, DependenciesType>;
 
       constructor(dependencies: Partial<DependenciesType> = {}) {
@@ -34,12 +35,14 @@ export function createCortexFactory<DependenciesType>() {
           }
         }
 
-        this.store = observable(cloneDeep(rawStates));
+        // this.store = observable(cloneDeep(rawStates));
+        this.store = proxy(cloneDeep(rawStates));
+
         for (const [key, ServiceConstructor] of Object.entries(serviceConstructors)) {
           const instance = new ServiceConstructor(
             // @ts-ignore
             this.store,
-            this.store[key as unknown as keyof Observable<States>],
+            this.store[key],
             dependencies as DependenciesType,
             this.#serviceRegistry
           );
@@ -50,7 +53,7 @@ export function createCortexFactory<DependenciesType>() {
           const instance = new ServiceConstructor(
             // @ts-ignore
             this.store,
-            this.store[key as unknown as keyof Observable<States>],
+            this.store[key],
             dependencies as DependenciesType,
             this.#serviceRegistry
           );
