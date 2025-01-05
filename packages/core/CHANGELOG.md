@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/azot-dev/cortex/compare/v1.23.1...v1.23.2) (2025-01-05)
+
+
+### Bug Fixes
+
+* fix imports ([83bf3b1](https://github.com/azot-dev/cortex/commit/83bf3b1b51bbef74c8752286e8d1ec76c8a0203f))
+
 ## [1.23.1](https://github.com/azot-dev/cortex/compare/v1.23.0...v1.23.1) (2024-12-13)
 
 
