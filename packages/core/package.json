@@ -27,6 +27,7 @@
     "redux": "^5.0.1",
     "remote-redux-devtools": "^0.5.16",
     "socket.io-client": "^4.7.2",
+    "valtio": "^2.1.2",
     "ws": "^8.14.2",
     "yargs": "^17.7.2"
   },
