@@ -1,8 +1,8 @@
 import { Observable } from "@legendapp/state";
-import { BaseService } from "../../base";
-import { createCortexFactory } from "../../coreFactory";
-import { GetStore, ServiceConstructor } from "../../types/service-constructor";
+import { GetStore } from "../../types/service-constructor";
 import { STORAGE_KEY, createPersistenceService } from "./create-persistence-service";
+import { BaseService } from "../../base-service";
+import { createCortexFactory } from "../../create-cortex-factory";
 
 describe("createPersistenceService", () => {
   let storageService: StorageService;
@@ -32,7 +32,7 @@ describe("createPersistenceService", () => {
 
     await sleep(10);
 
-    expect(newCore.store.user.name.get()).toBe("Xavier");
+    expect(newCore.store.user.name).toBe("Xavier");
   });
 });
 
@@ -56,15 +56,15 @@ class UserService extends Service<UserState> {
   }
 
   changeName(newName: string) {
-    this.state.name.set(newName);
+    this.state.name = newName;
   }
 
   changeAge(newAge: number) {
-    this.state.age.set(newAge);
+    this.state.age = newAge;
   }
 
   getName() {
-    return this.state.name.get();
+    return this.state.name;
   }
 }
 
