@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode, Context, useState, useEffect, useCallback } from "react";
 import { useSelector as useLegendSelector } from "@legendapp/state/react";
+import { useSnapshot } from "valtio";
 import { observable, Observable } from "@legendapp/state";
 
 interface CoreInterface {
@@ -77,6 +78,11 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return store;
   }
 
+  function useMyStore(service: keyof Services) {
+    const core = useAppContext<CoreInterface>();
+    return useSnapshot(core.getService(service).getState());
+  }
+
   type NonVoid<T> = T extends void ? never : T;
 
   type ExtractPromiseType<T> = T extends Promise<infer R> ? NonVoid<R> : never;
@@ -145,6 +151,8 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     call: (...args: Parameters<Method>) => Promise<ExtractPromiseType<ReturnType<Method>> | undefined>;
     data: ExtractPromiseType<ReturnType<Method>> | undefined;
   };
+
+
 
   function useLazyMethod<StringMethod extends ServiceMethods<Services>>(
     serviceMethod: StringMethod
@@ -315,5 +323,5 @@ export function createCortexHooks<Services extends Record<string, abstract new (
     return [observedObservable, observable.set];
   }
 
-  return { useAppSelector, useService, useStore, useMethod, useLazyMethod, useAppState };
+  return { useAppSelector, useService, useStore, useMethod, useLazyMethod, useAppState, useMyStore };
 }

@@ -16,7 +16,8 @@
   },
   "peerDependencies": {
     "@azot-dev/cortex": "1.24.2",
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "valtio": ">=2.1.2"
   },
   "devDependencies": {
     "@azot-dev/cortex": "*",
@@ -35,7 +36,8 @@
     "react-test-renderer": "^18.2.0",
     "semantic-release": "^24.1.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "valtio": "^2.1.5"
   },
   "dependencies": {
     "react-test-renderer": "^18.2.0"

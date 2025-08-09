@@ -9,4 +9,5 @@ export const {
   useMethod,
   useService,
   useStore,
+  useMyStore,
 } = createCortexHooks<Services>();

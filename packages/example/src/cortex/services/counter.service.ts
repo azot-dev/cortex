@@ -10,10 +10,12 @@ export class CounterService extends Service<State> {
   };
 
   increment() {
-    this.state.count.set((count) => count + 1);
+    this.state.count += 1;
+    console.log("increment", this.state.count);
   }
 
   decrement() {
-    this.state.count.set((count) => count - 1);
+    this.state.count -= 1;
+    console.log("decrement", this.state.count);
   }
 }

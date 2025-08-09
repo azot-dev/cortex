@@ -1,4 +1,3 @@
-import { Observable } from "@legendapp/state";
 import { ConstructedServiceTypes, GetStore, InferStoreType, ServiceConstructor } from "./types/service-constructor";
 import { ServiceRegistry } from "./service-registry";
 import { proxy } from "valtio";

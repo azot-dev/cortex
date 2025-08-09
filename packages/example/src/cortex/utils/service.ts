@@ -1,6 +1,6 @@
 // utils/service.ts
 
-import { BaseService } from "@azot-dev/cortex";
+import { BaseService } from "@azot-dev/cortex/dist";
 import { Dependencies } from "../dependencies/_dependencies";
 import { services } from "../services/_services";
 

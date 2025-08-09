@@ -20,14 +20,14 @@
   },
   "peerDependencies": {
     "@legendapp/state": ">=1.0.0",
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "valtio": ">=2.1.2"
   },
   "dependencies": {
     "lodash": "^4.17.21",
     "redux": "^5.0.1",
     "remote-redux-devtools": "^0.5.16",
     "socket.io-client": "^4.7.2",
-    "valtio": "^2.1.2",
     "ws": "^8.14.2",
     "yargs": "^17.7.2"
   },
@@ -48,6 +48,7 @@
     "react": "^18.2.0",
     "semantic-release": "^24.1.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.5.0-dev.20240402"
+    "typescript": "^5.5.0-dev.20240402",
+    "valtio": "^2.1.5"
   }
 }

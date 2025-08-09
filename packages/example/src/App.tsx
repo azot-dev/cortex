@@ -3,15 +3,20 @@ import logo from "./logo.svg";
 import "./App.css";
 import { CortexProvider } from "@azot-dev/react-cortex/dist";
 import { Core } from "./cortex/_core";
-import { useService } from "./cortex/utils/hooks";
+import { useMyStore } from "./cortex/utils/hooks";
 
 const core = new Core();
 function App() {
+
+
+  const counter = useMyStore('counter')
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={core.getService("counter").decrement}>-</button>
+        <div>{counter.count}</div>
         <button onClick={core.getService("counter").increment}>+</button>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.

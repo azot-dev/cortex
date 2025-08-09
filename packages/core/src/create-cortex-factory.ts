@@ -35,7 +35,6 @@ export function createCortexFactory<DependenciesType>() {
           }
         }
 
-        // this.store = observable(cloneDeep(rawStates));
         this.store = proxy(cloneDeep(rawStates));
 
         for (const [key, ServiceConstructor] of Object.entries(serviceConstructors)) {
