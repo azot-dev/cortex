@@ -1,7 +1,16 @@
-import { createCortexFactory } from "./create-cortex-factory";
-import { BaseService } from "./base-service";
-import { createDebuggerService } from "./core-services/debugger/create-debugger-service";
-import { createPersistenceService, Storage } from "./core-services/persistence/create-persistence-service";
+export { Core, type ServiceRegistry } from './core'
+export { BaseService } from './base-service'
 
-export { createCortexFactory, BaseService, createDebuggerService, createPersistenceService };
-export type { Storage };
+export type CreateServices<T extends import('./core').ServiceRegistry<any>> = {
+  [K in keyof T]: InstanceType<T[K]>
+}
+
+export { useCore, useService } from './react/hooks'
+export { createTypedHooks } from './react/typed-hooks'
+export { CoreProvider } from './react/provider'
+export { CoreContext } from './react/core-context'
+export { 
+  useAsync, 
+  type AsyncState, 
+  type UseAsyncOptions 
+} from './react/async-hooks'

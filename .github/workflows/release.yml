@@ -27,13 +27,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Get yarn.lock hash
-        id: get-hash
-        run: echo "YARN_LOCK_HASH=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_ENV
-
-      - name: Display yarn.lock hash
-        run: echo "Yarn.lock hash $YARN_LOCK_HASH"
-
       - name: Cache node modules
         uses: actions/cache@v3
         id: cache-dependencies
@@ -67,31 +60,8 @@ jobs:
       - name: Run Core tests
         run: yarn workspace @azot-dev/cortex test
 
-  test-react:
-    name: Test react-cortex
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Use Cached Dependencies
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Run React tests
-        run: yarn workspace @azot-dev/react-cortex test
-
   release-core:
-    needs: [test-core, test-react]
+    needs: [test-core]
     name: NPM Release cortex
     env:
       DEBUG: 'semantic-release:*'
@@ -124,81 +94,9 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
           yarn workspace @azot-dev/cortex semantic-release
 
-  update-react-dep:
-    name: Update react-cortex version
-    needs: release-core
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Pull changes
-        run: git pull --rebase origin main
-
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Update peer dependency and package version
-        run: |
-          CORTEX_VERSION=$(jq -r ".version" packages/core/package.json)
-          jq '.peerDependencies["@azot-dev/cortex"] = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
-          mv packages/react/package.temp.json packages/react/package.json
-          jq '.version = "'"$CORTEX_VERSION"'"' packages/react/package.json > packages/react/package.temp.json
-          mv packages/react/package.temp.json packages/react/package.json
-
-      - name: Update yarn.lock
-        run: yarn workspace @azot-dev/react-cortex install
-
-      - name: Commit and push if changed
-        run: |
-          git config user.name 'GitHub Actions Bot'
-          git config user.email 'githubactions@example.com'
-          git add -A
-          git diff-index --quiet HEAD || git commit -m "Update peerDependency to match local cortex version"
-          git pull --rebase origin main
-          git push
-
-  release-react:
-    name: NPM Release react-cortex
-    needs: update-react-dep
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Pull changes
-        run: git pull --rebase origin main
-
-      - name: Install Dependencies for react
-        run: yarn workspace @azot-dev/react-cortex install --frozen-lockfile
-
-      - name: Build
-        run: yarn workspace @azot-dev/react-cortex build
-
-      - name: Release react
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-          yarn workspace @azot-dev/react-cortex publish --access public
-
   deploy-doc:
     name: Deploy documentation
-    needs: [release-react]
+    needs: [release-core]
     permissions:
       id-token: write
       pages: write

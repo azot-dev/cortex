@@ -1,0 +1,19 @@
+---
+sidebar_position: 7
+---
+
+# Cortex devtools
+
+Cortex is compatible with [Redux Devtools](https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=fr,)
+
+To activate it:
+
+```ts
+export const Core = createCortexFactory()(services, { debugger: createDebuggerService() });
+```
+
+To use remotely, so it can be used with React Native Debugger:
+
+```ts
+export const Core = createCortexFactory()(services, { debugger: createDebuggerService({ host: "192.168.1.1", port: 8081 }) });
+```

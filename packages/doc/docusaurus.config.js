@@ -48,6 +48,14 @@ const config = {
           // Remove this to remove the "edit this page" links.
           editUrl: `https://github.com/${organizationName}/${projectName}/tree/main/doc/`,
         },
+        versions: {
+          current: {
+            label: 'v2.x.x',
+          },
+          '1.x.x': {
+            label: 'v1.x.x',
+          },
+        },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.

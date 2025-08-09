@@ -1,0 +1,46 @@
+---
+sidebar_position: 10
+---
+
+# Usage with NextJS
+
+Next is a server side rendering framework.
+It means that the same instance of the core must be used over the different client pages. Each client page makes loose the context of the app when it is reloaded or changed.
+
+You must create another provider:
+
+```tsx
+"use client";
+import { useRef, FC, PropsWithChildren } from "react";
+import { CortexProvider } from "@azot-dev/react-cortex";
+import { Core } from "../_core";
+
+const core = new Core();
+
+export const SSRCortexProvider: FC<PropsWithChildren> = ({ children }) => {
+  const storeRef = useRef<any>();
+  if (!storeRef.current) {
+    storeRef.current = core;
+  }
+
+  return <CortexProvider coreInstance={core}>{children}</CortexProvider>;
+};
+```
+
+Once it is done, wrap the root layout by the `SSRCortexProvider` like so:
+
+```tsx
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <SSRCortexProvider>
+      <html lang="en">
+        <body className={inter.className}>{children}</body>
+      </html>
+    </SSRCortexProvider>
+  );
+}
+```
