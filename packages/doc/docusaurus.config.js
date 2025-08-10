@@ -47,14 +47,17 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl: `https://github.com/${organizationName}/${projectName}/tree/main/doc/`,
-        },
-        versions: {
-          current: {
-            label: 'v2.x.x',
+          versions: {
+            current: {
+              label: 'v2.x.x',
+              path: '',
+            },
+            '1.x.x': {
+              label: 'v1.x.x',
+              path: '1.x.x',
+            },
           },
-          '1.x.x': {
-            label: 'v1.x.x',
-          },
+          lastVersion: '1.x.x',
         },
         blog: {
           showReadingTime: true,
@@ -68,6 +71,8 @@ const config = {
       }),
     ],
   ],
+
+
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -86,6 +91,11 @@ const config = {
             sidebarId: "tutorialSidebar",
             position: "left",
             label: "Tutorial",
+          },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
           },
           {
             href: `https://github.com/${organizationName}/${projectName}`,
