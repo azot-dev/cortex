@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { CoreContext } from './core-context'
-import type { Core, ServiceRegistry } from '../core/core'
+import type { Core, ServiceRegistry } from '../core'
 
 interface CoreProviderProps<T extends ServiceRegistry<any>, TDependencies = Record<string, unknown>> {
   core: Core<T, TDependencies>
