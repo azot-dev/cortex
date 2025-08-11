@@ -1,3 +1,15 @@
+# [1.26.0-rc.1](https://github.com/azot-dev/cortex/compare/v1.25.0...v1.26.0-rc.1) (2025-08-11)
+
+
+### Features
+
+* new architecture v2 ([3b3737d](https://github.com/azot-dev/cortex/commit/3b3737d20ad546644ca55f53ad26cb8723b76d13))
+
+
+### BREAKING CHANGES
+
+* add Valtio
+
 # [1.25.0](https://github.com/azot-dev/cortex/compare/v1.24.2...v1.25.0) (2025-08-11)
 
 
