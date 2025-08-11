@@ -36,5 +36,8 @@
     "semantic-release": "^24.1.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.5.0-dev.20240402"
+  },
+  "publishConfig": {
+    "tag": "rc"
   }
 }
