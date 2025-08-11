@@ -1,3 +1,16 @@
+# [1.26.0-rc.2](https://github.com/azot-dev/cortex/compare/v1.26.0-rc.1...v1.26.0-rc.2) (2025-08-11)
+
+
+### Features
+
+* new architecture ([bf81ec6](https://github.com/azot-dev/cortex/commit/bf81ec6a1881f54bd7f3a1e8645cbc0901c0ea2c))
+
+
+### BREAKING CHANGES
+
+* The API has been completely refactored.
+All methods have changed names and signatures.
+
 # [1.26.0-rc.1](https://github.com/azot-dev/cortex/compare/v1.25.0...v1.26.0-rc.1) (2025-08-11)
 
 
