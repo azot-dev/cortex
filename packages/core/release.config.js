@@ -19,7 +19,7 @@ module.exports = {
           { type: "refactor", release: "patch" },
           { type: "bump", release: "patch" },
           { type: "feat", release: "minor" },
-          { branch: "next", release: "major" },
+          { type: "next", release: "major" },
         ],
         preset: "angular",
       },
