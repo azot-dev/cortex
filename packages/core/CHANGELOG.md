@@ -1,3 +1,12 @@
+# [1.25.0](https://github.com/azot-dev/cortex/compare/v1.24.2...v1.25.0) (2025-08-11)
+
+
+### Features
+
+* add tests ([bc19ae1](https://github.com/azot-dev/cortex/commit/bc19ae1c8f7a3629aa9a773e16c4f8f1db8b8acc))
+* create v2 with Valtio ([1079d87](https://github.com/azot-dev/cortex/commit/1079d8716439820828f7013356be8a10f38b819c))
+* setup rc deployment ([63969bb](https://github.com/azot-dev/cortex/commit/63969bbe1c5b5eee93159983ee9afbaed799dfd7))
+
 ## [1.24.2](https://github.com/azot-dev/cortex/compare/v1.24.1...v1.24.2) (2025-05-14)
 
 ## [1.24.1](https://github.com/azot-dev/cortex/compare/v1.24.0...v1.24.1) (2025-01-05)
