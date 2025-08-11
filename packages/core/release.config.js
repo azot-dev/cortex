@@ -1,6 +1,13 @@
 module.exports = {
   repositoryUrl: "https://github.com/azot-dev/cortex",
-  branches: ["main", "rc"],
+  branches: [
+    "main",
+    {
+      name: "rc",
+      prerelease: true,
+      channel: "rc"
+    }
+  ],
   plugins: [
     [
       "@semantic-release/commit-analyzer",
@@ -12,6 +19,7 @@ module.exports = {
           { type: "refactor", release: "patch" },
           { type: "bump", release: "patch" },
           { type: "feat", release: "minor" },
+          { branch: "next", release: "major" },
         ],
         preset: "angular",
       },
@@ -27,6 +35,7 @@ module.exports = {
       "@semantic-release/npm",
       {
         npmPublish: true,
+        npmTag: "rc",
       },
     ],
     [
@@ -35,6 +44,7 @@ module.exports = {
         assets: ["dist/**/*"],
         labels: ["automated-release"],
         tagFormat: "core-v${version}",
+        prerelease: true,
       },
     ],
     [
