@@ -12,16 +12,15 @@ function displayCode() {
   const BLUE = "\x1b[34m";
 
   let code = `
-  <CortexProvider coreInstance={new Core()}>
+  <CortexProvider core={createCore()}>
     <App />
   </CortexProvider>
   `;
 
   code = code.replace(/CortexProvider/g, `${GREEN}CortexProvider${RESET}`);
   code = code.replace(/App/g, `${GREEN}App${RESET}`);
-  code = code.replace(/Core/g, `${GREEN}Core${RESET}`);
-  code = code.replace(/coreInstance/g, `${BLUE}coreInstance${RESET}`);
-  code = code.replace(/\bnew\b/g, `${BLUE}new${RESET}`);
+  code = code.replace(/Core/g, `${GREEN}createCore${RESET}`);
+  code = code.replace(/coreInstance/g, `${BLUE}core${RESET}`);
   code = code.replace(/{/g, `${YELLOW}{${RESET}`);
   code = code.replace(/}/g, `${YELLOW}}${RESET}`);
   code = code.replace(/\(/g, `${RED}(${RESET}`);
