@@ -1,4 +1,4 @@
-import { Core, BaseService } from '../index'
+import { createCortex, BaseService } from '../index'
 
 class CounterService extends BaseService<Services, Dependencies> {
   state = { count: 0 }
@@ -92,7 +92,7 @@ type Dependencies = {
 }
 
 describe('Core', () => {
-  let core: Core<Services, Dependencies>
+  let core: InstanceType<ReturnType<typeof createCortex<Services, Dependencies>>>
 
   beforeEach(() => {
     const dependencies = { prefix: 'TEST', version: '1.0.0' }
@@ -103,7 +103,8 @@ describe('Core', () => {
       async: AsyncService,
       stateless: StatelessService
     }
-    core = new Core(dependencies, services)
+    const CortexClass = createCortex<Services, Dependencies>(services)
+    core = new CortexClass(dependencies)
   })
 
   it('should initialize services', () => {
@@ -264,7 +265,8 @@ describe('Core Error Handling', () => {
     const dependencies = {}
     
     expect(() => {
-      new Core(dependencies, services)
+      const CortexClass = createCortex(services)
+      new CortexClass(dependencies)
     }).not.toThrow()
   })
 
@@ -281,7 +283,8 @@ describe('Core Error Handling', () => {
     const dependencies = {}
     
     expect(() => {
-      new Core(dependencies, services)
+      const CortexClass = createCortex(services)
+      new CortexClass(dependencies)
     }).not.toThrow()
   })
 })
