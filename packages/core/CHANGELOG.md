@@ -1,3 +1,10 @@
+# [2.0.0-rc.2](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2025-08-12)
+
+
+### Features
+
+* destructure state for typed hooks + renaming + exports ([2a78f86](https://github.com/azot-dev/cortex/commit/2a78f866369fc2afb2838e42c21fe7aa711509c1))
+
 # [2.0.0-rc.1](https://github.com/azot-dev/cortex/compare/v1.26.0-rc.2...v2.0.0-rc.1) (2025-08-11)
 
 # [1.26.0-rc.2](https://github.com/azot-dev/cortex/compare/v1.26.0-rc.1...v1.26.0-rc.2) (2025-08-11)
