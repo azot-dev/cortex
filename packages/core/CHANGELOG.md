@@ -1,3 +1,5 @@
+# [2.0.0-rc.6](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.5...v2.0.0-rc.6) (2025-08-12)
+
 # [2.0.0-rc.5](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2025-08-12)
 
 
