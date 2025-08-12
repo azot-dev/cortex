@@ -13,9 +13,9 @@ You must create another provider:
 "use client";
 import { useRef, FC, PropsWithChildren } from "react";
 import { CortexProvider } from "@azot-dev/react-cortex";
-import { Core } from "../_core";
+import { createCore } from "@azot-dev/cortex";
 
-const core = new Core();
+const core = createCore();
 
 export const SSRCortexProvider: FC<PropsWithChildren> = ({ children }) => {
   const storeRef = useRef<any>();

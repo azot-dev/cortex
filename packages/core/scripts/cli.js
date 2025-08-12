@@ -19,7 +19,7 @@ function displayCode() {
 
   code = code.replace(/CortexProvider/g, `${GREEN}CortexProvider${RESET}`);
   code = code.replace(/App/g, `${GREEN}App${RESET}`);
-  code = code.replace(/Core/g, `${GREEN}createCore${RESET}`);
+  code = code.replace(/createCore/g, `${GREEN}createCore${RESET}`);
   code = code.replace(/coreInstance/g, `${BLUE}core${RESET}`);
   code = code.replace(/{/g, `${YELLOW}{${RESET}`);
   code = code.replace(/}/g, `${YELLOW}}${RESET}`);

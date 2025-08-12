@@ -9,19 +9,13 @@ No need to test your logic through the UI or using React with libraries like `re
 You can simply test your logic with Jest, pretty quickly and easily develop some features using test driven development (TDD)
 
 ```typescript
-// counter.spec.ts
+// counter.test.ts
 
 describe('counter', () => {
-  let core: InstanceType<typeof Core>;
-  let service: InstanceType<typeof CounterService>;
-
-  beforeEach(() => {
-    core = new Core();
-    service = core.getService('counter');
-  });
-
-
   it('should be incremented', () => {
+    core = createCore();
+    service = core.getService('counter');
+
     expect(core.store.counter.get()).toBe(0)
 
     service.increment()
@@ -32,6 +26,9 @@ describe('counter', () => {
   })
 
   it('should be decremented', () => {
+    core = createCore();
+    service = core.getService('counter');
+
     service.setValue(5)
 
     service.decrement()
@@ -42,6 +39,9 @@ describe('counter', () => {
   })
 
   it('should not be decremented at a lower value than 0', () => {
+    core = createCore();
+    service = core.getService('counter');
+
     service.setValue(1)
 
     service.decrement()
