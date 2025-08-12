@@ -13,7 +13,7 @@ export function createTypedHooks<T extends Record<string, unknown>>() {
       if (service && serviceWithState.state && typeof serviceWithState.state === 'object') {
         return {
           ...service,
-          state: reactiveState
+          ...reactiveState
         } as T[K]
       }
       

@@ -7,7 +7,7 @@ interface CoreProviderProps<T extends ServiceRegistry<any>, TDependencies = Reco
   children: ReactNode
 }
 
-export function CoreProvider<T extends ServiceRegistry<any>, TDependencies = Record<string, unknown>>({ 
+export function CortexProvider<T extends ServiceRegistry<any>, TDependencies = Record<string, unknown>>({ 
   core, 
   children 
 }: CoreProviderProps<T, TDependencies>) {
