@@ -1,3 +1,10 @@
+# [2.0.0-rc.5](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2025-08-12)
+
+
+### Features
+
+* modify installation script ([0e05188](https://github.com/azot-dev/cortex/commit/0e051885a4f504c7d3211f8fcd1c0a8b532965a2))
+
 # [2.0.0-rc.4](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2025-08-12)
 
 
