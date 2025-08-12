@@ -1,3 +1,11 @@
+# [2.0.0-rc.3](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2025-08-12)
+
+
+### Bug Fixes
+
+* destructure state + create cortex factory ([aab86ac](https://github.com/azot-dev/cortex/commit/aab86ac81351891d1ad00585528e5ac4f3fd0518))
+* destructure state + create cortex factory ([3e9b5c5](https://github.com/azot-dev/cortex/commit/3e9b5c5dcd474ee180888779773756f189e7a4e9))
+
 # [2.0.0-rc.2](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2025-08-12)
 
 
