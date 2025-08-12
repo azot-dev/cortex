@@ -1,3 +1,11 @@
+# [2.0.0-rc.4](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2025-08-12)
+
+
+### Bug Fixes
+
+* delete createCortex ([455ef79](https://github.com/azot-dev/cortex/commit/455ef7987cf769a01a18ddaa2989260ebc2521e9))
+* delete createCortex ([779d0ce](https://github.com/azot-dev/cortex/commit/779d0ce6cd490393e9e39305b0252a2ddccd5e98))
+
 # [2.0.0-rc.3](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2025-08-12)
 
 
