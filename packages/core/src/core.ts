@@ -1,5 +1,5 @@
 export interface ServiceRegistry<TDependencies = Record<string, unknown>> {
-  [key: string]: new (dependencies: TDependencies) => any
+  [key: string]: new (dependencies: TDependencies) => unknown
 }
 
 export class Core<T extends ServiceRegistry<TDependencies>, TDependencies = Record<string, unknown>> {
@@ -12,14 +12,15 @@ export class Core<T extends ServiceRegistry<TDependencies>, TDependencies = Reco
     
     Object.keys(services).forEach((key) => {
       const ServiceClass = services[key as keyof T]
-      const service = new ServiceClass(dependencies)
+      const service = new ServiceClass(dependencies) as InstanceType<T[keyof T]>
       
-      service.getService = this.getService.bind(this)
+      const serviceAny = service as Record<string, unknown>
+      serviceAny.getService = this.getService.bind(this)
       
-      this.bindServiceMethods(service)
+      this.bindServiceMethods(serviceAny)
       
-      if ('_proxyState' in service && typeof service._proxyState === 'function') {
-        service._proxyState()
+      if ('_proxyState' in serviceAny && typeof serviceAny._proxyState === 'function') {
+        serviceAny._proxyState()
       }
       
       this._services[key as keyof T] = service
@@ -60,7 +61,7 @@ export class Core<T extends ServiceRegistry<TDependencies>, TDependencies = Reco
   /**
    * Automatically bind all service methods to preserve 'this' context
    */
-  private bindServiceMethods(service: any): void {
+  private bindServiceMethods(service: Record<string, unknown>): void {
     const proto = Object.getPrototypeOf(service)
     
     Object.getOwnPropertyNames(proto).forEach(name => {
@@ -68,14 +69,25 @@ export class Core<T extends ServiceRegistry<TDependencies>, TDependencies = Reco
       
       const descriptor = Object.getOwnPropertyDescriptor(proto, name)
       if (descriptor && typeof descriptor.value === 'function') {
-        service[name] = service[name].bind(service)
+        service[name] = (service[name] as (...args: unknown[]) => unknown).bind(service)
       }
     })
     
     Object.getOwnPropertyNames(service).forEach(name => {
       if (typeof service[name] === 'function' && name !== 'getService') {
-        service[name] = service[name].bind(service)
+        service[name] = (service[name] as (...args: unknown[]) => unknown).bind(service)
       }
     })
   }
+}
+
+export function createCortex<
+  TServices extends ServiceRegistry<TDependencies>,
+  TDependencies extends Record<string, unknown>
+>(services: TServices): new (dependencies?: Partial<TDependencies>) => Core<TServices, TDependencies> {
+  return class extends Core<TServices, TDependencies> {
+    constructor(dependencies: Partial<TDependencies> = {}) {
+      super(dependencies as TDependencies, services)
+    }
+  } as new (dependencies?: Partial<TDependencies>) => Core<TServices, TDependencies>
 }
