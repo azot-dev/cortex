@@ -10,45 +10,46 @@ You can simply test your logic with Jest, pretty quickly and easily develop some
 
 ```typescript
 // counter.test.ts
+import { createCore } from 'cortex/setup/setup';
 
 describe('counter', () => {
   it('should be incremented', () => {
-    core = createCore();
-    service = core.getService('counter');
+    const core = createCore();
+    const service = core.getService('counter');
 
-    expect(core.store.counter.get()).toBe(0)
-
-    service.increment()
-    expect(core.store.counter.get()).toBe(1)
+    expect(service.state.count).toBe(0)
 
     service.increment()
-    expect(core.store.counter.get()).toBe(2)
+    expect(service.state.count).toBe(1)
+
+    service.increment()
+    expect(service.state.count).toBe(2)
   })
 
   it('should be decremented', () => {
-    core = createCore();
-    service = core.getService('counter');
+    const core = createCore();
+    const service = core.getService('counter');
 
-    service.setValue(5)
-
-    service.decrement()
-    expect(core.store.counter.get()).toBe(4)
+    service.state.count = 5
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(3)
+    expect(service.state.count).toBe(4)
+
+    service.decrement()
+    expect(service.state.count).toBe(3)
   })
 
   it('should not be decremented at a lower value than 0', () => {
-    core = createCore();
-    service = core.getService('counter');
+    const core = createCore();
+    const service = core.getService('counter');
 
-    service.setValue(1)
-
-    service.decrement()
-    expect(core.store.counter.get()).toBe(0)
+    service.state.count = 1
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(0)
+    expect(service.state.count).toBe(0)
+
+    service.decrement()
+    expect(service.state.count).toBe(0)
   })
 }) 
 ```
