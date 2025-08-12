@@ -80,14 +80,3 @@ export class Core<T extends ServiceRegistry<TDependencies>, TDependencies = Reco
     })
   }
 }
-
-export function createCortex<
-  TServices extends ServiceRegistry<TDependencies>,
-  TDependencies extends Record<string, unknown>
->(services: TServices): new (dependencies?: Partial<TDependencies>) => Core<TServices, TDependencies> {
-  return class extends Core<TServices, TDependencies> {
-    constructor(dependencies: Partial<TDependencies> = {}) {
-      super(dependencies as TDependencies, services)
-    }
-  } as new (dependencies?: Partial<TDependencies>) => Core<TServices, TDependencies>
-}

@@ -5,4 +5,4 @@ export { CortexProvider } from './react/provider'
 
 export { useAsync } from './react/async-hooks'
 
-export { createCortex } from './core'
+export { Core } from './core'
