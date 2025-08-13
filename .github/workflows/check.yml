@@ -110,7 +110,7 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    if: ${{ (github.actor == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot[bot]') && github.event_name == 'pull_request' }}
     steps:
       - id: metadata
         uses: dependabot/fetch-metadata@v2
