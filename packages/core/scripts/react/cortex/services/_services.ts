@@ -1,5 +1,7 @@
-import { CounterService } from './counter.service';
+import { CounterService } from "./counter.service";
+import { LoggerService } from "./logger.service";
 
 export const services = {
-  counter: CounterService,
-};
+  counter: CounterService,  
+  logger: LoggerService,
+} as const

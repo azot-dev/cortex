@@ -1,19 +1,19 @@
-import { Service } from '../utils/service';
+import { Service } from '../setup/base.service'
 
-type State = {
-  count: number;
-};
+export type State = {
+  count: number
+}
 
 export class CounterService extends Service<State> {
-  static initialState: State = {
-    count: 0,
-  };
+  state: State = { count: 0 }
 
   increment() {
-    this.state.count.set((count) => count + 1);
+    this.state.count++
+    this.getService('logger').log(`counter incremented by ${this.state.count}`)
   }
 
   decrement() {
-    this.state.count.set((count) => count - 1);
+    this.state.count--
+    this.getService('logger').log(`counter decremented by ${this.state.count}`)
   }
 }

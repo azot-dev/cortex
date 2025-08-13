@@ -10,12 +10,20 @@ A service contain methods, it can be simple methods or event hooks
 type State = { count: number };
 
 export class CounterService extends Service<State> {
-  state: State = { count: 0 };
+  static initialState: State = { count: 0 };
 
   async decrement() {
-    if (this.state.count !== 0) {
-      this.state.count--;
+    const value = this.state.count.get();
+    if (value === 0) {
+      return;
     }
+    this.state.count.set(value - 1);
+  }
+
+  useDecrementOnFirstRender() {
+    useEffect(() => {
+      this.decrement();
+    }, []);
   }
 }
 ```
@@ -24,7 +32,7 @@ The methods of a service can:
 
 ## Access to the state
 
-You can access the local state by reading and writing directly on its properties. Thanks to valtio, the state is automatically reactive.
+You can access the local state by reading and writing on it
 
 In this example the counter is decremented only if it is not 0
 
@@ -32,12 +40,14 @@ In this example the counter is decremented only if it is not 0
 type State = { count: number };
 
 export class CounterService extends Service<State> {
-  state: State = { count: 0 };
+  static initialState: State = { count: 0 };
 
   async decrement() {
-    if (this.state.count !== 0) {
-      this.state.count--;
+    const value = this.state.count.get();
+    if (value === 0) {
+      return;
     }
+    this.state.count.set(value - 1);
   }
 }
 ```
@@ -54,13 +64,15 @@ type Form = { name: string };
 
 type TodoFormState = Form;
 export class TodoFormService extends Service<TodoFormState> {
-  state: TodoFormState = { name: "" };
+  static initialState: TodoFormState = { name: "" };
 
   submit() {
-    const todoListService = this.getService("todoList");
-    todoListService.append(this.state);
+    // highlight-next-line
+    const todoListService = this.services.get("todoList");
+    // highlight-next-line
+    todoListService.append(this.state.get());
 
-    this.state.name = "";
+    this.state.name.set("");
   }
 }
 ```
@@ -70,20 +82,16 @@ This way each service can have a single responsibility
 ## init()
 
 You can write an init method that will be executed right after the core is instantiated
-It is the perfect place to initialize listeners or setup dependencies
+It is the perfect place to listen to some parts of the store that have been changed
 
 ```ts
-type State = { messages: string[] };
-
-export class MessageService extends Service<State> {
-  state: State = { messages: [] };
-
+export class MessageService extends Service {
   init() {
     this.dependencies.notifications.onReceive(this.onReceive);
   }
 
-  onReceive = (receivedNotification: string) => {
-    this.state.messages.push(receivedNotification);
+  onReceive(receivedNotification: string) {
+    this.store.messages.push(receivedNotification);
   }
 }
 ```
@@ -100,22 +108,25 @@ interface ShoesApiGateway {
 type Dependencies = {
   shoesApi: ShoesApiGateway;
 };
+
+export const Core = createCortexFactory<Dependencies>()(services);
 ```
 
 ```ts
 type State = Shoe[];
 
-export class ShoesService extends Service<State> {
-  state: State = [];
+export class CounterService extends Service<State> {
+  static initialState: State = [];
 
   async loadShoes() {
+    // highlight-next-line
     const shoes = await this.dependencies.shoesApi.get();
-    this.state.push(...shoes);
+    this.state.set(shoes);
   }
 }
 ```
 
-The dependencies can then be injected when creating the core
+The dependencies can then be injected in the core
 
 ```ts
 class RealShoesApiAdapter implements ShoesApiGateway {
@@ -124,5 +135,5 @@ class RealShoesApiAdapter implements ShoesApiGateway {
   }
 }
 
-const core = createCore({ shoesApi: new RealShoesApiAdapter() });
+const core = new Core({ shoesApi: RealShoesApiAdapter });
 ```

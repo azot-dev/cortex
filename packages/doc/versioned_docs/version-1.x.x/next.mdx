@@ -12,16 +12,18 @@ You must create another provider:
 ```tsx
 "use client";
 import { useRef, FC, PropsWithChildren } from "react";
-import { CortexProvider } from "@azot-dev/cortex";
-import { createCore } from "cortex/setup/setup";
+import { CortexProvider } from "@azot-dev/react-cortex";
+import { Core } from "../_core";
+
+const core = new Core();
 
 export const SSRCortexProvider: FC<PropsWithChildren> = ({ children }) => {
-  const coreRef = useRef<any>();
-  if (!coreRef.current) {
-    coreRef.current = createCore();
+  const storeRef = useRef<any>();
+  if (!storeRef.current) {
+    storeRef.current = core;
   }
 
-  return <CortexProvider core={coreRef.current}>{children}</CortexProvider>;
+  return <CortexProvider coreInstance={core}>{children}</CortexProvider>;
 };
 ```
 

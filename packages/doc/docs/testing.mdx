@@ -9,46 +9,47 @@ No need to test your logic through the UI or using React with libraries like `re
 You can simply test your logic with Jest, pretty quickly and easily develop some features using test driven development (TDD)
 
 ```typescript
-// counter.spec.ts
+// counter.test.ts
+import { createCore } from 'cortex/setup/setup';
 
 describe('counter', () => {
-  let core: InstanceType<typeof Core>;
-  let service: InstanceType<typeof CounterService>;
-
-  beforeEach(() => {
-    core = new Core();
-    service = core.getService('counter');
-  });
-
-
   it('should be incremented', () => {
-    expect(core.store.counter.get()).toBe(0)
+    const core = createCore();
+    const service = core.getService('counter');
+
+    expect(service.state.count).toBe(0)
 
     service.increment()
-    expect(core.store.counter.get()).toBe(1)
+    expect(service.state.count).toBe(1)
 
     service.increment()
-    expect(core.store.counter.get()).toBe(2)
+    expect(service.state.count).toBe(2)
   })
 
   it('should be decremented', () => {
-    service.setValue(5)
+    const core = createCore();
+    const service = core.getService('counter');
+
+    service.state.count = 5
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(4)
+    expect(service.state.count).toBe(4)
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(3)
+    expect(service.state.count).toBe(3)
   })
 
   it('should not be decremented at a lower value than 0', () => {
-    service.setValue(1)
+    const core = createCore();
+    const service = core.getService('counter');
+
+    service.state.count = 1
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(0)
+    expect(service.state.count).toBe(0)
 
     service.decrement()
-    expect(core.store.counter.get()).toBe(0)
+    expect(service.state.count).toBe(0)
   })
 }) 
 ```

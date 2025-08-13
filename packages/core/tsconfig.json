@@ -14,8 +14,9 @@
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
-    "declaration": true
+    "declaration": true,
+    "jsx": "react-jsx"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

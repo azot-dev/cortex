@@ -35,7 +35,7 @@ export class CounterService extends Service {
 
 ### Service state
 
-Each service has a local state that is automatically proxified with valtio for reactivity
+Each service has a local state, it is referenced as initialState which must be static
 
 Pass the `State` type to the extended Service as `Service<State>`
 
@@ -45,25 +45,27 @@ type State = { count: number };
 
 export class CounterService extends Service<State> {
 // highlight-next-line
-  state: State = { count: 0 };
+  static initialState: State = { count: 0 };
 }
 ```
 
 ### Append a method
 
-Each method has access to the local state which is automatically reactive thanks to valtio
+Each method has access to the local state as an observable
 
-You can directly modify the state properties - valtio will automatically track changes
+To access a local state use its method `get`
+
+To modify a local state use its method `set`
 
 ```ts
 type State = { count: number };
 
 export class CounterService extends Service<State> {
-  state: State = { count: 0 };
+  static initialState: State = { count: 0 };
 
 // highlight-start
   increment() {
-    this.state.count++;
+    this.state.count.set((count) => count + 1);
   }
  // highlight-end
 }
@@ -87,7 +89,7 @@ export const services = {
 
 ```tsx
  {/* highlight-next-line */}
- <CortexProvider core={createCore()}>
+ <CortexProvider coreInstance={new Core()}>
     <App />
 {/* highlight-next-line */}
  </CortexProvider> 
@@ -115,12 +117,13 @@ const InnerApp: FC = () => {
 
 ### Access the state in the app
 
-You can access the state directly from the service using the typed `useService` hook. The state is automatically reactive thanks to valtio, so any state change will trigger a re-render.
+You can access to any value thanks to the useAppSelector, anytime the value `store.counter.count` changes, the value will be re-rendered in the JSX
 
 ```tsx
 const InnerApp: FC = () => {
+  const { increment } = useService('counter');
   {/* highlight-next-line */}
-  const { increment, count } = useService('counter');
+  const count = useAppSelector((store) => store.counter.count.get());  
 
   return (
     <div>
@@ -139,12 +142,12 @@ Since all the logic is completely decoupled from React, we can test the behavior
 ```typescript
 describe('counter', () => {
   it('should be incremented', () => {
-    const core = createCore()
+    const core = new Core()
 
-    expect(core.getService('counter').state.count).toBe(0)
+    expect(core.store.counter.get()).toBe(0)
 
-    core.getService('counter').increment()
-    expect(core.getService('counter').state.count).toBe(1)
+    core.getService("counter").increment()
+    expect(core.store.counter.get()).toBe(1)
   })
 }) 
 ```
