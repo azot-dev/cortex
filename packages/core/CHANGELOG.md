@@ -1,3 +1,17 @@
+## [2.0.2](https://github.com/azot-dev/cortex/compare/v2.0.1...v2.0.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* remove dependabot automerge ([1d45605](https://github.com/azot-dev/cortex/commit/1d45605f95897531684980eda90b6be39e9af996))
+
+## [2.0.1](https://github.com/azot-dev/cortex/compare/v2.0.0...v2.0.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* move dependabot to root ([e646a67](https://github.com/azot-dev/cortex/commit/e646a67e67722f28196b055a84ed5f3cac5f72cf))
+
 # [2.0.0](https://github.com/azot-dev/cortex/compare/v1.25.0...v2.0.0) (2025-08-13)
 
 
