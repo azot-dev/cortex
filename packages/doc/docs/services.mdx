@@ -88,6 +88,26 @@ export class MessageService extends Service<State> {
 }
 ```
 
+## Subscribe to state changes
+
+Use `this.subscribe()` to listen to state changes within a service:
+
+```ts
+export class UserService extends Service<{ name: string }> {
+  state = { name: "" };
+
+  init() {
+    this.subscribe((state) => {
+      console.log("User name changed:", state.name);
+    });
+  }
+
+  setName(name: string) {
+    this.state.name = name; // Will trigger the subscription
+  }
+}
+```
+
 ## The dependencies
 
 If your app is in clean architecture and uses the port-adapter pattern, you can access any of the dependencies in any service method
