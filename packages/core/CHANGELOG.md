@@ -1,3 +1,54 @@
+## [2.1.6](https://github.com/azot-dev/cortex/compare/v2.1.5...v2.1.6) (2025-08-13)
+
+
+### Bug Fixes
+
+* rebase strategy for dependabot ([0574f06](https://github.com/azot-dev/cortex/commit/0574f06bf1266c48b214a0cd1e5c90c279b2fe7e))
+
+## [2.1.5](https://github.com/azot-dev/cortex/compare/v2.1.4...v2.1.5) (2025-08-13)
+
+
+### Bug Fixes
+
+* delete log ([7bff242](https://github.com/azot-dev/cortex/commit/7bff242c33098fda297f52b7e326a10aae1a0691))
+
+## [2.1.4](https://github.com/azot-dev/cortex/compare/v2.1.3...v2.1.4) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([2b3899c](https://github.com/azot-dev/cortex/commit/2b3899c29c449245a21063b595dde1fdc2c176de))
+
+## [2.1.3](https://github.com/azot-dev/cortex/compare/v2.1.2...v2.1.3) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([7a9144f](https://github.com/azot-dev/cortex/commit/7a9144f14380fef2fc976d4b58f7338f12bbde99))
+
+## [2.1.2](https://github.com/azot-dev/cortex/compare/v2.1.1...v2.1.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([00785cc](https://github.com/azot-dev/cortex/commit/00785cc64f4e8435d1ca5ecbe456a1b5dca638a3))
+
+## [2.1.1](https://github.com/azot-dev/cortex/compare/v2.1.0...v2.1.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([59d017a](https://github.com/azot-dev/cortex/commit/59d017ad072a371a1e55d9f9f5add306e32778b2))
+
+# [2.1.0](https://github.com/azot-dev/cortex/compare/v2.0.3...v2.1.0) (2025-08-13)
+
+
+### Features
+
+* attempt to auto-merge dependabot PRs ([546ff09](https://github.com/azot-dev/cortex/commit/546ff09ad22ede086f735ca66272d61567817eec))
+
+## [2.0.3](https://github.com/azot-dev/cortex/compare/v2.0.2...v2.0.3) (2025-08-13)
+
 ## [2.0.2](https://github.com/azot-dev/cortex/compare/v2.0.1...v2.0.2) (2025-08-13)
 
 
