@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "valtio": "^2.1.5",
-    "yargs": "^17.7.2"
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
