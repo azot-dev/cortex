@@ -22,12 +22,15 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Get yarn.lock hash
         id: get-hash
-        run: echo "YARN_LOCK_HASH=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_ENV
+        run: echo "LOCKFILE_HASH=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_ENV
 
       - name: Display yarn.lock hash
-        run: echo "Yarn.lock hash $YARN_LOCK_HASH"
+        run: echo "Yarn.lock hash $LOCKFILE_HASH"
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -37,7 +40,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
   test-core:
     name: Run Core tests
@@ -52,6 +55,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Use Cached Dependencies
         uses: actions/cache@v3
@@ -76,6 +82,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Use Cached Dependencies
         uses: actions/cache@v3

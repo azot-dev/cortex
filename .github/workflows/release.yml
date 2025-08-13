@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Cache node modules
         uses: actions/cache@v4
         id: cache-dependencies
@@ -36,7 +39,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
   test-core:
     name: Test cortex
@@ -51,6 +54,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Use Cached Dependencies
         uses: actions/cache@v4
@@ -77,6 +83,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Use Cached Dependencies
         uses: actions/cache@v4
@@ -113,6 +122,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Use Cached Dependencies
         uses: actions/cache@v4
