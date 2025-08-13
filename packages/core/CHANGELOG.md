@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/azot-dev/cortex/compare/v2.0.3...v2.1.0) (2025-08-13)
+
+
+### Features
+
+* attempt to auto-merge dependabot PRs ([546ff09](https://github.com/azot-dev/cortex/commit/546ff09ad22ede086f735ca66272d61567817eec))
+
+## [2.0.3](https://github.com/azot-dev/cortex/compare/v2.0.2...v2.0.3) (2025-08-13)
+
 ## [2.0.2](https://github.com/azot-dev/cortex/compare/v2.0.1...v2.0.2) (2025-08-13)
 
 
