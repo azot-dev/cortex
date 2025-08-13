@@ -57,7 +57,7 @@ const config = {
               path: '1.x.x',
             },
           },
-          lastVersion: '1.x.x',
+          lastVersion: '2.x.x',
         },
         blog: {
           showReadingTime: true,
