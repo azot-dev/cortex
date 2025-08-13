@@ -1,3 +1,28 @@
+# [2.0.0](https://github.com/azot-dev/cortex/compare/v1.25.0...v2.0.0) (2025-08-13)
+
+
+### Bug Fixes
+
+* delete createCortex ([455ef79](https://github.com/azot-dev/cortex/commit/455ef7987cf769a01a18ddaa2989260ebc2521e9))
+* delete createCortex ([779d0ce](https://github.com/azot-dev/cortex/commit/779d0ce6cd490393e9e39305b0252a2ddccd5e98))
+* destructure state + create cortex factory ([aab86ac](https://github.com/azot-dev/cortex/commit/aab86ac81351891d1ad00585528e5ac4f3fd0518))
+* destructure state + create cortex factory ([3e9b5c5](https://github.com/azot-dev/cortex/commit/3e9b5c5dcd474ee180888779773756f189e7a4e9))
+
+
+### Features
+
+* destructure state for typed hooks + renaming + exports ([2a78f86](https://github.com/azot-dev/cortex/commit/2a78f866369fc2afb2838e42c21fe7aa711509c1))
+* modify installation script ([0e05188](https://github.com/azot-dev/cortex/commit/0e051885a4f504c7d3211f8fcd1c0a8b532965a2))
+* new architecture ([bf81ec6](https://github.com/azot-dev/cortex/commit/bf81ec6a1881f54bd7f3a1e8645cbc0901c0ea2c))
+* new architecture v2 ([3b3737d](https://github.com/azot-dev/cortex/commit/3b3737d20ad546644ca55f53ad26cb8723b76d13))
+
+
+### BREAKING CHANGES
+
+* The API has been completely refactored.
+All methods have changed names and signatures.
+* add Valtio
+
 # [2.0.0-rc.6](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.5...v2.0.0-rc.6) (2025-08-12)
 
 # [2.0.0-rc.5](https://github.com/azot-dev/cortex/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2025-08-12)
