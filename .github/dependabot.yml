@@ -13,3 +13,10 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: 'bump(doc)'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    commit-message:
+      prefix: 'bump(actions)'
