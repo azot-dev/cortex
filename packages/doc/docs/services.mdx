@@ -13,16 +13,9 @@ export class CounterService extends Service<State> {
   state: State = { count: 0 };
 
   async decrement() {
-    if (this.state.count === 0) {
-      return;
+    if (this.state.count !== 0) {
+      this.state.count--;
     }
-    this.state.count--;
-  }
-
-  useDecrementOnFirstRender() {
-    useEffect(() => {
-      this.decrement();
-    }, []);
   }
 }
 ```
@@ -42,10 +35,9 @@ export class CounterService extends Service<State> {
   state: State = { count: 0 };
 
   async decrement() {
-    if (this.state.count === 0) {
-      return;
+    if (this.state.count !== 0) {
+      this.state.count--;
     }
-    this.state.count--;
   }
 }
 ```
@@ -65,9 +57,7 @@ export class TodoFormService extends Service<TodoFormState> {
   state: TodoFormState = { name: "" };
 
   submit() {
-    // highlight-next-line
     const todoListService = this.getService("todoList");
-    // highlight-next-line
     todoListService.append(this.state);
 
     this.state.name = "";
@@ -119,7 +109,6 @@ export class ShoesService extends Service<State> {
   state: State = [];
 
   async loadShoes() {
-    // highlight-next-line
     const shoes = await this.dependencies.shoesApi.get();
     this.state.push(...shoes);
   }
