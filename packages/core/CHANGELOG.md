@@ -1,3 +1,10 @@
+## [2.1.7](https://github.com/azot-dev/cortex/compare/v2.1.6...v2.1.7) (2025-08-13)
+
+
+### Bug Fixes
+
+* rebase strategy for dependabot ([6896e72](https://github.com/azot-dev/cortex/commit/6896e720c0ce840e832b2567ac20f49f36f0b2de))
+
 ## [2.1.6](https://github.com/azot-dev/cortex/compare/v2.1.5...v2.1.6) (2025-08-13)
 
 
