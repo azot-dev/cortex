@@ -56,12 +56,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Log GitHub context
-        run: |
-          echo "${GITHUB_CONTEXT}"
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-
       - name: Enable Corepack
         run: corepack enable
 
