@@ -1,3 +1,17 @@
+## [2.1.2](https://github.com/azot-dev/cortex/compare/v2.1.1...v2.1.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([00785cc](https://github.com/azot-dev/cortex/commit/00785cc64f4e8435d1ca5ecbe456a1b5dca638a3))
+
+## [2.1.1](https://github.com/azot-dev/cortex/compare/v2.1.0...v2.1.1) (2025-08-13)
+
+
+### Bug Fixes
+
+* log ([59d017a](https://github.com/azot-dev/cortex/commit/59d017ad072a371a1e55d9f9f5add306e32778b2))
+
 # [2.1.0](https://github.com/azot-dev/cortex/compare/v2.0.3...v2.1.0) (2025-08-13)
 
 
