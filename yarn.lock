@@ -233,7 +233,7 @@ __metadata:
     semantic-release: "npm:^24.2.7"
     ts-jest: "npm:^29.4.1"
     typescript: "npm:^5.9.2"
-    valtio: "npm:^2.1.5"
+    valtio: "npm:^2.1.7"
     yargs: "npm:^18.0.0"
   peerDependencies:
     react: ">=16.8.0"
@@ -20055,9 +20055,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"valtio@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "valtio@npm:2.1.5"
+"valtio@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "valtio@npm:2.1.7"
   dependencies:
     proxy-compare: "npm:^3.0.1"
   peerDependencies:
@@ -20068,7 +20068,7 @@ __metadata:
       optional: true
     react:
       optional: true
-  checksum: 10c0/66bc5027b28af7611c66bf4839860e548c3657d086fa1a76992d07a45d83c5fbe42a351332fe3cf1ef79e34706d4c550dc1a038a3b00933dad1e34f4000009ee
+  checksum: 10c0/727976e35c7b8853b37cfc5ab14dd5be46ddf572482aa2d888c7e41e9b2d54bb5962c8dd7e26bd9ae69687c818464daf0a814098c3bc64b47e1363f0f7109423
   languageName: node
   linkType: hard
 
