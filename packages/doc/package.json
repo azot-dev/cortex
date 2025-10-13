@@ -29,10 +29,10 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.9.1",
     "@docusaurus/types": "^3.9.1",
-    "@tsconfig/docusaurus": "^2.0.3",
+    "@tsconfig/docusaurus": "^2.0.4",
     "docusaurus-mdx-checker": "^3.0.0",
     "npx": "^10.2.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "browserslist": {
     "production": [
