@@ -164,6 +164,13 @@ describe('Core', () => {
     expect(status.data).toBe('async data')
   })
 
+  it('should reset service state', () => {
+    core.services.counter.increment()
+    expect(core.services.counter.getCount()).toBe(1)
+    core.services.counter.reset()
+    expect(core.services.counter.getCount()).toBe(0)
+  })
+
   it('should bind service methods correctly', () => {
     const boundMethod = core.services.counter.increment
     const anotherBoundMethod = core.services.calculator.add
