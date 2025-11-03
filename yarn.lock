@@ -301,7 +301,7 @@ __metadata:
   dependencies:
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^12.0.0"
+    "@semantic-release/github": "npm:^12.0.1"
     "@semantic-release/npm": "npm:^13.1.1"
     "@types/jest": "npm:^30.0.0"
     jest: "npm:^30.2.0"
@@ -4044,6 +4044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/openapi-types@npm:^27.0.0":
+  version: 27.0.0
+  resolution: "@octokit/openapi-types@npm:27.0.0"
+  checksum: 10c0/602d1de033da180a2e982cdbd3646bd5b2e16ecf36b9955a0f23e37ae9e6cb086abb48ff2ae6f2de000fce03e8ae9051794611ae4a95a8f5f6fb63276e7b8e31
+  languageName: node
+  linkType: hard
+
 "@octokit/plugin-paginate-rest@npm:^13.0.0":
   version: 13.1.1
   resolution: "@octokit/plugin-paginate-rest@npm:13.1.1"
@@ -4052,6 +4059,17 @@ __metadata:
   peerDependencies:
     "@octokit/core": ">=6"
   checksum: 10c0/88d80608881df88f8e832856e9279ac1c1af30ced9adb7c847f4d120b4bb308c2ab9d791ffd4c9585759e57a938798b4c3f2f988a389f2d78a61aaaebc36ffa7
+  languageName: node
+  linkType: hard
+
+"@octokit/plugin-paginate-rest@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@octokit/plugin-paginate-rest@npm:14.0.0"
+  dependencies:
+    "@octokit/types": "npm:^16.0.0"
+  peerDependencies:
+    "@octokit/core": ">=6"
+  checksum: 10c0/841d79d4ccfe18fc809a4a67529b75c1dcdda13399bf4bf5b48ce7559c8b4b2cd422e3204bad4cbdea31c0cf0943521067415268e5bcfc615a3b813e058cad6b
   languageName: node
   linkType: hard
 
@@ -4117,6 +4135,15 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": "npm:^25.1.0"
   checksum: 10c0/4640a6c0a95386be4d015b96c3a906756ea657f7df3c6e706d19fea6bf3ac44fd2991c8c817afe1e670ff9042b85b0e06f7fd373f6bbd47da64208701bb46d5b
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "@octokit/types@npm:16.0.0"
+  dependencies:
+    "@octokit/openapi-types": "npm:^27.0.0"
+  checksum: 10c0/b8d41098ba6fc194d13d641f9441347e3a3b96c0efabac0e14f57319340a2d4d1c8676e4cb37ab3062c5c323c617e790b0126916e9bf7b201b0cced0826f8ae2
   languageName: node
   linkType: hard
 
@@ -4269,6 +4296,32 @@ __metadata:
   peerDependencies:
     semantic-release: ">=24.1.0"
   checksum: 10c0/088dfef57426bf0605bcf508e6adcd178957bcb933e7f1251db644f77efde2f9dd7a50ec58c570f130c72899540124001fadb0da6fde573af5597ac4aaa36a6f
+  languageName: node
+  linkType: hard
+
+"@semantic-release/github@npm:^12.0.1":
+  version: 12.0.1
+  resolution: "@semantic-release/github@npm:12.0.1"
+  dependencies:
+    "@octokit/core": "npm:^7.0.0"
+    "@octokit/plugin-paginate-rest": "npm:^14.0.0"
+    "@octokit/plugin-retry": "npm:^8.0.0"
+    "@octokit/plugin-throttling": "npm:^11.0.0"
+    "@semantic-release/error": "npm:^4.0.0"
+    aggregate-error: "npm:^5.0.0"
+    debug: "npm:^4.3.4"
+    dir-glob: "npm:^3.0.1"
+    http-proxy-agent: "npm:^7.0.0"
+    https-proxy-agent: "npm:^7.0.0"
+    issue-parser: "npm:^7.0.0"
+    lodash-es: "npm:^4.17.21"
+    mime: "npm:^4.0.0"
+    p-filter: "npm:^4.0.0"
+    tinyglobby: "npm:^0.2.14"
+    url-join: "npm:^5.0.0"
+  peerDependencies:
+    semantic-release: ">=24.1.0"
+  checksum: 10c0/58732bafeec6dc123372c98c15afa74dc2097e0a69f3adbb5f571432ba89faf9566a8d21a062d39a7177a5080e272da322824de39aee6e1671804351ecbfefdc
   languageName: node
   linkType: hard
 
@@ -4641,10 +4694,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/docusaurus@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@tsconfig/docusaurus@npm:2.0.4"
-  checksum: 10c0/ac062d51d046385bc8778cfacf5e52a6e7ac7f68f3a07e9c8a28d8b064ff7e8f492a9758b676d6f54b4aa3a096bc20218f68fd486fb81025842ffc6d28ab782a
+"@tsconfig/docusaurus@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@tsconfig/docusaurus@npm:2.0.5"
+  checksum: 10c0/b4b4d03da0580807e468477bf60b00c939fcee275b03b559d40b3571c7938515d33660c6303cc65c86eeb8a6ba8f8a4fa2609cdd449a00047ad2611b00b08c8c
   languageName: node
   linkType: hard
 
@@ -8352,7 +8405,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.9.2"
     "@docusaurus/types": "npm:^3.9.2"
     "@mdx-js/react": "npm:^3.1.1"
-    "@tsconfig/docusaurus": "npm:^2.0.4"
+    "@tsconfig/docusaurus": "npm:^2.0.5"
     clsx: "npm:^2.1.1"
     docusaurus-mdx-checker: "npm:^3.0.0"
     npx: "npm:^10.2.2"

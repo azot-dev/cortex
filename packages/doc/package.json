@@ -29,7 +29,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
-    "@tsconfig/docusaurus": "^2.0.4",
+    "@tsconfig/docusaurus": "^2.0.5",
     "docusaurus-mdx-checker": "^3.0.0",
     "npx": "^10.2.2",
     "typescript": "^5.9.3"
