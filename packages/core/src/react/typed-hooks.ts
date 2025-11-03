@@ -3,7 +3,7 @@ import { useCore } from './hooks'
 import type { BaseService } from '../base-service'
 
 type ExtractState<T> = T extends { state: infer S } ? S : unknown
-type StripBaseKeys<T> = Omit<T, keyof BaseService<unknown, unknown, unknown> | 'state' | 'dependencies' | 'getService'>
+type StripBaseKeys<T> = Omit<T, keyof BaseService<unknown, unknown, Record<string, unknown>> | 'state' | 'dependencies' | 'getService'>
 type MethodsOnly<T> = { [K in keyof T as T[K] extends (...args: unknown[]) => unknown ? K : never]: T[K] }
 type PublicServiceAPI<T> = MethodsOnly<StripBaseKeys<T>> & ExtractState<T>
 

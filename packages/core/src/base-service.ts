@@ -1,9 +1,11 @@
 import { proxy, subscribe } from 'valtio'
+import { deepClone } from 'valtio/utils'
 
-export abstract class BaseService<TServices = unknown, TDependencies = Record<string, unknown>, TState = unknown> {
+export abstract class BaseService<TServices = unknown, TDependencies = Record<string, unknown>, TState extends object = object> {
   getService!: <K extends keyof TServices>(serviceName: K) => TServices[K]
   
   state!: TState
+  private initialState!: TState
   
   protected dependencies: TDependencies
   
@@ -16,19 +18,20 @@ export abstract class BaseService<TServices = unknown, TDependencies = Record<st
    * @internal Do not call manually
    */
   _proxyState(): void {
-    if (this.state && typeof this.state === 'object') {
-      this.state = proxy(this.state as object) as TState
+    if (this.state) {
+      this.initialState = this.getState()
+      this.state = proxy(this.getState()) as TState
     }
   }
   
   protected setState(newState: Partial<TState>): void {
-    if (this.state && typeof this.state === 'object') {
-      Object.assign(this.state as object, newState)
+    if (this.state) {
+      Object.assign(this.state, newState)
     }
   }
   
   protected getState(): TState {
-    return this.state
+    return deepClone(this.state)
   }
   
   init?(): void | Promise<void>
@@ -44,8 +47,19 @@ export abstract class BaseService<TServices = unknown, TDependencies = Record<st
       return () => {}
     }
     
-    return subscribe(this.state as object, () => {
+    return subscribe(this.state, () => {
       callback(this.state)
+    })
+  }
+
+  reset(): void {
+    if (!this.state || typeof this.state !== 'object') {
+      return
+    }
+    
+    const resetObj: TState = deepClone(this.initialState)
+    Object.keys(resetObj as object).forEach((key) => {
+      ;(this.state as Record<string, unknown>)[key] = (resetObj as Record<string, unknown>)[key]
     })
   }
 }
