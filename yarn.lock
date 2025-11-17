@@ -302,7 +302,7 @@ __metadata:
     "@semantic-release/changelog": "npm:^6.0.3"
     "@semantic-release/git": "npm:^10.0.1"
     "@semantic-release/github": "npm:^12.0.2"
-    "@semantic-release/npm": "npm:^13.1.1"
+    "@semantic-release/npm": "npm:^13.1.2"
     "@types/jest": "npm:^30.0.0"
     jest: "npm:^30.2.0"
     react: "npm:^19.2.0"
@@ -4351,6 +4351,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@semantic-release/npm@npm:^13.1.2":
+  version: 13.1.2
+  resolution: "@semantic-release/npm@npm:13.1.2"
+  dependencies:
+    "@actions/core": "npm:^1.11.1"
+    "@semantic-release/error": "npm:^4.0.0"
+    aggregate-error: "npm:^5.0.0"
+    env-ci: "npm:^11.2.0"
+    execa: "npm:^9.0.0"
+    fs-extra: "npm:^11.0.0"
+    lodash-es: "npm:^4.17.21"
+    nerf-dart: "npm:^1.0.0"
+    normalize-url: "npm:^8.0.0"
+    npm: "npm:^11.6.2"
+    rc: "npm:^1.2.8"
+    read-pkg: "npm:^10.0.0"
+    registry-auth-token: "npm:^5.0.0"
+    semver: "npm:^7.1.2"
+    tempy: "npm:^3.0.0"
+  peerDependencies:
+    semantic-release: ">=20.1.0"
+  checksum: 10c0/97652841882814e2e2f6bf7e5504a3b08cbec4628d02267e2c4a427389619a5dc4dfd1706c06e5f71e661a2b32a0cd79d3c4097d8979b967fe8ce6a17f74fb19
+  languageName: node
+  linkType: hard
+
 "@semantic-release/release-notes-generator@npm:^14.1.0":
   version: 14.1.0
   resolution: "@semantic-release/release-notes-generator@npm:14.1.0"
@@ -4695,10 +4720,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/docusaurus@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@tsconfig/docusaurus@npm:2.0.5"
-  checksum: 10c0/b4b4d03da0580807e468477bf60b00c939fcee275b03b559d40b3571c7938515d33660c6303cc65c86eeb8a6ba8f8a4fa2609cdd449a00047ad2611b00b08c8c
+"@tsconfig/docusaurus@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "@tsconfig/docusaurus@npm:2.0.7"
+  checksum: 10c0/021278dc513a3c20f3d7f2fef145508a43a6ac34348475a54aba907dbd0517ab337416710754a2c4314720b367df81e13d45d5f999b00c858323857595ad7905
   languageName: node
   linkType: hard
 
@@ -8406,7 +8431,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:^3.9.2"
     "@docusaurus/types": "npm:^3.9.2"
     "@mdx-js/react": "npm:^3.1.1"
-    "@tsconfig/docusaurus": "npm:^2.0.5"
+    "@tsconfig/docusaurus": "npm:^2.0.7"
     clsx: "npm:^2.1.1"
     docusaurus-mdx-checker: "npm:^3.0.0"
     npx: "npm:^10.2.2"
