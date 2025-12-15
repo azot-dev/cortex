@@ -34,7 +34,7 @@ jobs:
         run: echo "Yarn.lock hash $LOCKFILE_HASH"
 
       - name: Cache node modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-dependencies
         with:
           path: '**/node_modules'
@@ -62,7 +62,7 @@ jobs:
           cache: 'yarn'
 
       - name: Use Cached Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -89,7 +89,7 @@ jobs:
           node-version: '20'
 
       - name: Use Cached Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
