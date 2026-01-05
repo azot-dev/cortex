@@ -19,7 +19,7 @@
     "react": ">=16.8.0"
   },
   "dependencies": {
-    "valtio": "^2.2.0",
+    "valtio": "^2.3.0",
     "yargs": "^18.0.0"
   },
   "devDependencies": {
