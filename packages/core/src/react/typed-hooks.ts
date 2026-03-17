@@ -2,10 +2,15 @@ import { useSnapshot } from 'valtio'
 import { useCore } from './hooks'
 import type { BaseService } from '../base-service'
 
-type ExtractState<T> = T extends { state: infer S } ? S : unknown
-type StripBaseKeys<T> = Omit<T, keyof BaseService<unknown, unknown, Record<string, unknown>> | 'state' | 'dependencies' | 'getService'>
-type MethodsOnly<T> = { [K in keyof T as T[K] extends (...args: unknown[]) => unknown ? K : never]: T[K] }
-type PublicServiceAPI<T> = MethodsOnly<StripBaseKeys<T>> & ExtractState<T>
+export type ExtractState<T> = T extends { state: infer S } ? S : unknown
+export type StripBaseKeys<T> = Omit<
+  T,
+  keyof BaseService<unknown, unknown, object> | 'state' | 'dependencies' | 'getService'
+>
+export type MethodsOnly<T> = {
+  [K in keyof T as T[K] extends (...args: infer _Args) => infer _Return ? K : never]: T[K]
+}
+export type PublicServiceAPI<T> = MethodsOnly<StripBaseKeys<T>> & ExtractState<T>
 
 export function createTypedHooks<TServices extends Record<string, unknown>>() {
   return {
