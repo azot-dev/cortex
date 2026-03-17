@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const yargs = require("yargs");
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
 const fs = require("fs");
 const path = require("path");
 
@@ -46,7 +47,8 @@ function copyRecursively(src, dest) {
   }
 }
 
-yargs
+// yargs v17+ exposes a factory; instantiate with argv.
+yargs(hideBin(process.argv))
   .command(
     "init [library]",
     "Initialize cortex with a specific library",
@@ -57,20 +59,27 @@ yargs
       });
     },
     (argv) => {
-      if (argv.library) {
-        const sourceDirectory = path.join(__dirname, argv.library);
-        const destinationDirectory = process.cwd();
-
-        console.info();
-        if (fs.existsSync(sourceDirectory)) {
-          copyRecursively(sourceDirectory, destinationDirectory);
-          console.log(`Initialization of Cortex with ${argv.library} completed 👌`);
-        } else {
-          console.error(`The library "${argv.library}" is not recognized.`);
-        }
-        console.info("You need to wrap your app with the CortexProvider to use it with React");
-        displayCode();
+      if (!argv.library) {
+        console.error('Missing "library". Example: init react');
+        process.exitCode = 1;
+        return;
       }
+
+      const sourceDirectory = path.join(__dirname, argv.library);
+      const destinationDirectory = process.cwd();
+
+      console.info();
+      if (!fs.existsSync(sourceDirectory)) {
+        console.error(`The library "${argv.library}" is not recognized.`);
+        process.exitCode = 1;
+        return;
+      }
+
+      copyRecursively(sourceDirectory, destinationDirectory);
+      console.log(`Initialization of Cortex with ${argv.library} completed 👌`);
+      console.info("You need to wrap your app with the CortexProvider to use it with React");
+      displayCode();
     }
   )
-  .help().argv;
+  .help()
+  .parse();
