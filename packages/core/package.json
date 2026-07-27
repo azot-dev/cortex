@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "valtio": "^2.3.2",
-    "yargs": "^18.0.0"
+    "yargs": "^18.1.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -30,7 +30,7 @@
     "@semantic-release/npm": "^13.1.5",
     "@types/jest": "^30.0.0",
     "jest": "^30.4.2",
-    "react": "^19.2.7",
+    "react": "^19.2.8",
     "semantic-release": "^25.0.8",
     "ts-jest": "^29.4.11",
     "typescript": "^5.9.3"
