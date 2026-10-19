@@ -30,7 +30,7 @@
     "@semantic-release/npm": "^13.2.0",
     "@types/jest": "^30.0.0",
     "jest": "^30.5.2",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "semantic-release": "^25.0.9",
     "ts-jest": "^29.4.14",
     "typescript": "^5.9.3"
